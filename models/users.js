@@ -1,9 +1,8 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('user', {
+  return sequelize.define('users', {
     id: {
       autoIncrement: true,
-      autoIncrementIdentity: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
@@ -15,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     email: {
       type: DataTypes.STRING(255),
       allowNull: true,
-      unique: "user_email_unique"
+      unique: "users_email_unique"
     },
     password: {
       type: DataTypes.STRING(255),
@@ -29,11 +28,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true
     },
-    phonenumber: {
-      type: DataTypes.STRING(20),
-      allowNull: true
-    },
-    title: {
+    gender: {
       type: DataTypes.STRING(255),
       allowNull: true
     },
@@ -61,6 +56,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: true
     },
+    vk: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: true
@@ -68,50 +67,22 @@ module.exports = function(sequelize, DataTypes) {
     updated_at: {
       type: DataTypes.DATE,
       allowNull: true
-    },
-    isdeleted: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true
-    },
-    isactive: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false
-    },
-    user_role: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
-    departman_id: {
-      type: DataTypes.BIGINT,
-      allowNull: true
-    },
-    tenant_id: {
-      type: DataTypes.UUID,
-      allowNull: true
-    },
-    company_id: {
-      type: DataTypes.UUID,
-      allowNull: true
-    },
-    familyname: {
-      type: DataTypes.STRING(100),
-      allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'user',
+    tableName: 'users',
     schema: 'public',
     timestamps: false,
     indexes: [
       {
-        name: "user_email_unique",
+        name: "users_email_unique",
         unique: true,
         fields: [
           { name: "email" },
         ]
       },
       {
-        name: "user_pkey",
+        name: "users_pkey",
         unique: true,
         fields: [
           { name: "id" },

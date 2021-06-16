@@ -384,7 +384,6 @@ exports.authGoogle = function(req, res) {
     grant_type: 'authorization_code'
   };
 
-  console.log("params",params)
   // Step 1. Exchange authorization code for access token.
   request.post(accessTokenUrl, { json: true, form: params }, function(err, response, token) {
     console.log("token", token)

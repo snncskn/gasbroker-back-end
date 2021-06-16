@@ -1,0 +1,525 @@
+{
+	"info": {
+		"_postman_id": "7b563e9c-a7c5-40d2-8660-ca11c77c2ced",
+		"name": "gasbroker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "company",
+			"item": [
+				{
+					"name": "/check",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/company/check",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"company",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sql/all/",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/company/sql/all/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"company",
+								"sql",
+								"all",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sql/:company_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/company/sql/:company_id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"company",
+								"sql",
+								":company_id"
+							],
+							"variable": [
+								{
+									"key": "company_id",
+									"value": "3f741e94-dbe6-4a45-99c4-a0f7ef1737cc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/delete/:company_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/company/delete/:company_id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"company",
+								"delete",
+								":company_id"
+							],
+							"variable": [
+								{
+									"key": "company_id",
+									"value": "b2fc0f1a-8eb5-4c95-ae5c-bc34f88d79ba"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/changeactive/:company_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/company/changeactive/:company_id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"company",
+								"changeactive",
+								":company_id"
+							],
+							"variable": [
+								{
+									"key": "company_id",
+									"value": "b2fc0f1a-8eb5-4c95-ae5c-bc34f88d79ba"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:company_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/company/:company_id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"company",
+								":company_id"
+							],
+							"variable": [
+								{
+									"key": "company_id",
+									"value": "3f741e94-dbe6-4a45-99c4-a0f7ef1737cc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:company_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n    {\n    \"is_active\":true,\n    \"is_deleted\":false,\n    \"company_name\":\"demox\",\n    \"full_company_name\":\"demo fullx\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/company/:company_id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"company",
+								":company_id"
+							],
+							"variable": [
+								{
+									"key": "company_id",
+									"value": "3f741e94-dbe6-4a45-99c4-a0f7ef1737cc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/company/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"company",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text"
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n    {\n    \"is_active\":true,\n            \"is_deleted\":false,\n            \"company_name\":\"demo\",\n            \"full_company_name\":\"demo full\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/company",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"company"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "localhost:3300/login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text"
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"cihankaya42@gmail.com\",\n    \"password\":\"123qwe\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3300/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3300",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:3300/signup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text"
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"kelkitli\",\n    \"email\":\"kelkitli@gmail.com\",\n    \"password\":\"kelkitli\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3300/signup",
+							"host": [
+								"localhost"
+							],
+							"port": "3300",
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:3300/account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJteS5nYXNicm9rZXIuY29tIiwic3ViIjoyLCJpYXQiOjE2MjM2ODQ0NTIsImV4cCI6MTYyNDI4OTI1Mn0.pzQYiOMzUfBxGEkvM6amjiiVOYOQPq9y0j1XnbjC6y4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text"
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"kaya cihan 2\",\n        \"email\": \"cihankaya42@gmail.com\",\n                \"location\": \"istanbul\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3300/account",
+							"host": [
+								"localhost"
+							],
+							"port": "3300",
+							"path": [
+								"account"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:3300"
+		}
+	]
+}
