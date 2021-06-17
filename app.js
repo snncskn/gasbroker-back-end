@@ -4,9 +4,17 @@ var logger = require('morgan');
 var dotenv = require('dotenv');
 
 const { sequelize } = require('./models')
-var companyRouter = require('./src/company/router')
-var mediaRouter = require('./src/media/router')
-var parameterRouter = require('./src/parameter/router')
+const {
+    companyRouter,
+    mediaRouter,
+    parameterRouter
+} = require('./src/api.router')
+
+// var companyRouter = require('./src/company/router')
+// var mediaRouter = require('./src/media/router')
+// var parameterRouter = require('./src/parameter/router')
+
+
 
 dotenv.config();
 const port = process.env.PORT || 3300
