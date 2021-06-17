@@ -1092,45 +1092,195 @@
 			"name": "auth",
 			"item": [
 				{
-					"name": "localhost:3300/login",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "session",
-								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
-								"type": "text"
+					"name": "roledemo",
+					"item": [
+						{
+							"name": "Public Content",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
 							},
-							{
-								"key": "_scid",
-								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\":\"cihankaya42@gmail.com\",\n    \"password\":\"123qwe\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "session",
+										"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+										"type": "text"
+									},
+									{
+										"key": "_scid",
+										"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/test/all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"test",
+										"all"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:3300/login",
-							"host": [
-								"localhost"
-							],
-							"port": "3300",
-							"path": [
-								"login"
-							]
+						{
+							"name": "User Content",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "session",
+										"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+										"type": "text"
+									},
+									{
+										"key": "_scid",
+										"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+										"type": "text"
+									},
+									{
+										"key": "x-access-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjIzOTQ5MTcxLCJleHAiOjE2MjQwMzU1NzF9.CdYVVhMp7600wqWhzm4XF4EOtfwhlYxpqYKyZw2dffA",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/test/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"test",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Moderator Content",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "session",
+										"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+										"type": "text"
+									},
+									{
+										"key": "_scid",
+										"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+										"type": "text"
+									},
+									{
+										"key": "x-access-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjIzOTQ5MTcxLCJleHAiOjE2MjQwMzU1NzF9.CdYVVhMp7600wqWhzm4XF4EOtfwhlYxpqYKyZw2dffA",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/test/mod",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"test",
+										"mod"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin Content",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "session",
+										"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+										"type": "text"
+									},
+									{
+										"key": "_scid",
+										"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+										"type": "text"
+									},
+									{
+										"key": "x-access-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjIzOTQ5MTcxLCJleHAiOjE2MjQwMzU1NzF9.CdYVVhMp7600wqWhzm4XF4EOtfwhlYxpqYKyZw2dffA",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/test/admin",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"test",
+										"admin"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "localhost:3300/signup",
+					"name": "signup",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1147,7 +1297,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"kelkitli\",\n    \"email\":\"kelkitli@gmail.com\",\n    \"password\":\"kelkitli\"\n}",
+							"raw": "{\n    \"username\":\"cihan\",\n    \"email\":\"cihan@kaya.com\",\n    \"password\":\"123qwe\",\n    \"roles\": [\"admin\",\"user\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1155,12 +1305,12 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3300/signup",
+							"raw": "{{baseUrl}}/auth/signup",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3300",
 							"path": [
+								"auth",
 								"signup"
 							]
 						}
@@ -1168,19 +1318,9 @@
 					"response": []
 				},
 				{
-					"name": "localhost:3300/account",
+					"name": "signin",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJteS5nYXNicm9rZXIuY29tIiwic3ViIjoyLCJpYXQiOjE2MjM2ODQ0NTIsImV4cCI6MTYyNDI4OTI1Mn0.pzQYiOMzUfBxGEkvM6amjiiVOYOQPq9y0j1XnbjC6y4",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
+						"method": "POST",
 						"header": [
 							{
 								"key": "session",
@@ -1195,7 +1335,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"kaya cihan 2\",\n        \"email\": \"cihankaya42@gmail.com\",\n                \"location\": \"istanbul\"\n}",
+							"raw": "{\n    \"username\":\"cihan\",\n    \"email\":\"cihan@kaya.com\",\n    \"password\":\"123qwe\",\n    \"roles\": [\"admin\",\"user\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1203,13 +1343,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3300/account",
+							"raw": "{{baseUrl}}/auth/signup",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3300",
 							"path": [
-								"account"
+								"auth",
+								"signup"
 							]
 						}
 					},

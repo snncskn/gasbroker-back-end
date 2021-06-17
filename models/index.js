@@ -1,6 +1,4 @@
 'use strict';
-
-
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
@@ -37,6 +35,17 @@ db.Sequelize = Sequelize;
 db.QueryTypes = Sequelize.QueryTypes
 db.db = sequelize // sql kullanılırsa ismi db olarak tasarlansın diye ekledim
 
+db.ROLES = ["user", "admin", "moderator"];
 
+db.role.belongsToMany(db.user, {
+  through: "user_roles",
+  foreignKey: "roleId",
+  otherKey: "userId"
+});
+db.user.belongsToMany(db.role, {
+  through: "user_roles",
+  foreignKey: "userId",
+  otherKey: "roleId"
+});
 
 module.exports = db;

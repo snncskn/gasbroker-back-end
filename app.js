@@ -21,6 +21,12 @@ app.use('/company', companyRouter)
 app.use('/media', mediaRouter)
 app.use('/parameter', parameterRouter)
 
+//auth
+// routes
+require('./auth/routes/auth.routes')(app);
+require('./auth/routes/user.routes')(app);
+
+
 app.listen({ port }, async () => {
     console.log('Server up on http://localhost:' + port)
     await sequelize.authenticate()
