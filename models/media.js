@@ -4,7 +4,16 @@ module.exports = function(sequelize, DataTypes) {
     media_id: {
       type: DataTypes.UUID,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4
+    },
+    company_id: {
+      type: DataTypes.UUID,
+      allowNull: true,
+    },
+    user_id: {
+      type: DataTypes.UUID,
+      allowNull: true,
     },
     is_active: {
       type: DataTypes.BOOLEAN,

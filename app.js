@@ -6,6 +6,8 @@ var dotenv = require('dotenv');
 
 const { sequelize } = require('./models')
 var companyRouter = require('./src/company/router')
+var mediaRouter = require('./src/media/router')
+
 dotenv.config();
 const port = process.env.PORT || 3300
 
@@ -17,6 +19,7 @@ app.use(logger('dev'))
 
 
 app.use('/company', companyRouter)
+app.use('/media', mediaRouter)
 
 app.listen({ port }, async () => {
     console.log('Server up on http://localhost:' + port)

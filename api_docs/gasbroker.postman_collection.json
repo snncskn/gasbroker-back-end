@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7b563e9c-a7c5-40d2-8660-ca11c77c2ced",
+		"_postman_id": "e328e37c-fa71-4dc3-b06b-840332d07028",
 		"name": "gasbroker",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -359,6 +359,367 @@
 							],
 							"path": [
 								"company"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "media",
+			"item": [
+				{
+					"name": "/check",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/media/check",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"media",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sql/all/",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/media/sql/all/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"media",
+								"sql",
+								"all",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sql/:media_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/media/sql/:media_id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"media",
+								"sql",
+								":media_id"
+							],
+							"variable": [
+								{
+									"key": "media_id",
+									"value": "9c7f0d42-d333-4ce0-be0d-9aae104d6e3d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/delete/:media_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/media/delete/:media_id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"media",
+								"delete",
+								":media_id"
+							],
+							"variable": [
+								{
+									"key": "media_id",
+									"value": "9c7f0d42-d333-4ce0-be0d-9aae104d6e3d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/changeactive/:media_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/media/changeactive/:media_id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"media",
+								"changeactive",
+								":media_id"
+							],
+							"variable": [
+								{
+									"key": "media_id",
+									"value": "9c7f0d42-d333-4ce0-be0d-9aae104d6e3d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:media_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/media/:media_id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"media",
+								":media_id"
+							],
+							"variable": [
+								{
+									"key": "media_id",
+									"value": "9c7f0d42-d333-4ce0-be0d-9aae104d6e3d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:media_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n    {\n    \"is_active\":true,\n    \"is_deleted\":false,\n    \"title\":\"demox\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/media/:media_id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"media",
+								":media_id"
+							],
+							"variable": [
+								{
+									"key": "media_id",
+									"value": "9c7f0d42-d333-4ce0-be0d-9aae104d6e3d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/media/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"media",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text"
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n    {\n            \"title\":\"demo\",\n            \"type\":\"demo\",\n            \"description\":\"demo\",\n            \"video_url\":\"demo\",\n            \"ref\":\"demo\",\n            \"file\": {\"file1\":\"demo1\",\"file2\":\"demo2\"}\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/media",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"media"
 							]
 						}
 					},
