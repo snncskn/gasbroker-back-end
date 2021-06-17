@@ -4,7 +4,8 @@ module.exports = function(sequelize, DataTypes) {
     parameter_id: {
       type: DataTypes.UUID,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4
     },
     is_active: {
       type: DataTypes.BOOLEAN,

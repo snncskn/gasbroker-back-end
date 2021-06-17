@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e328e37c-fa71-4dc3-b06b-840332d07028",
+		"_postman_id": "984d188d-221d-460e-b6e0-ef9e21aef5cf",
 		"name": "gasbroker",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -720,6 +720,367 @@
 							],
 							"path": [
 								"media"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "parameter",
+			"item": [
+				{
+					"name": "/check",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/parameter/check",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"parameter",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sql/all/",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/parameter/sql/all/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"parameter",
+								"sql",
+								"all",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sql/:parameter_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/parameter/sql/:parameter_id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"parameter",
+								"sql",
+								":parameter_id"
+							],
+							"variable": [
+								{
+									"key": "parameter_id",
+									"value": "a84b0126-fab1-4ec8-8a4c-8e7aed5905c9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/delete/:parameter_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/parameter/delete/:parameter_id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"parameter",
+								"delete",
+								":parameter_id"
+							],
+							"variable": [
+								{
+									"key": "parameter_id",
+									"value": "a84b0126-fab1-4ec8-8a4c-8e7aed5905c9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/changeactive/:parameter_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/parameter/changeactive/:parameter_id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"parameter",
+								"changeactive",
+								":parameter_id"
+							],
+							"variable": [
+								{
+									"key": "parameter_id",
+									"value": "a84b0126-fab1-4ec8-8a4c-8e7aed5905c9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:parameter_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/parameter/:parameter_id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"parameter",
+								":parameter_id"
+							],
+							"variable": [
+								{
+									"key": "parameter_id",
+									"value": "a84b0126-fab1-4ec8-8a4c-8e7aed5905c9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:parameter_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n            \"name\": \"demox\",\n            \"category\": \"demox\",\n            \"description\": \"demox\",\n            \"lang_id\": \"demox\",\n            \"char_value\": \"demox\",\n            \"int_value\": \"444\",\n            \"float_value\": 444,\n            \"bool_value\": false,\n            \"json_value\": {\n                \"x\": \"demo1xxx\",\n                \"y\": \"demo2xxx\"\n            } \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/parameter/:parameter_id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"parameter",
+								":parameter_id"
+							],
+							"variable": [
+								{
+									"key": "parameter_id",
+									"value": "a84b0126-fab1-4ec8-8a4c-8e7aed5905c9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/parameter/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"parameter",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "session",
+								"value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+								"type": "text"
+							},
+							{
+								"key": "_scid",
+								"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n    {\n            \"name\":\"demo\",\n            \"category\":\"demo\",\n            \"description\":\"demo\",\n            \"lang_id\":\"demo\",\n            \"char_value\":\"demo\",\n            \"int_value\":3333,\n            \"float_value\":3333,\n            \"bool_value\":true,\n            \"json_value\": {\"x\":\"demo1\",\"y\":\"demo2\"}\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/parameter",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"parameter"
 							]
 						}
 					},
