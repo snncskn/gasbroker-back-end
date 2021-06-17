@@ -4,6 +4,14 @@ const User = db.user;
 var dotenv = require('dotenv');
 dotenv.config();
 
+setHeader = (req, res, next) => {
+  res.header(
+    "Access-Control-Allow-Headers",
+    "x-access-token, Origin, Content-Type, Accept"
+  );
+  next();
+};
+
 verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
 
@@ -25,6 +33,7 @@ verifyToken = (req, res, next) => {
 };
 
 isAdmin = (req, res, next) => {
+  console.log("req", req.userId)
   User.findByPk(req.userId).then(user => {
     user.getRoles().then(roles => {
       for (let i = 0; i < roles.length; i++) {
@@ -82,9 +91,10 @@ isModeratorOrAdmin = (req, res, next) => {
 };
 
 const authJwt = {
-  verifyToken: verifyToken,
-  isAdmin: isAdmin,
-  isModerator: isModerator,
-  isModeratorOrAdmin: isModeratorOrAdmin
+  setHeader,
+  verifyToken,
+  isAdmin,
+  isModerator,
+  isModeratorOrAdmin
 };
 module.exports = authJwt;

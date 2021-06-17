@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "984d188d-221d-460e-b6e0-ef9e21aef5cf",
+		"_postman_id": "4a8ea40f-abd4-4c01-8f97-a413668aea9a",
 		"name": "gasbroker",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,9 +11,6 @@
 				{
 					"name": "/check",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -45,9 +42,6 @@
 				{
 					"name": "/sql/all/",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -81,9 +75,6 @@
 				{
 					"name": "/sql/:company_id",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -122,9 +113,6 @@
 				{
 					"name": "/delete/:company_id",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "PUT",
 						"header": [
 							{
@@ -163,9 +151,6 @@
 				{
 					"name": "/changeactive/:company_id",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "PUT",
 						"header": [
 							{
@@ -204,9 +189,6 @@
 				{
 					"name": "/:company_id",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -244,9 +226,6 @@
 				{
 					"name": "/:company_id",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "PUT",
 						"header": [
 							{
@@ -293,9 +272,6 @@
 				{
 					"name": "/",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -327,9 +303,6 @@
 				{
 					"name": "/",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -372,9 +345,6 @@
 				{
 					"name": "/check",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -406,9 +376,6 @@
 				{
 					"name": "/sql/all/",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -442,9 +409,6 @@
 				{
 					"name": "/sql/:media_id",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -483,9 +447,6 @@
 				{
 					"name": "/delete/:media_id",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "PUT",
 						"header": [
 							{
@@ -524,9 +485,6 @@
 				{
 					"name": "/changeactive/:media_id",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "PUT",
 						"header": [
 							{
@@ -565,9 +523,6 @@
 				{
 					"name": "/:media_id",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -605,9 +560,6 @@
 				{
 					"name": "/:media_id",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "PUT",
 						"header": [
 							{
@@ -654,9 +606,6 @@
 				{
 					"name": "/",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -688,9 +637,6 @@
 				{
 					"name": "/",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -733,9 +679,6 @@
 				{
 					"name": "/check",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -767,9 +710,6 @@
 				{
 					"name": "/sql/all/",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -803,9 +743,6 @@
 				{
 					"name": "/sql/:parameter_id",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -844,9 +781,6 @@
 				{
 					"name": "/delete/:parameter_id",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "PUT",
 						"header": [
 							{
@@ -885,9 +819,6 @@
 				{
 					"name": "/changeactive/:parameter_id",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "PUT",
 						"header": [
 							{
@@ -926,9 +857,6 @@
 				{
 					"name": "/:parameter_id",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -966,9 +894,6 @@
 				{
 					"name": "/:parameter_id",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "PUT",
 						"header": [
 							{
@@ -1015,9 +940,6 @@
 				{
 					"name": "/",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -1049,9 +971,6 @@
 				{
 					"name": "/",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -1272,6 +1191,9 @@
 				{
 					"name": "signup",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -1287,7 +1209,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\":\"cihan\",\n    \"email\":\"cihan@kaya.com\",\n    \"password\":\"123qwe\",\n    \"roles\": [\"admin\",\"user\"]\n}",
+							"raw": "{\n    \"username\":\"sinan\",\n    \"email\":\"sinan@coskun.com\",\n    \"password\":\"123qwe\",\n    \"roles\": [\"admin\",\"user\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1390,7 +1312,6 @@
 					"        })",
 					"    }",
 					"};",
-					"",
 					"pm.sendRequest(loginRequest, function (err, response) {",
 					"    pm.collectionVariables.set(\"accessToken\", response.json().accessToken);",
 					"});"
@@ -1409,6 +1330,11 @@
 	],
 	"variable": [
 		{
+			"key": "accessToken",
+			"value": null,
+			"disabled": true
+		},
+		{
 			"key": "baseUrl",
 			"value": "localhost:3300"
 		},
@@ -1422,7 +1348,7 @@
 		},
 		{
 			"key": "accessToken",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjIzOTY2MTgxLCJleHAiOjE2MjQwNTI1ODF9.QA1Z5Rab8mc-VykBJOV8_aAiUVMlRVPr49GDKR0k8Ww"
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjIzOTcwNzAxLCJleHAiOjE2MjQwNTcxMDF9.RmDZ0_f-ANi2UlFaWEJBx_BC8zK301A4mPYjvfvvkhM"
 		}
 	]
 }
