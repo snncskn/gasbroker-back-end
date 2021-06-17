@@ -10,12 +10,6 @@ const {
     parameterRouter
 } = require('./src/api.router')
 
-// var companyRouter = require('./src/company/router')
-// var mediaRouter = require('./src/media/router')
-// var parameterRouter = require('./src/parameter/router')
-
-
-
 dotenv.config();
 const port = process.env.PORT || 3300
 

@@ -1153,11 +1153,6 @@
 										"key": "_scid",
 										"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
 										"type": "text"
-									},
-									{
-										"key": "x-access-token",
-										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjIzOTQ5MTcxLCJleHAiOjE2MjQwMzU1NzF9.CdYVVhMp7600wqWhzm4XF4EOtfwhlYxpqYKyZw2dffA",
-										"type": "text"
 									}
 								],
 								"body": {
@@ -1199,11 +1194,6 @@
 									{
 										"key": "_scid",
 										"value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
-										"type": "text"
-									},
-									{
-										"key": "x-access-token",
-										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjIzOTQ5MTcxLCJleHAiOjE2MjQwMzU1NzF9.CdYVVhMp7600wqWhzm4XF4EOtfwhlYxpqYKyZw2dffA",
 										"type": "text"
 									}
 								],
@@ -1320,6 +1310,9 @@
 				{
 					"name": "signin",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -1335,7 +1328,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\":\"cihan\",\n    \"email\":\"cihan@kaya.com\",\n    \"password\":\"123qwe\",\n    \"roles\": [\"admin\",\"user\"]\n}",
+							"raw": "{\n    \"username\":\"cihan\",\n    \"password\":\"123qwe\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1343,13 +1336,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/auth/signup",
+							"raw": "{{baseUrl}}/auth/signin",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"auth",
-								"signup"
+								"signin"
 							]
 						}
 					},
@@ -1358,13 +1351,49 @@
 			]
 		}
 	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "in",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "{{accessToken}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "x-access-token",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					""
+					"",
+					"const loginRequest = {",
+					"    url: pm.collectionVariables.get(\"baseUrl\") +'/auth/signin',",
+					"    method: 'POST',",
+					"    header: 'Content-Type: application/json',",
+					"    body: {",
+					"        mode: 'application/json',",
+					"        raw: JSON.stringify({        ",
+					"            username: pm.collectionVariables.get(\"username\"),",
+					"            password: pm.collectionVariables.get(\"password\")",
+					"        })",
+					"    }",
+					"};",
+					"",
+					"pm.sendRequest(loginRequest, function (err, response) {",
+					"    pm.collectionVariables.set(\"accessToken\", response.json().accessToken);",
+					"});"
 				]
 			}
 		},
@@ -1382,6 +1411,18 @@
 		{
 			"key": "baseUrl",
 			"value": "localhost:3300"
+		},
+		{
+			"key": "username",
+			"value": "cihan"
+		},
+		{
+			"key": "password",
+			"value": "123qwe"
+		},
+		{
+			"key": "accessToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjIzOTY2MTgxLCJleHAiOjE2MjQwNTI1ODF9.QA1Z5Rab8mc-VykBJOV8_aAiUVMlRVPr49GDKR0k8Ww"
 		}
 	]
 }
