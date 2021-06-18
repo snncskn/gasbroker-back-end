@@ -2,6 +2,7 @@ const express = require('express')
 var cors = require("cors");
 var logger = require('morgan');
 var dotenv = require('dotenv');
+var helmet = require('helmet')
 const { authJwt } = require("./auth/middleware");
 
 const { sequelize } = require('./models')
@@ -19,6 +20,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(cors())
 app.use(logger('dev'))
+app.use(helmet())
+
 
 app.use('/company', companyRouter)
 app.use('/media', mediaRouter)
@@ -34,7 +37,8 @@ require('./auth/routes/user.routes')(app);
 app.use(authJwt.setHeader)
 app.use(authJwt.verifyToken)
 
-app.disable('x-powered-by'); // güvenlik gerekçesiyle server tipi gönderilmiyor
+//helmet bu işlemi de yapıo
+//app.disable('x-powered-by'); // güvenlik gerekçesiyle server tipi gönderilmiyor
 
 app.listen({ port }, async () => {
     console.log('Server up on http://localhost:' + port)
