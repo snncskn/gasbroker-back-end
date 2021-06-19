@@ -26,6 +26,9 @@
   },
   "scripts": {
     "start.dev": "nodemon",
+    "db.migrate.add": "sequelize migrate:create --name add_new_fields",
+    "db.migrate.run.all": "sequelize db:migrate",
+    "db.migrate.undo.all": "sequelize db:migrate:undo",
     "db.seed.add": "sequelize seed:generate --name new-seed",
     "db.seed.run.all": "sequelize db:seed:all",
     "db.seed.undo.all": "sequelize db:seed:undo:all",
