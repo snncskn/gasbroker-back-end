@@ -25,7 +25,10 @@
     "supertest": "^6.1.3"
   },
   "scripts": {
-        "start.dev": "nodemon",
+    "start.dev": "nodemon",
+    "db.seed.add": "sequelize seed:generate --name new-seed",
+    "db.seed.run.all": "sequelize db:seed:all",
+    "db.seed.undo.all": "sequelize db:seed:undo:all",
     "test": "snyk test"
   },
   "author": "Cihan n Kaya",
