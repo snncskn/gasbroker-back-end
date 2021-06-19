@@ -32,9 +32,9 @@ services:
             POSTGRES_PASSWORD: "root"
             POSTGRES_DB: "gasbrokerdev"
             # PGDATA: "/data/postgres"
-        # volumes:
+        volumes:
             # - ./postgres:/data/postgres
-            # - ./config/db:/docker-entrypoint-initdb.d/
+            - ./config/db:/docker-entrypoint-initdb.d/
             # - ./2-init.sql:/docker-entrypoint-initdb.d/2-init.sql
         ports:
             - "5432:5432"

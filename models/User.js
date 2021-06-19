@@ -11,7 +11,6 @@ module.exports = function (sequelize, DataTypes) {
     user_id: {
       type: DataTypes.UUID,
       allowNull: false,
-      primaryKey: true,
       defaultValue: DataTypes.UUIDV4
     },
     name: {
@@ -107,6 +106,10 @@ module.exports = function (sequelize, DataTypes) {
     },
     familyname: {
       type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    settings: {
+      type: DataTypes.JSON,
       allowNull: true
     }
   }, {
