@@ -1,0 +1,49 @@
+version: "3.5"
+services:
+    # client:
+    #     container_name: react_client-4
+    #     build: ./client
+    #     ports:
+    #         - "3333:3000"
+    #     volumes:
+    #         - ./client/src:/usr/src/client/src
+    #         - ./client/public:/usr/src/client/public
+    #     links:
+    #         - api
+    #     networks:
+    #         - mynetwork
+    api:
+        container_name: node_api
+        build: .
+        ports:
+            - "3300:3300"
+        volumes:
+            - .:/usr/src/server
+            - ./dist:/usr/src/server/dist
+        links:
+            - postgres
+        networks:
+            - mynetwork
+    postgres:
+        container_name: mypostgres
+        image: "postgres:12"
+        environment:
+            POSTGRES_USER: "postgres"
+            POSTGRES_PASSWORD: "postgres"
+            # POSTGRES_DB: "gasbrokerdev"
+            # PGDATA: "/data/postgres"
+        volumes:
+            # - ./postgres:/data/postgres
+            - ./1-init.sql:/docker-entrypoint-initdb.d/1-init.sql
+            - ./2-init.sql:/docker-entrypoint-initdb.d/2-init.sql
+        ports:
+            - "5432:5432"
+        restart: unless-stopped
+        networks:
+            - mynetwork
+
+
+
+networks:
+    mynetwork:
+        driver: bridge

@@ -1,4 +1,11 @@
 {
+  "docker": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "gasbrokerdev",
+    "host": "postgres",
+    "dialect": "postgres"
+  },
   "development": {
     "username": "gasbrokeradmin",
     "password": "gasbroker",

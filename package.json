@@ -25,6 +25,7 @@
     "supertest": "^6.1.3"
   },
   "scripts": {
+        "start.dev": "nodemon",
     "test": "snyk test"
   },
   "author": "Cihan n Kaya",
