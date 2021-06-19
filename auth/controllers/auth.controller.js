@@ -42,14 +42,17 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
-  User.findOne({
-    where: {
-      [Op.or]: [
-        { username: req.body.username },
-        { email: req.body.email }
-      ]
+  const params = {};
+  const {
+    username,
+    email
+  } = req.body
 
-    }
+  if (username) Object.assign(params, { username });
+  if (email) Object.assign(params, { email });
+
+  User.findOne({
+    where: { ...params }
   })
     .then(user => {
       if (!user) {
