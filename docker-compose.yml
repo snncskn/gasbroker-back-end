@@ -26,23 +26,21 @@ services:
             - mynetwork
     postgres:
         container_name: mypostgres
-        image: "postgres:12"
+        build: ./docker/postgres
         environment:
-            POSTGRES_USER: "postgres"
-            POSTGRES_PASSWORD: "postgres"
-            # POSTGRES_DB: "gasbrokerdev"
+            POSTGRES_USER: "root"
+            POSTGRES_PASSWORD: "root"
+            POSTGRES_DB: "gasbrokerdev"
             # PGDATA: "/data/postgres"
-        volumes:
+        # volumes:
             # - ./postgres:/data/postgres
-            - ./1-init.sql:/docker-entrypoint-initdb.d/1-init.sql
-            - ./2-init.sql:/docker-entrypoint-initdb.d/2-init.sql
+            # - ./config/db:/docker-entrypoint-initdb.d/
+            # - ./2-init.sql:/docker-entrypoint-initdb.d/2-init.sql
         ports:
             - "5432:5432"
         restart: unless-stopped
         networks:
             - mynetwork
-
-
 
 networks:
     mynetwork:
