@@ -45,30 +45,11 @@ if (process.env.NODE_ENV === 'docker') {
     const Role = db.role;
     db.sync({ force: true }).then(() => {
         console.log('Drop and Resync Database with { force: true }');
-        initial();
     });
-
-    function initial() {
-        Role.create({
-            id: 1,
-            name: "user"
-        });
-
-        Role.create({
-            id: 2,
-            name: "moderator"
-        });
-
-        Role.create({
-            id: 3,
-            name: "admin"
-        });
-    }
 }
 
 app.listen({ port }, async () => {
     console.log('Server up on http://localhost:' + port)
     await sequelize.authenticate()
-    await sequelize.
     console.log('Database Connected!')
 })
