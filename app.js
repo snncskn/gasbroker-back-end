@@ -22,7 +22,6 @@ app.use(cors())
 app.use(logger('dev'))
 app.use(helmet())
 
-
 app.use('/company', companyRouter)
 app.use('/media', mediaRouter)
 app.use('/parameter', parameterRouter)
@@ -34,15 +33,14 @@ require('./auth/routes/auth.routes')(app);
 require('./auth/routes/user.routes')(app);
 
 // middleware
-app.use(authJwt.setHeader)
-app.use(authJwt.verifyToken)
+// app.use(authJwt.setHeader)
+ //app.use(authJwt.verifyToken)
 
 //helmet bu işlemi de yapıo
 //app.disable('x-powered-by'); // güvenlik gerekçesiyle server tipi gönderilmiyor
 
 if (process.env.NODE_ENV === 'docker') {
     const { db } = require('./models')
-    const Role = db.role;
     db.sync({ force: true }).then(() => {
         console.log('Drop and Resync Database with { force: true }');
     });
