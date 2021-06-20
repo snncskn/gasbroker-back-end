@@ -56,7 +56,7 @@ exports.signin = (req, res) => {
   })
     .then(user => {
       if (!user) {
-        return res.status(404).send({ message: "User Not found." });
+        return res.status(404).send({ error: "User Not found." });
       }
 
       var passwordIsValid = bcrypt.compareSync(
@@ -67,7 +67,7 @@ exports.signin = (req, res) => {
       if (!passwordIsValid) {
         return res.status(401).send({
           accessToken: null,
-          message: "Invalid Password!"
+          error: "Invalid Password!"
         });
       }
 
@@ -81,15 +81,21 @@ exports.signin = (req, res) => {
           authorities.push("ROLE_" + roles[i].name.toUpperCase());
         }
         res.status(200).send({
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          roles: authorities,
-          accessToken: token
+          error: null,
+          access_token: token,
+          user: {
+              id: user.id,
+              uuid: user.user_id,
+              username: user.username,
+              email: user.email,
+              settings: user.settings,
+              roles: authorities,
+            }
         });
       });
     })
+
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      res.status(500).send({ error: err.message });
     });
 };
