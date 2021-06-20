@@ -32,6 +32,7 @@
     "db.seed.add": "sequelize seed:generate --name new-seed",
     "db.seed.run.all": "sequelize db:seed:all",
     "db.seed.undo.all": "sequelize db:seed:undo:all",
+    "create.models.from.db": "sequelize-auto -o './models' -d sequelize_auto_test -h localhost -u my_username -p 5432 -x my_password -e postgres",
     "test": "snyk test"
   },
   "author": "Cihan n Kaya",
