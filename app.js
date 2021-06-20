@@ -35,7 +35,7 @@ require('./auth/routes/user.routes')(app);
 
 // middleware
 app.use(authJwt.setHeader)
-app.use(authJwt.verifyToken)
+// app.use(authJwt.verifyToken)
 
 //helmet bu işlemi de yapıo
 //app.disable('x-powered-by'); // güvenlik gerekçesiyle server tipi gönderilmiyor

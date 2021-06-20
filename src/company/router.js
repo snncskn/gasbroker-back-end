@@ -13,7 +13,7 @@ router.put('/delete/:company_id', [authJwt.verifyToken, authJwt.isModeratorOrAdm
 router.put('/changeactive/:company_id', [authJwt.verifyToken, authJwt.isModeratorOrAdmin], controller.changeActiveStatus)
 router.get('/:company_id', controller.getByID)
 router.put('/:company_id', controller.update)
-router.get('/', [authJwt.verifyToken, authJwt.isAdmin], controller.getAll)
+router.get('/', controller.getAll)
 router.post('/', controller.create)
 
 module.exports = router
