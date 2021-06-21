@@ -340,6 +340,340 @@
 			]
 		},
 		{
+            "name": "vehicle",
+            "item": [
+                {
+                    "name": "/check",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/vehicle/check",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "vehicle",
+                                "check"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/sql/all/",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/vehicle/sql/all/",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "vehicle",
+                                "sql",
+                                "all",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/sql/:vehicle_id",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/vehicle/sql/:vehicle_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "vehicle",
+                                "sql",
+                                ":vehicle_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "vehicle_id",
+                                    "value": "3f741e94-dbe6-4a45-99c4-a0f7ef1737cc"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/delete/:vehicle_id",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/vehicle/delete/:vehicle_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "vehicle",
+                                "delete",
+                                ":vehicle_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "vehicle_id",
+                                    "value": "b2fc0f1a-8eb5-4c95-ae5c-bc34f88d79ba"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/changeactive/:vehicle_id",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/vehicle/changeactive/:vehicle_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "vehicle",
+                                "changeactive",
+                                ":vehicle_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "vehicle_id",
+                                    "value": "b2fc0f1a-8eb5-4c95-ae5c-bc34f88d79ba"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/:vehicle_id",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/vehicle/:vehicle_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "vehicle",
+                                ":vehicle_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "vehicle_id",
+                                    "value": "3f741e94-dbe6-4a45-99c4-a0f7ef1737cc"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/:vehicle_id",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "\n    {\n    \"is_active\":true,\n    \"is_deleted\":false,\n    \"vehicle_name\":\"demox\",\n    \"full_vehicle_name\":\"demo fullx\"\n}\n",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/vehicle/:vehicle_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "vehicle",
+                                ":vehicle_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "vehicle_id",
+                                    "value": "3f741e94-dbe6-4a45-99c4-a0f7ef1737cc"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/vehicle/",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "vehicle",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text"
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "\n    {\n    \"is_active\":true,\n            \"is_deleted\":false,\n            \"vehicle_name\":\"demo\",\n            \"full_vehicle_name\":\"demo full\"\n}\n",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/vehicle",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "vehicle"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+		{
 			"name": "media",
 			"item": [
 				{
