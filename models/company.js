@@ -7,16 +7,6 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4
     },
-    is_active: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
-    },
-    is_deleted: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
-    },
     tanent_id: {
       type: DataTypes.STRING(250),
       allowNull: true

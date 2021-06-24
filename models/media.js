@@ -15,16 +15,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.UUID,
       allowNull: true,
     },
-    is_active: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
-    },
-    is_deleted: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
-    },
     title: {
       type: DataTypes.STRING(250),
       allowNull: false
