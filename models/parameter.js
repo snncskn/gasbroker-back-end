@@ -1,11 +1,10 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('parameter', {
-    parameter_id: {
+    id: {
       type: DataTypes.UUID,
       allowNull: false,
-      primaryKey: true,
-      defaultValue: DataTypes.UUIDV4
+      primaryKey: true
     },
     name: {
       type: DataTypes.STRING(250),
@@ -53,7 +52,7 @@ module.exports = function(sequelize, DataTypes) {
         name: "parameter_pkey",
         unique: true,
         fields: [
-          { name: "parameter_id" },
+          { name: "id" },
         ]
       },
     ]

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('vehicle', {
+  return sequelize.define('address', {
     id: {
       type: DataTypes.UUID,
       allowNull: false,
@@ -8,33 +8,36 @@ module.exports = function(sequelize, DataTypes) {
     },
     company_id: {
       type: DataTypes.UUID,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'company',
         key: 'id'
       }
     },
-    name: {
-      type: DataTypes.STRING(200),
-      allowNull: false
+    description: {
+      type: DataTypes.STRING(1000),
+      allowNull: true
+    },
+    latitude: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    longitude: {
+      type: DataTypes.STRING(255),
+      allowNull: true
     },
     type: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING,
       allowNull: false
-    },
-    registered_date: {
-      type: DataTypes.DATEONLY,
-      allowNull: false,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_DATE')
     }
   }, {
     sequelize,
-    tableName: 'vehicle',
+    tableName: 'address',
     schema: 'public',
     timestamps: false,
     indexes: [
       {
-        name: "vehicle_pkey",
+        name: "company_address_pk",
         unique: true,
         fields: [
           { name: "id" },

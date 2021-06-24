@@ -1,28 +1,22 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('role', {
-    id: {
-      autoIncrement: true,
-      autoIncrementIdentity: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
+  return sequelize.define('SequelizeMeta', {
     name: {
       type: DataTypes.STRING(255),
-      allowNull: true
+      allowNull: false,
+      primaryKey: true
     }
   }, {
     sequelize,
-    tableName: 'role',
+    tableName: 'SequelizeMeta',
     schema: 'public',
     timestamps: false,
     indexes: [
       {
-        name: "role_pkey",
+        name: "SequelizeMeta_pkey",
         unique: true,
         fields: [
-          { name: "id" },
+          { name: "name" },
         ]
       },
     ]

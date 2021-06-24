@@ -1,10 +1,8 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('role', {
+  return sequelize.define('type', {
     id: {
-      autoIncrement: true,
-      autoIncrementIdentity: true,
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       primaryKey: true
     },
@@ -14,12 +12,12 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'role',
+    tableName: 'type',
     schema: 'public',
     timestamps: false,
     indexes: [
       {
-        name: "role_pkey",
+        name: "type_pk",
         unique: true,
         fields: [
           { name: "id" },

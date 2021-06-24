@@ -1,21 +1,20 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('company', {
-    company_id: {
+    id: {
       type: DataTypes.UUID,
       allowNull: false,
-      primaryKey: true,
-      defaultValue: DataTypes.UUIDV4
+      primaryKey: true
     },
     tanent_id: {
       type: DataTypes.STRING(250),
       allowNull: true
     },
-    company_name: {
+    name: {
       type: DataTypes.STRING(250),
       allowNull: false
     },
-    full_company_name: {
+    full_name: {
       type: DataTypes.STRING(250),
       allowNull: false
     },
@@ -35,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TIME,
       allowNull: true
     },
-    company_phone: {
+    phone: {
       type: DataTypes.STRING(100),
       allowNull: true
     },
@@ -129,7 +128,7 @@ module.exports = function(sequelize, DataTypes) {
         name: "company_pkey",
         unique: true,
         fields: [
-          { name: "company_id" },
+          { name: "id" },
         ]
       },
     ]

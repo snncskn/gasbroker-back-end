@@ -1,19 +1,18 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('media', {
-    media_id: {
+    id: {
       type: DataTypes.UUID,
       allowNull: false,
-      primaryKey: true,
-      defaultValue: DataTypes.UUIDV4
+      primaryKey: true
     },
     company_id: {
       type: DataTypes.UUID,
-      allowNull: true,
+      allowNull: true
     },
     user_id: {
       type: DataTypes.UUID,
-      allowNull: true,
+      allowNull: true
     },
     title: {
       type: DataTypes.STRING(250),
@@ -38,6 +37,10 @@ module.exports = function(sequelize, DataTypes) {
     file: {
       type: DataTypes.JSON,
       allowNull: true
+    },
+    product_id: {
+      type: DataTypes.UUID,
+      allowNull: true
     }
   }, {
     sequelize,
@@ -49,7 +52,7 @@ module.exports = function(sequelize, DataTypes) {
         name: "media_pkey",
         unique: true,
         fields: [
-          { name: "media_id" },
+          { name: "id" },
         ]
       },
     ]
