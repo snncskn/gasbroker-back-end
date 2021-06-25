@@ -14,6 +14,7 @@ exports.signup = (req, res) => {
   User.create({
     username: req.body.username,
     email: req.body.email,
+    settings: req.body.settings,
     password: bcrypt.hashSync(req.body.password, 8)
   })
     .then(user => {
@@ -75,11 +76,11 @@ exports.signin = (req, res) => {
         expiresIn: 86400 // 24 hours
       });
 
-      var authorities = [];
-      user.getRoles().then(roles => {
-        for (let i = 0; i < roles.length; i++) {
-          authorities.push("ROLE_" + roles[i].name.toUpperCase());
-        }
+      // var authorities = [];
+      // user.getRoles().then(roles => {
+      //   for (let i = 0; i < roles.length; i++) {
+      //     authorities.push("ROLE_" + roles[i].name.toUpperCase());
+      //   }
         res.status(200).send({
           error: null,
           access_token: token,
@@ -89,13 +90,75 @@ exports.signin = (req, res) => {
               username: user.username,
               email: user.email,
               settings: user.settings,
-              roles: authorities,
+              // roles: authorities,
             }
         });
-      });
+      // });
     })
 
     .catch(err => {
       res.status(500).send({ error: err.message });
     });
+};
+
+exports.accesstoken = (req, res) => {
+  console.log(req.body)
+  const access_token = req.headers["x-access-token"];
+
+  let token = access_token
+
+  if (!token) {
+    return res.status(403).send({
+      message: "No token provided!"
+    });
+  }
+
+
+  jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).send({
+        message: "Unauthorized!"
+      });
+    }
+
+    User.findOne({
+      where: { id: decoded.id }
+    })
+      .then(user => {
+        if (!user) {
+          return res.status(404).send({ error: "invalid token" });
+        }
+
+
+        var newtoken = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET, {
+          expiresIn: 86400 // 24 hours
+        });
+
+        // var authorities = [];
+        // user.getRoles().then(roles => {
+        //   for (let i = 0; i < roles.length; i++) {
+        //     authorities.push("ROLE_" + roles[i].name.toUpperCase());
+        //   }
+        res.status(200).send({
+          error: null,
+          access_token: newtoken,
+          user: {
+            id: user.id,
+            uuid: user.user_id,
+            username: user.username,
+            email: user.email,
+            settings: user.settings,
+            // roles: authorities,
+          }
+        });
+
+        // });
+      }).catch(err => {
+        res.status(500).send({ error: err.message });
+      });
+
+
+  });
+
+
 };
