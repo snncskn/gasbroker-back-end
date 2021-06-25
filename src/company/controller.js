@@ -1,4 +1,4 @@
-const { db, QueryTypes, company} = require('../../models')
+const { db, QueryTypes, company } = require('../../models')
 
 // Üstekiler sabit kalsın
 //Her model kullanımı için  ismi değiştirin (company)
@@ -64,7 +64,7 @@ module.exports = {
     getAll: async (req, res) => {
         try {
             const mycompany = await Data.findAll()
-            console.log()
+            console.log(mycompany[0])
             res.status(200).json({
                 statusCode: 200,
                 body: mycompany
@@ -78,7 +78,7 @@ module.exports = {
         const company_id = req.params.company_id
         try {
             const mycompany = await Data.findOne({
-                where: { company_id },
+                where: { id: company_id },
                 // include: 'media',
             })
             res.status(200).json({
@@ -92,6 +92,7 @@ module.exports = {
     },
     create: async (req, res) => {
         const {
+            id,
             is_active,
             is_deleted,
             tanent_id,
@@ -138,6 +139,7 @@ module.exports = {
         try {
 
             const mycompany = await Data.create({
+                id,
                 is_active,
                 is_deleted,
                 tanent_id,

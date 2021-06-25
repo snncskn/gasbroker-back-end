@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('company', {
     id: {
       type: DataTypes.UUID,
@@ -28,6 +28,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     registered_date: {
+      type: DataTypes.DATEONLY,
+      allowNull: true
+    },
+    created_date: {
       type: DataTypes.DATEONLY,
       allowNull: true
     },
