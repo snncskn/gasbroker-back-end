@@ -1,4 +1,4 @@
-const { db, QueryTypes, company} = require('../../models')
+const { db, QueryTypes, company } = require('../../models')
 
 // Üstekiler sabit kalsın
 //Her model kullanımı için  ismi değiştirin (company)
@@ -64,7 +64,7 @@ module.exports = {
     getAll: async (req, res) => {
         try {
             const mycompany = await Data.findAll()
-            console.log()
+            console.log(mycompany[0])
             res.status(200).json({
                 statusCode: 200,
                 body: mycompany
@@ -78,7 +78,7 @@ module.exports = {
         const company_id = req.params.company_id
         try {
             const mycompany = await Data.findOne({
-                where: { company_id },
+                where: { id: company_id },
                 // include: 'media',
             })
             res.status(200).json({
@@ -92,11 +92,12 @@ module.exports = {
     },
     create: async (req, res) => {
         const {
+            id,
             is_active,
             is_deleted,
             tanent_id,
-            company_name,
-            full_company_name,
+            name,
+            full_name,
             logo_link,
             photos,
             last_login,
@@ -132,17 +133,18 @@ module.exports = {
 
         console.log(is_active,
             is_deleted,
-            company_name,
-            full_company_name)
+            name,
+            full_name)
 
         try {
 
             const mycompany = await Data.create({
+                id,
                 is_active,
                 is_deleted,
                 tanent_id,
-                company_name,
-                full_company_name,
+                name,
+                full_name,
                 logo_link,
                 photos,
                 last_login,
@@ -191,8 +193,8 @@ module.exports = {
             is_active,
             is_deleted,
             tanent_id,
-            company_name,
-            full_company_name,
+            name,
+            full_name,
             logo_link,
             photos,
             last_login,
@@ -230,8 +232,8 @@ module.exports = {
             if (is_active) mycompany.is_active = is_active
             if (is_deleted) mycompany.is_deleted = is_deleted
             if (tanent_id) mycompany.tanent_id = tanent_id
-            if (company_name) mycompany.company_name = company_name
-            if (full_company_name) mycompany.full_company_name = full_company_name
+            if (name) mycompany.name = name
+            if (full_name) mycompany.full_name = full_name
             if (logo_link) mycompany.logo_link = logo_link
             if (photos) mycompany.photos = photos
             if (last_login) mycompany.last_login = last_login
