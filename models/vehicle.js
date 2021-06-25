@@ -4,7 +4,8 @@ module.exports = function(sequelize, DataTypes) {
     id: {
       type: DataTypes.UUID,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4
     },
     company_id: {
       type: DataTypes.UUID,
@@ -31,7 +32,11 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'vehicle',
     schema: 'public',
-    timestamps: false,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+    deletedAt: 'deleted_at',
+    paranoid: true,
+    timestamps: true,
     indexes: [
       {
         name: "vehicle_pkey",

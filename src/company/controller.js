@@ -28,7 +28,7 @@ module.exports = {
         try {
             const [data, meta] =
                 await db.query(
-                    "SELECT * FROM company where company_id = :company_id and 1 = :parametre_adi",
+                    "SELECT * FROM company where id = :company_id and 1 = :parametre_adi",
                     {
                         replacements: {
                             company_id,
@@ -95,8 +95,8 @@ module.exports = {
             is_active,
             is_deleted,
             tanent_id,
-            company_name,
-            full_company_name,
+            name,
+            full_name,
             logo_link,
             photos,
             last_login,
@@ -132,8 +132,8 @@ module.exports = {
 
         console.log(is_active,
             is_deleted,
-            company_name,
-            full_company_name)
+            name,
+            full_name)
 
         try {
 
@@ -141,8 +141,8 @@ module.exports = {
                 is_active,
                 is_deleted,
                 tanent_id,
-                company_name,
-                full_company_name,
+                name,
+                full_name,
                 logo_link,
                 photos,
                 last_login,
@@ -191,8 +191,8 @@ module.exports = {
             is_active,
             is_deleted,
             tanent_id,
-            company_name,
-            full_company_name,
+            name,
+            full_name,
             logo_link,
             photos,
             last_login,
@@ -230,8 +230,8 @@ module.exports = {
             if (is_active) mycompany.is_active = is_active
             if (is_deleted) mycompany.is_deleted = is_deleted
             if (tanent_id) mycompany.tanent_id = tanent_id
-            if (company_name) mycompany.company_name = company_name
-            if (full_company_name) mycompany.full_company_name = full_company_name
+            if (name) mycompany.name = name
+            if (full_name) mycompany.full_name = full_name
             if (logo_link) mycompany.logo_link = logo_link
             if (photos) mycompany.photos = photos
             if (last_login) mycompany.last_login = last_login
