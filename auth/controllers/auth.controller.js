@@ -90,11 +90,25 @@ exports.signin = (req, res) => {
               username: user.username,
               email: user.email,
               settings: user.settings,
+            role: 'admin',
+
+            data: {
+              displayName: 'Abbott Keitch',
+              photoURL: 'assets/images/avatars/Abbott.jpg',
+              email: 'admin@fusetheme.com',
+            }
               // roles: authorities,
+
             }
         });
       // });
     })
+
+
+
+
+
+
 
     .catch(err => {
       res.status(500).send({ error: err.message });
@@ -148,6 +162,12 @@ exports.accesstoken = (req, res) => {
             username: user.username,
             email: user.email,
             settings: user.settings,
+            role: 'admin',
+            data: {
+              displayName: 'Abbott Keitch',
+              photoURL: 'assets/images/avatars/Abbott.jpg',
+              email: 'admin@fusetheme.com',
+            }
             // roles: authorities,
           }
         });
