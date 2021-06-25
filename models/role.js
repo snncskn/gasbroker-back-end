@@ -16,7 +16,11 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'role',
     schema: 'public',
-    timestamps: false,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+    deletedAt: 'deleted_at',
+    paranoid: true,
+    timestamps: true,
     indexes: [
       {
         name: "role_pkey",

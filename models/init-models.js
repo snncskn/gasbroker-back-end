@@ -1,5 +1,4 @@
 var DataTypes = require("sequelize").DataTypes;
-var _SequelizeMeta = require("./SequelizeMeta");
 var _address = require("./address");
 var _company = require("./company");
 var _company_type = require("./company_type");
@@ -12,11 +11,9 @@ var _role = require("./role");
 var _type = require("./type");
 var _user = require("./user");
 var _user_roles = require("./user_roles");
-var _usersx = require("./usersx");
 var _vehicle = require("./vehicle");
 
 function initModels(sequelize) {
-  var SequelizeMeta = _SequelizeMeta(sequelize, DataTypes);
   var address = _address(sequelize, DataTypes);
   var company = _company(sequelize, DataTypes);
   var company_type = _company_type(sequelize, DataTypes);
@@ -29,7 +26,6 @@ function initModels(sequelize) {
   var type = _type(sequelize, DataTypes);
   var user = _user(sequelize, DataTypes);
   var user_roles = _user_roles(sequelize, DataTypes);
-  var usersx = _usersx(sequelize, DataTypes);
   var vehicle = _vehicle(sequelize, DataTypes);
 
   role.belongsToMany(user, { as: 'userId_users', through: user_roles, foreignKey: "roleId", otherKey: "userId" });
@@ -48,7 +44,6 @@ function initModels(sequelize) {
   user.hasMany(user_roles, { as: "user_roles", foreignKey: "userId"});
 
   return {
-    SequelizeMeta,
     address,
     company,
     company_type,
@@ -61,7 +56,6 @@ function initModels(sequelize) {
     type,
     user,
     user_roles,
-    usersx,
     vehicle,
   };
 }

@@ -1,4 +1,4 @@
-const { db, QueryTypes, company } = require('../../models')
+const { db, QueryTypes, company} = require('../../models')
 
 // Üstekiler sabit kalsın
 //Her model kullanımı için  ismi değiştirin (company)
@@ -64,7 +64,7 @@ module.exports = {
     getAll: async (req, res) => {
         try {
             const mycompany = await Data.findAll()
-            console.log(mycompany[0])
+            console.log()
             res.status(200).json({
                 statusCode: 200,
                 body: mycompany
@@ -78,7 +78,7 @@ module.exports = {
         const company_id = req.params.company_id
         try {
             const mycompany = await Data.findOne({
-                where: { id: company_id },
+                where: { id },
                 // include: 'media',
             })
             res.status(200).json({
@@ -92,9 +92,6 @@ module.exports = {
     },
     create: async (req, res) => {
         const {
-            id,
-            is_active,
-            is_deleted,
             tanent_id,
             name,
             full_name,
@@ -110,7 +107,7 @@ module.exports = {
             longitude,
             map_point,
             gtm,
-            company_phone,
+            phone,
             fax,
             website,
             additional_url,
@@ -131,17 +128,9 @@ module.exports = {
             process
         } = req.body
 
-        console.log(is_active,
-            is_deleted,
-            name,
-            full_name)
-
         try {
 
             const mycompany = await Data.create({
-                id,
-                is_active,
-                is_deleted,
                 tanent_id,
                 name,
                 full_name,
@@ -190,8 +179,6 @@ module.exports = {
     update: async (req, res) => {
         const company_id = req.params.company_id
         const {
-            is_active,
-            is_deleted,
             tanent_id,
             name,
             full_name,
@@ -228,9 +215,7 @@ module.exports = {
             process
         } = req.body
         try {
-            const mycompany = await Data.findOne({ where: { company_id } })
-            if (is_active) mycompany.is_active = is_active
-            if (is_deleted) mycompany.is_deleted = is_deleted
+            const mycompany = await Data.findOne({ where: { id } })
             if (tanent_id) mycompany.tanent_id = tanent_id
             if (name) mycompany.name = name
             if (full_name) mycompany.full_name = full_name
@@ -246,7 +231,7 @@ module.exports = {
             if (longitude) mycompany.longitude = longitude
             if (map_point) mycompany.map_point = map_point
             if (gtm) mycompany.gtm = gtm
-            if (company_phone) mycompany.company_phone = company_phone
+            if (phone) mycompany.phone = phone
             if (fax) mycompany.fax = fax
             if (website) mycompany.website = website
             if (additional_url) mycompany.additional_url = additional_url
@@ -282,10 +267,8 @@ module.exports = {
         const company_id = req.params.company_id
 
         try {
-            const mycompany = await Data.findOne({ where: { company_id } })
-            mycompany.is_active = false
-            mycompany.is_deleted = true
-
+            const mycompany = await Data.findOne({ where: { id } })
+      
             await mycompany.save()
 
             res.status(200).json({
@@ -299,12 +282,11 @@ module.exports = {
         next()
     },
     changeActiveStatus: async (req, res) => {
-        const company_id = req.params.company_id
+        const id = req.params.company_id
 
         try {
-            const mycompany = await Data.findOne({ where: { company_id } })
-            mycompany.is_active = !mycompany.is_active
-
+            const mycompany = await Data.findOne({ where: { id } })
+         
             await mycompany.save()
 
             res.status(200).json({

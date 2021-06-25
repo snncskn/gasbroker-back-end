@@ -31,10 +31,6 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.DATEONLY,
       allowNull: true
     },
-    created_date: {
-      type: DataTypes.DATEONLY,
-      allowNull: true
-    },
     gtm: {
       type: DataTypes.TIME,
       allowNull: true
@@ -127,7 +123,11 @@ module.exports = function (sequelize, DataTypes) {
     sequelize,
     tableName: 'company',
     schema: 'public',
-    timestamps: false,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+    deletedAt: 'deleted_at',
+    paranoid: true,
+    timestamps: true,
     indexes: [
       {
         name: "company_pkey",
