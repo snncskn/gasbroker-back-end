@@ -33,6 +33,7 @@ function initModels(sequelize) {
   
   address.belongsTo(company, { as: "company", foreignKey: "company_id"});
   company.hasMany(address, { as: "addresses", foreignKey: "company_id"});
+  
   company_type.belongsTo(company, { as: "company", foreignKey: "company_id"});
   company.hasMany(company_type, { as: "company_types", foreignKey: "company_id"});
   vehicle.belongsTo(company, { as: "company", foreignKey: "company_id"});
