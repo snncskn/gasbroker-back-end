@@ -9,7 +9,10 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 dotenv.config();
-exports.signup = (req, res) => {
+
+module.exports = {
+
+  signup: (req, res) => {
   // Save User to Database
   User.create({
     username: req.body.username,
@@ -40,9 +43,9 @@ exports.signup = (req, res) => {
     .catch(err => {
       res.status(500).send({ message: err.message });
     });
-};
+  },
 
-exports.signin = (req, res) => {
+  signin: (req, res) => {
   const params = {};
   const {
     username,
@@ -81,42 +84,32 @@ exports.signin = (req, res) => {
       //   for (let i = 0; i < roles.length; i++) {
       //     authorities.push("ROLE_" + roles[i].name.toUpperCase());
       //   }
-        res.status(200).send({
-          error: null,
-          access_token: token,
-          user: {
-              id: user.id,
-              uuid: user.user_id,
-              username: user.username,
-              email: user.email,
-              settings: user.settings,
-            role: 'admin',
+      res.status(200).send({
+        error: null,
+        access_token: token,
+        user: {
+          id: user.id,
+          uuid: user.user_id,
+          role: 'admin',
+          data: {
+            username: user.username,
+            displayName: 'cihan kaya',
+            photoURL: 'assets/images/avatars/Abbott.jpg',
+            email: user.email,
+            settings: user.settings,
+          }
+          // roles: authorities,
 
-            data: {
-              displayName: 'Abbott Keitch',
-              photoURL: 'assets/images/avatars/Abbott.jpg',
-              email: 'admin@fusetheme.com',
-            }
-              // roles: authorities,
-
-            }
-        });
+        }
+      });
       // });
     })
-
-
-
-
-
-
 
     .catch(err => {
       res.status(500).send({ error: err.message });
     });
-};
-
-exports.accesstoken = (req, res) => {
-  console.log(req.body)
+  },
+  accesstoken: (req, res) => {
   const access_token = req.headers["x-access-token"];
 
   let token = access_token
@@ -159,14 +152,14 @@ exports.accesstoken = (req, res) => {
           user: {
             id: user.id,
             uuid: user.user_id,
-            username: user.username,
-            email: user.email,
-            settings: user.settings,
             role: 'admin',
             data: {
-              displayName: 'Abbott Keitch',
+              username: user.username,
+              email: user.email,
+              settings: user.settings,
+              displayName: 'cihan kaya',
               photoURL: 'assets/images/avatars/Abbott.jpg',
-              email: 'admin@fusetheme.com',
+              email: 'cihan@kaya.com',
             }
             // roles: authorities,
           }
@@ -181,4 +174,63 @@ exports.accesstoken = (req, res) => {
   });
 
 
-};
+  },
+
+
+  userupdate: (req, res) => {
+    let token = req.headers["x-access-token"];
+    const {
+      displayName,
+      photoURL,
+      email,
+      settings
+    } = req.body.user.data
+
+    if (!token) {
+      return res.status(403).send({
+        message: "No token provided!"
+      });
+    }
+
+    jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
+      if (err) {
+        return res.status(401).send({
+          message: "Unauthorized!"
+        });
+      }
+
+
+
+
+      User.findOne({ where: { id: decoded.id } }).then(myuser => {
+        if (email) myuser.email = email
+        if (settings) myuser.settings = settings
+        console.log(settings)
+
+        myuser.save()
+        res.status(200).send({
+          error: null,
+          access_token: token,
+          user: {
+            id: myuser.id,
+            uuid: myuser.user_id,
+            role: 'admin',
+            data: {
+              username: myuser.username,
+              displayName: 'cihan kaya',
+              photoURL: 'assets/images/avatars/Abbott.jpg',
+              email: myuser.email,
+              settings: myuser.settings,
+            }
+            // roles: authorities,
+          }
+        })
+
+      }).catch(err => {
+        res.status(500).send({ error: err.message });
+      });
+
+    })
+  }
+
+}
