@@ -127,7 +127,7 @@ module.exports = {
         }
     },
     update: async (req, res) => {
-        const parameter_id = req.params.parameter_id
+        const id = req.params.parameter_id
         const {
             name,
             category,
@@ -140,7 +140,7 @@ module.exports = {
             json_value
         } = req.body
         try {
-            const myparameter = await Data.findOne({ where: { parameter_id } })
+            const myparameter = await Data.findOne({ where: { id } })
             if (name) myparameter.name = name
             if (category) myparameter.category = category
             if (description) myparameter.description = description
