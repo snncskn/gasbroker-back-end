@@ -79,7 +79,7 @@ module.exports = {
         try {
             const mycompany = await Data.findOne({
                 where: { id },
-                // include: 'media',
+                 include: "addresses",
             })
             res.status(200).json({
                 statusCode: 200,

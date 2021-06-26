@@ -28,21 +28,6 @@ function initModels(sequelize) {
   var user_roles = _user_roles(sequelize, DataTypes);
   var vehicle = _vehicle(sequelize, DataTypes);
 
-  role.belongsToMany(user, { as: 'userId_users', through: user_roles, foreignKey: "roleId", otherKey: "userId" });
-  user.belongsToMany(role, { as: 'roleId_roles', through: user_roles, foreignKey: "userId", otherKey: "roleId" });
-  address.belongsTo(company, { as: "company", foreignKey: "company_id"});
-  company.hasMany(address, { as: "addresses", foreignKey: "company_id"});
-  company_type.belongsTo(company, { as: "company", foreignKey: "company_id"});
-  company.hasMany(company_type, { as: "company_types", foreignKey: "company_id"});
-  vehicle.belongsTo(company, { as: "company", foreignKey: "company_id"});
-  company.hasMany(vehicle, { as: "vehicles", foreignKey: "company_id"});
-  user_roles.belongsTo(role, { as: "role", foreignKey: "roleId"});
-  role.hasMany(user_roles, { as: "user_roles", foreignKey: "roleId"});
-  company_type.belongsTo(type, { as: "type", foreignKey: "type_id"});
-  type.hasMany(company_type, { as: "company_types", foreignKey: "type_id"});
-  user_roles.belongsTo(user, { as: "user", foreignKey: "userId"});
-  user.hasMany(user_roles, { as: "user_roles", foreignKey: "userId"});
-
   return {
     address,
     company,

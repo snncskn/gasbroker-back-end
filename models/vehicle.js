@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('vehicle', {
+  var vehicle = sequelize.define('vehicle', {
     id: {
       type: DataTypes.UUID,
       allowNull: false,
@@ -47,4 +47,8 @@ module.exports = function(sequelize, DataTypes) {
       },
     ]
   });
+  //vehicle.associate = function(models) {
+   // vehicle.hasOne(models.company, {foreignKey: 'id', sourceKey: 'company_id'});
+  //}
+return vehicle;
 };
