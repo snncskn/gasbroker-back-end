@@ -1,9 +1,12 @@
-const { db, QueryTypes, company} = require('../../models')
+ const { db, QueryTypes, company} = require('../../models')
 
 // Üstekiler sabit kalsın
 //Her model kullanımı için  ismi değiştirin (company)
 // company_id bazında olacak tabii ki bunların hepsi
 const Data = company
+const cloneDeep = require('clone-deep');
+ 
+
 
 module.exports = {
     //sql ile yapılmış sorgu
@@ -79,8 +82,13 @@ module.exports = {
         try {
             const mycompany = await Data.findOne({
                 where: { id },
-                // include: 'media',
-            })
+               // include: [ { model: db.address, as :'addresses' } ] --çalışmadı
+               //include: ['address',{include:['company']}] -çalışmadı
+               include: { model: db.address, as: 'addresses' }
+
+               //include:  db.address //çalıştı ama baglı degerler gelmedi
+
+            });
             res.status(200).json({
                 statusCode: 200,
                 body: mycompany
@@ -130,7 +138,7 @@ module.exports = {
 
         try {
 
-            const mycompany = await Data.create({
+            let mycompany = await Data.create({
                 tanent_id,
                 name,
                 full_name,
@@ -166,7 +174,7 @@ module.exports = {
                 metarial,
                 process
 
-            })
+            });
             res.status(200).json({
                 statusCode: 200,
                 body: mycompany
