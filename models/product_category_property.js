@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     name: {
       type: DataTypes.STRING,
       allowNull: true
-    }
+    },
   }, {
     sequelize,
     tableName: 'product_category_property',

@@ -1,11 +1,10 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('company_type', {
+  return sequelize.define('company_types', {
     id: {
       type: DataTypes.UUID,
-      allowNull: true,
-      primaryKey: true,
-      defaultValue: DataTypes.UUIDV4
+      allowNull: false,
+      primaryKey: true
     },
     type_id: {
       type: DataTypes.UUID,
@@ -22,15 +21,21 @@ module.exports = function(sequelize, DataTypes) {
         model: 'company',
         key: 'id'
       }
-    }
+    },
   }, {
     sequelize,
-    tableName: 'company_type',
+    tableName: 'company_types',
     schema: 'public',
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
-    deletedAt: 'deleted_at',
+    timestamps: true,
     paranoid: true,
-    timestamps: true
+    indexes: [
+      {
+        name: "company_type_pk",
+        unique: true,
+        fields: [
+          { name: "id" },
+        ]
+      },
+    ]
   });
 };

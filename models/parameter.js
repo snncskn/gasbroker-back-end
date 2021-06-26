@@ -47,11 +47,7 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'parameter',
     schema: 'public',
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
-    deletedAt: 'deleted_at',
-    paranoid: true,
-    timestamps: true,
+    timestamps: false,
     indexes: [
       {
         name: "parameter_pkey",

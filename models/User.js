@@ -10,8 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     user_id: {
       type: DataTypes.UUID,
-      allowNull: false,
-      defaultValue: DataTypes.UUIDV4
+      allowNull: false
     },
     name: {
       type: DataTypes.STRING(255),
@@ -94,16 +93,24 @@ module.exports = function(sequelize, DataTypes) {
     settings: {
       type: DataTypes.JSON,
       allowNull: true
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    deleted_at: {
+      type: DataTypes.DATE,
+      allowNull: true
     }
   }, {
     sequelize,
     tableName: 'user',
     schema: 'public',
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
-    deletedAt: 'deleted_at',
-    paranoid: true,
-    timestamps: true,
+    timestamps: false,
     indexes: [
       {
         name: "user_email_unique",
