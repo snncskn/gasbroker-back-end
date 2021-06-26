@@ -24,15 +24,15 @@ module.exports = {
     //sql ile yapılmış sorgu
     // örnek olsun diye ikinci parametreyi de ekleyeceğim
     getByIdBySql: async (req, res) => {
-        const parameter_id = req.params.parameter_id
+        const id = req.params.parameter_id
         const parametre2 = 1
         try {
             const [data, meta] =
                 await db.query(
-                    "SELECT * FROM parameter where parameter_id = :parameter_id and 1 = :parametre_adi",
+                    "SELECT * FROM parameter where id = :id and 1 = :parametre_adi",
                     {
                         replacements: {
-                            parameter_id,
+                            id,
                             parametre_adi: parametre2
                         },
                         type: QueryTypes.SELECT
@@ -76,10 +76,10 @@ module.exports = {
         }
     },
     getByID: async (req, res) => {
-        const parameter_id = req.params.parameter_id
+        const id = req.params.parameter_id
         try {
             const myparameter = await Data.findOne({
-                where: { parameter_id },
+                where: { id },
                 // include: 'parameter',
             })
             res.status(200).json({
@@ -129,8 +129,6 @@ module.exports = {
     update: async (req, res) => {
         const parameter_id = req.params.parameter_id
         const {
-            is_active,
-            is_deleted,
             name,
             category,
             description,
@@ -143,8 +141,6 @@ module.exports = {
         } = req.body
         try {
             const myparameter = await Data.findOne({ where: { parameter_id } })
-            if (is_active) myparameter.is_active = is_active
-            if (is_deleted) myparameter.is_deleted = is_deleted
             if (name) myparameter.name = name
             if (category) myparameter.category = category
             if (description) myparameter.description = description
@@ -167,14 +163,15 @@ module.exports = {
 
     },
     delete: async (req, res) => {
-        const parameter_id = req.params.parameter_id
+        const id = req.params.id
 
         try {
-            const myparameter = await Data.findOne({ where: { parameter_id } })
-            myparameter.is_active = false
-            myparameter.is_deleted = true
-
-            await myparameter.save()
+            
+            await Data.destroy({
+                where: {
+                  id: id
+                }
+            });
 
             res.status(200).json({
                 statusCode: 200,
@@ -184,13 +181,12 @@ module.exports = {
             console.log(err)
             res.status(500).json({ error: err })
         }
-        next()
     },
     changeActiveStatus: async (req, res) => {
-        const parameter_id = req.params.parameter_id
+        const id = req.params.parameter_id
 
         try {
-            const myparameter = await Data.findOne({ where: { parameter_id } })
+            const myparameter = await Data.findOne({ where: { id } })
             myparameter.is_active = !myparameter.is_active
 
             await myparameter.save()

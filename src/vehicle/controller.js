@@ -20,15 +20,15 @@ module.exports = {
     //sql ile yapılmış sorgu
     // örnek olsun diye ikinci parametreyi de ekleyeceğim
     getByIdBySql: async (req, res) => {
-        const vehicle_id = req.params.vehicle_id
+        const id = req.params.vehicle_id
         const parametre2 = 1
         try {
             const [data, meta] =
                 await db.query(
-                    "SELECT * FROM vehicle where id = :vehicle_id and 1 = :parametre_adi",
+                    "SELECT * FROM vehicle where id = :id and 1 = :parametre_adi",
                     {
                         replacements: {
-                            vehicle_id,
+                            id,
                             parametre_adi: parametre2
                         },
                         type: QueryTypes.SELECT
@@ -61,7 +61,7 @@ module.exports = {
     getAll: async (req, res) => {
         try {
             const myvehicle = await Data.findAll()
-            console.log()
+       
             res.status(200).json({
                 statusCode: 200,
                 body: myvehicle
@@ -72,10 +72,10 @@ module.exports = {
         }
     },
     getByID: async (req, res) => {
-        const vehicle_id = req.params.vehicle_id
+        const id = req.params.vehicle_id
         try {
             const myvehicle = await Data.findOne({
-                where: { vehicle_id },
+                where: { id },
                 // include: 'media',
             })
             res.status(200).json({
@@ -117,20 +117,16 @@ module.exports = {
         const id = req.params.vehicle_id
         const {
             company_id,
-            vehicle_name,
-            vehicle_type,
-            is_active,
-            is_deleted,
+            name,
+            type,
             registered_date
         } = req.body
         try {
             const myvehicle = await Data.findOne({ where: { id } })
-            if (is_active) myvehicle.is_active = is_active
-            if (is_deleted) myvehicle.is_deleted = is_deleted
-            if (vehicle_name) myvehicle.name = vehicle_name
+            if (name) myvehicle.name = name
             if (id) myvehicle.id = id
             if (company_id) myvehicle.company_id = company_id
-            if (vehicle_type) myvehicle.type = vehicle_type
+            if (type) myvehicle.type = type
             if (registered_date) myvehicle.registered_date = registered_date
 
             await myvehicle.save()
@@ -165,10 +161,10 @@ module.exports = {
         }
     },
     changeActiveStatus: async (req, res) => {
-        const vehicle_id = req.params.vehicle_id
+        const id = req.params.vehicle_id
 
         try {
-            const myvehicle = await Data.findOne({ where: { vehicle_id } })
+            const myvehicle = await Data.findOne({ where: { id } })
             myvehicle.is_active = !myvehicle.is_active
 
             await myvehicle.save()

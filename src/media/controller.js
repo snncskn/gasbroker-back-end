@@ -24,15 +24,15 @@ module.exports = {
     //sql ile yapılmış sorgu
     // örnek olsun diye ikinci parametreyi de ekleyeceğim
     getByIdBySql: async (req, res) => {
-        const media_id = req.params.media_id
+        const id = req.params.media_id
         const parametre2 = 1
         try {
             const [data, meta] =
                 await db.query(
-                    "SELECT * FROM media where media_id = :media_id and 1 = :parametre_adi",
+                    "SELECT * FROM media where id = :id and 1 = :parametre_adi",
                     {
                         replacements: {
-                            media_id,
+                            id,
                             parametre_adi: parametre2
                         },
                         type: QueryTypes.SELECT
@@ -76,10 +76,10 @@ module.exports = {
         }
     },
     getByID: async (req, res) => {
-        const media_id = req.params.media_id
+        const id = req.params.media_id
         try {
             const mymedia = await Data.findOne({
-                where: { media_id },
+                where: { id },
                 // include: 'media',
             })
             res.status(200).json({
@@ -125,10 +125,8 @@ module.exports = {
         }
     },
     update: async (req, res) => {
-        const media_id = req.params.media_id
+        const id = req.params.media_id
         const {
-            is_active,
-            is_deleted,
             title,
             type,
             description,
@@ -137,9 +135,7 @@ module.exports = {
             file
         } = req.body
         try {
-            const mymedia = await Data.findOne({ where: { media_id } })
-            if (is_active) mymedia.is_active = is_active
-            if (is_deleted) mymedia.is_deleted = is_deleted
+            const mymedia = await Data.findOne({ where: { id } })
             if (title) mymedia.title = title
             if (type) mymedia.type = type
             if (description) mymedia.description = description
@@ -159,18 +155,17 @@ module.exports = {
 
     },
     delete: async (req, res) => {
-        const media_id = req.params.media_id
+        const id = req.params.media_id
 
         try {
-            const mymedia = await Data.findOne({ where: { media_id } })
-            mymedia.is_active = false
-            mymedia.is_deleted = true
-
-            await mymedia.save()
+            await Data.destroy({
+                where: {
+                  id: id
+                }
+            });
 
             res.status(200).json({
                 statusCode: 200,
-                body: mymedia
             })
         } catch (err) {
             console.log(err)
@@ -179,10 +174,10 @@ module.exports = {
         next()
     },
     changeActiveStatus: async (req, res) => {
-        const media_id = req.params.media_id
+        const id = req.params.media_id
 
         try {
-            const mymedia = await Data.findOne({ where: { media_id } })
+            const mymedia = await Data.findOne({ where: { id } })
             mymedia.is_active = !mymedia.is_active
 
             await mymedia.save()

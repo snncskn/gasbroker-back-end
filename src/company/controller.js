@@ -75,7 +75,7 @@ module.exports = {
         }
     },
     getByID: async (req, res) => {
-        const company_id = req.params.company_id
+        const id = req.params.company_id
         try {
             const mycompany = await Data.findOne({
                 where: { id },
@@ -146,7 +146,7 @@ module.exports = {
                 longitude,
                 map_point,
                 gtm,
-                company_phone,
+                phone,
                 fax,
                 website,
                 additional_url,
@@ -177,7 +177,7 @@ module.exports = {
         }
     },
     update: async (req, res) => {
-        const company_id = req.params.company_id
+        const id = req.params.company_id
         const {
             tanent_id,
             name,
@@ -194,7 +194,7 @@ module.exports = {
             longitude,
             map_point,
             gtm,
-            company_phone,
+            phone,
             fax,
             website,
             additional_url,
@@ -264,28 +264,29 @@ module.exports = {
 
     },
     delete: async (req, res) => {
-        const company_id = req.params.company_id
+        const id = req.params.company_id
 
         try {
-            const mycompany = await Data.findOne({ where: { id } })
-      
-            await mycompany.save()
+            await Data.destroy({
+                where: {
+                  id: id
+                }
+              });
 
             res.status(200).json({
                 statusCode: 200,
-                body: mycompany
             })
         } catch (err) {
             console.log(err)
             res.status(500).json({ error: err })
         }
-        next()
     },
     changeActiveStatus: async (req, res) => {
         const id = req.params.company_id
 
         try {
             const mycompany = await Data.findOne({ where: { id } })
+            mycompany.is_active = !mymedia.is_active
          
             await mycompany.save()
 
