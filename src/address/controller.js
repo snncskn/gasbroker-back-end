@@ -44,6 +44,7 @@ module.exports = {
             id, 
             description,
             company_id,
+            title,
             type,
             lat,
             lng,
@@ -53,7 +54,7 @@ module.exports = {
         try { 
             const myaddress = await Data.create({
                 id,
-              
+                title,
                 description,
                 type,
                 company_id,
@@ -75,12 +76,14 @@ module.exports = {
             is_active,
             is_deleted,
             description,
+            title
         } = req.body
         try {
             const myaddress = await Data.findOne({ where: { address_id } })
             if (is_active) myaddress.is_active = is_active
             if (is_deleted) myaddress.is_deleted = is_deleted
             if (description) myaddress.description = description
+            if (title) myaddress.title = title
              
 
             await myaddress.save()
