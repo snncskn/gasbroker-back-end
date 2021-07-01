@@ -84,7 +84,7 @@ module.exports = {
       //   for (let i = 0; i < roles.length; i++) {
       //     authorities.push("ROLE_" + roles[i].name.toUpperCase());
       //   }
-      return res.status(200).send({
+     res.status(200).send({
         error: null,
         access_token: token,
         user: {
