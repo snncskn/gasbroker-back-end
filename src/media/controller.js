@@ -1,11 +1,40 @@
 const { db, QueryTypes, media } = require('../../models')
-
+const { generateGetUrl, generatePutUrl } = require('./s3/AWSPresigner')
 // Üstekiler sabit kalsın
-//Her model kullanımı için  ismi değiştirin (media)
+//Her model kullanımı için  ismi değiştirin (media) 
 // media_id bazında olacak tabii ki bunların hepsi
 const Data = media
 
 module.exports = {
+
+    getPutUrl: async (req, res) => {
+        // Both Key and ContentType are defined in the client side.
+        // Key refers to the remote name of the file.
+        // ContentType refers to the MIME content type, in this case image/jpeg
+        // buraya verilen key ismi neyse s3te de aynısı olacak
+        const { Key, ContentType } = req.query;
+        generatePutUrl(Key, ContentType).then(putURL => {
+            res.send({ putURL });
+        })
+            .catch(err => {
+                res.send(err);
+            });
+    },
+
+
+    getFileUrl: async (req, res) => {
+        // Both Key and ContentType are defined in the client side.
+        // Key refers to the remote name of the file.
+        const { Key } = req.query;
+        console.log(Key)
+        generateGetUrl(Key)
+            .then(getURL => {
+                res.send(getURL);
+            })
+            .catch(err => {
+                res.send(err);
+            });
+    },
     //sql ile yapılmış sorgu
     // power user için
     getAllBySql: async (req, res) => {
@@ -100,7 +129,8 @@ module.exports = {
             description,
             video_url,
             ref,
-            file
+            file,
+            ref_id
         } = req.body
 
         try {
@@ -113,7 +143,8 @@ module.exports = {
                 description,
                 video_url,
                 ref,
-                file
+                file,
+                ref_id
             })
             res.status(200).json({
                 statusCode: 200,
