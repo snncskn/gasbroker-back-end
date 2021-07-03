@@ -55,7 +55,6 @@ module.exports = {
             const myvehicle = await Data.findAll({
                 include: "company",
             })
-       
             res.status(200).json({
                 statusCode: 200,
                 body: myvehicle
