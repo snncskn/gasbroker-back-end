@@ -30,10 +30,12 @@ function initModels(sequelize) {
 
   role.belongsToMany(user, { as: 'userId_users', through: user_roles, foreignKey: "roleId", otherKey: "userId" });
   user.belongsToMany(role, { as: 'roleId_roles', through: user_roles, foreignKey: "userId", otherKey: "roleId" });
+  
   address.belongsTo(company, { as: "company", foreignKey: "company_id"});
   company.hasMany(address, { as: "addresses", foreignKey: "company_id"});
-  company_types.belongsTo(company, { as: "company", foreignKey: "company_id"});
-  company.hasMany(company_types, { as: "company_types", foreignKey: "company_id"});
+  
+  company_type.belongsTo(company, { as: "company", foreignKey: "company_id"});
+  company.hasMany(company_type, { as: "company_types", foreignKey: "company_id"});
   vehicle.belongsTo(company, { as: "company", foreignKey: "company_id"});
   company.hasMany(vehicle, { as: "vehicles", foreignKey: "company_id"});
   user_roles.belongsTo(role, { as: "role", foreignKey: "roleId"});
