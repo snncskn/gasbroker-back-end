@@ -69,7 +69,7 @@ module.exports = {
         try {
             const myvehicle = await Data.findOne({
                 where: { id },
-                // include: 'media',
+                include: "company",
             })
             res.status(200).json({
                 statusCode: 200,
