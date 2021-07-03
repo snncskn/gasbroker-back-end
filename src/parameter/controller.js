@@ -91,6 +91,22 @@ module.exports = {
             res.status(500).json({ error: err })
         }
     },
+    getByCategory: async (req, res) => {
+        const id = req.params.parameter_id
+        console.log(id)
+        try {
+            const myparameter = await Data.findAll({
+                where: { category:id },
+            })
+            res.status(200).json({
+                statusCode: 200,
+                body: myparameter
+            })
+        } catch (err) {
+            console.log(err)
+            res.status(500).json({ error: err })
+        }
+    },
     create: async (req, res) => {
         const {
             name,
