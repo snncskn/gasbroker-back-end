@@ -52,7 +52,9 @@ module.exports = {
     // mümkün oldukça ORM kullanalım
     getAll: async (req, res) => {
         try {
-            const myvehicle = await Data.findAll()
+            const myvehicle = await Data.findAll({
+                include: "company",
+            })
        
             res.status(200).json({
                 statusCode: 200,
