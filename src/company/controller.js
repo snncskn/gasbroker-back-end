@@ -129,7 +129,8 @@ module.exports = {
             industry,
             technology,
             metarial,
-            process
+            process,
+            types
         } = req.body
 
         try {
@@ -168,7 +169,8 @@ module.exports = {
                 industry,
                 technology,
                 metarial,
-                process
+                process,
+                types
 
             });
             res.status(200).json({
