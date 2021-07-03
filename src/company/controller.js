@@ -82,11 +82,7 @@ module.exports = {
         try {
             const mycompany = await Data.findOne({
                 where: { id },
-               // include: [ { model: db.address, as :'addresses' } ] --çalışmadı
-               //include: ['address',{include:['company']}] -çalışmadı
-               include: { model: db.address, as: 'addresses' }
-
-               //include:  db.address //çalıştı ama baglı degerler gelmedi
+                include:   'addresses' 
 
             });
             res.status(200).json({
@@ -97,7 +93,7 @@ module.exports = {
             console.log(err)
             res.status(500).json({ error: err })
         }
-    },
+    }, 
     create: async (req, res) => {
         const {
             tanent_id,
