@@ -1,4 +1,5 @@
  const { db, QueryTypes, company} = require('../../models')
+ const { Op } = require("sequelize");
 
 // Üstekiler sabit kalsın
 //Her model kullanımı için  ismi değiştirin (company)
@@ -66,7 +67,9 @@ module.exports = {
     // mümkün oldukça ORM kullanalım
     getAll: async (req, res) => {
         try {
-            const mycompany = await Data.findAll()
+            const mycompany = await Data.findAll({
+                where:{name:{[Op.ne]: ''} }
+            })
             console.log()
             res.status(200).json({
                 statusCode: 200,
