@@ -10,7 +10,9 @@ const {
     companyRouter,
     mediaRouter,
     parameterRouter,
-    vehicleRouter
+    vehicleRouter,
+    addressRouter,
+    typeRouter
 } = require('./src/api.router')
 
 dotenv.config();
@@ -27,6 +29,8 @@ app.use('/company', companyRouter)
 app.use('/media', mediaRouter)
 app.use('/parameter', parameterRouter)
 app.use('/vehicle', vehicleRouter)
+app.use('/address', addressRouter)
+app.use('/type', typeRouter)
 
 
 //auth

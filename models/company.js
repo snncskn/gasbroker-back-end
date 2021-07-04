@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const address = require('./address');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define('company', {
     id: {
@@ -116,6 +117,14 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true
     },
     sector: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true
+    },
+    types: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true
+    },
+    media: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true
     }

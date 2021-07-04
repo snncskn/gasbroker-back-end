@@ -1,7 +1,7 @@
 var DataTypes = require("sequelize").DataTypes;
 var _address = require("./address");
 var _company = require("./company");
-var _company_type = require("./company_type");
+var _company_types = require("./company_types");
 var _media = require("./media");
 var _parameter = require("./parameter");
 var _product = require("./product");
@@ -16,7 +16,7 @@ var _vehicle = require("./vehicle");
 function initModels(sequelize) {
   var address = _address(sequelize, DataTypes);
   var company = _company(sequelize, DataTypes);
-  var company_type = _company_type(sequelize, DataTypes);
+  var company_types = _company_types(sequelize, DataTypes);
   var media = _media(sequelize, DataTypes);
   var parameter = _parameter(sequelize, DataTypes);
   var product = _product(sequelize, DataTypes);
@@ -30,23 +30,25 @@ function initModels(sequelize) {
 
   role.belongsToMany(user, { as: 'userId_users', through: user_roles, foreignKey: "roleId", otherKey: "userId" });
   user.belongsToMany(role, { as: 'roleId_roles', through: user_roles, foreignKey: "userId", otherKey: "roleId" });
+  
   address.belongsTo(company, { as: "company", foreignKey: "company_id"});
   company.hasMany(address, { as: "addresses", foreignKey: "company_id"});
-  company_type.belongsTo(company, { as: "company", foreignKey: "company_id"});
-  company.hasMany(company_type, { as: "company_types", foreignKey: "company_id"});
+  
+  company_types.belongsTo(company, { as: "company", foreignKey: "company_id"});
+  company.hasMany(company_types, { as: "company_types", foreignKey: "company_id"});
   vehicle.belongsTo(company, { as: "company", foreignKey: "company_id"});
   company.hasMany(vehicle, { as: "vehicles", foreignKey: "company_id"});
   user_roles.belongsTo(role, { as: "role", foreignKey: "roleId"});
   role.hasMany(user_roles, { as: "user_roles", foreignKey: "roleId"});
-  company_type.belongsTo(type, { as: "type", foreignKey: "type_id"});
-  type.hasMany(company_type, { as: "company_types", foreignKey: "type_id"});
+  company_types.belongsTo(type, { as: "type", foreignKey: "type_id"});
+  type.hasMany(company_types, { as: "company_types", foreignKey: "type_id"});
   user_roles.belongsTo(user, { as: "user", foreignKey: "userId"});
   user.hasMany(user_roles, { as: "user_roles", foreignKey: "userId"});
 
   return {
     address,
     company,
-    company_type,
+    company_types,
     media,
     parameter,
     product,

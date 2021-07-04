@@ -1,16 +1,17 @@
-const { db, QueryTypes, vehicle } = require('../../models')
+const { vehicle, company } = require('../../models')
 
 const Data = vehicle;
+const Company = company;
 
 module.exports = {
     //sql ile yapılmış sorgu
     getAllBySql: async (req, res) => {
 
         try {
-            const [data, meta] = await db.query("SELECT * FROM vehicle");
+            const myvehicle = await Data.findAll({include: "company"});
             res.status(200).json({
                 statusCode: 200,
-                body: data
+                body: myvehicle
             })
         } catch (err) {
             console.log(err)
@@ -23,20 +24,11 @@ module.exports = {
         const id = req.params.vehicle_id
         const parametre2 = 1
         try {
-            const [data, meta] =
-                await db.query(
-                    "SELECT * FROM vehicle where id = :id and 1 = :parametre_adi",
-                    {
-                        replacements: {
-                            id,
-                            parametre_adi: parametre2
-                        },
-                        type: QueryTypes.SELECT
-                    }
-                );
+            const myvehicle = await Data.findAll({include: Company});
+
             res.status(200).json({
                 statusCode: 200,
-                body: data
+                body: myvehicle
             })
         } catch (err) {
             console.log(err)
@@ -60,8 +52,9 @@ module.exports = {
     // mümkün oldukça ORM kullanalım
     getAll: async (req, res) => {
         try {
-            const myvehicle = await Data.findAll()
-       
+            const myvehicle = await Data.findAll({
+                include: "company",
+            })
             res.status(200).json({
                 statusCode: 200,
                 body: myvehicle
@@ -76,7 +69,7 @@ module.exports = {
         try {
             const myvehicle = await Data.findOne({
                 where: { id },
-                // include: 'media',
+                include: "company",
             })
             res.status(200).json({
                 statusCode: 200,
