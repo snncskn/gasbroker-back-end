@@ -123,6 +123,10 @@ module.exports = function (sequelize, DataTypes) {
     types: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true
+    },
+    media: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true
     }
   }, {
     sequelize,

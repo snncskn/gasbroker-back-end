@@ -130,7 +130,9 @@ module.exports = {
             technology,
             metarial,
             process,
-            types
+            types,
+            media,
+            addresses
         } = req.body
 
         try {
@@ -170,9 +172,11 @@ module.exports = {
                 technology,
                 metarial,
                 process,
-                types
+                types,
+                media
 
             });
+          
             res.status(200).json({
                 statusCode: 200,
                 body: mycompany
@@ -218,7 +222,9 @@ module.exports = {
             industry,
             technology,
             metarial,
-            process
+            process,
+            types,
+            media
         } = req.body
         try {
             const mycompany = await Data.findOne({ where: { id } })
@@ -256,7 +262,10 @@ module.exports = {
             if (technology) mycompany.technology = technology
             if (metarial) mycompany.metarial = metarial
             if (process) mycompany.process = proces
+            if (types) mycompany.types = types
+            if (media) mycompany.media = media
 
+        
             await mycompany.save()
 
             res.status(200).json({
@@ -270,7 +279,7 @@ module.exports = {
 
     },
     delete: async (req, res) => {
-        const id = req.params.company_id
+        const id = req.params.company_id;
 
         try {
             await Data.destroy({

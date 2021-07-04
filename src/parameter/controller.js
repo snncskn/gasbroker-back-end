@@ -47,6 +47,29 @@ module.exports = {
             res.json({ error: err })
         }
     },
+    getByParametersBySql: async (req, res) => {
+        const types = req.body.types
+        try {
+            const data =
+                await db.query(
+                    "SELECT * FROM parameter where category='COMPANY_TYPE' and  name in (:types) ",
+                    {
+                        replacements: {
+                            types
+                        },
+                        type: QueryTypes.SELECT
+                    }
+                );
+            
+            res.status(200).json({
+                statusCode: 200,
+                body: data
+            })
+        } catch (err) {
+            console.log(err)
+            res.json({ error: err })
+        }
+    },
     check: async (req, res, next) => {
         res.status(200).json({
             statusCode: 200,
@@ -65,8 +88,7 @@ module.exports = {
     getAll: async (req, res) => {
         try {
             const myparameter = await Data.findAll()
-            console.log()
-            res.status(200).json({
+             res.status(200).json({
                 statusCode: 200,
                 body: myparameter
             })
