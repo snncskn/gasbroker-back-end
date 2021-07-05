@@ -1,10 +1,10 @@
  const { db, QueryTypes, company} = require('../../models')
+ const { Op } = require("sequelize");
 
 // Üstekiler sabit kalsın
 //Her model kullanımı için  ismi değiştirin (company)
 // company_id bazında olacak tabii ki bunların hepsi
 const Data = company
-
 
 module.exports = {
     //sql ile yapılmış sorgu
@@ -64,7 +64,9 @@ module.exports = {
     // mümkün oldukça ORM kullanalım
     getAll: async (req, res) => {
         try {
-            const mycompany = await Data.findAll()
+            const mycompany = await Data.findAll({
+                where:{name:{[Op.ne]: ''} }
+            })
             console.log()
             res.status(200).json({
                 statusCode: 200,
@@ -80,11 +82,7 @@ module.exports = {
         try {
             const mycompany = await Data.findOne({
                 where: { id },
-               // include: [ { model: db.address, as :'addresses' } ] --çalışmadı
-               //include: ['address',{include:['company']}] -çalışmadı
-               include: { model: db.address, as: 'addresses' }
-
-               //include:  db.address //çalıştı ama baglı degerler gelmedi
+                include:   'addresses' 
 
             });
             res.status(200).json({
@@ -95,7 +93,7 @@ module.exports = {
             console.log(err)
             res.status(500).json({ error: err })
         }
-    },
+    }, 
     create: async (req, res) => {
         const {
             tanent_id,
@@ -131,7 +129,10 @@ module.exports = {
             industry,
             technology,
             metarial,
-            process
+            process,
+            types,
+            media,
+            addresses
         } = req.body
 
         try {
@@ -170,9 +171,12 @@ module.exports = {
                 industry,
                 technology,
                 metarial,
-                process
+                process,
+                types,
+                media
 
             });
+          
             res.status(200).json({
                 statusCode: 200,
                 body: mycompany
@@ -218,7 +222,9 @@ module.exports = {
             industry,
             technology,
             metarial,
-            process
+            process,
+            types,
+            media
         } = req.body
         try {
             const mycompany = await Data.findOne({ where: { id } })
@@ -256,7 +262,10 @@ module.exports = {
             if (technology) mycompany.technology = technology
             if (metarial) mycompany.metarial = metarial
             if (process) mycompany.process = proces
+            if (types) mycompany.types = types
+            if (media) mycompany.media = media
 
+        
             await mycompany.save()
 
             res.status(200).json({
@@ -270,7 +279,7 @@ module.exports = {
 
     },
     delete: async (req, res) => {
-        const id = req.params.company_id
+        const id = req.params.company_id;
 
         try {
             await Data.destroy({
