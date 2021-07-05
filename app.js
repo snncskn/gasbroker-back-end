@@ -33,6 +33,7 @@ app.use('/vehicle', vehicleRouter)
 app.use('/address', addressRouter)
 app.use('/product', productRouter)
 app.use('/type', typeRouter)
+app.use('/product', productRouter)
 
 
 //auth
