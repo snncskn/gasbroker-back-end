@@ -45,6 +45,28 @@ module.exports = {
     });
   },
 
+
+  me: (req, res) => {
+    res.status(200).send({
+      error: null,
+      access_token: 'asdasdasd',
+      email: 'muzeyr@gmail.com',
+      name: 'sinan coskun',
+      userName: 'sinan.coskun',
+      full_name: 'sinan coskun',
+      birthday: '01.01.2020',
+      gender: 'E',
+      id: 99,
+      address:'test',
+      mobilePhone:'05074606083',
+      avatar:'assets/images/avatars/female-02.jpg',
+      photoURL: 'assets/images/avatars/female-02.jpg',
+    
+    });
+  
+
+  },
+
   signin: (req, res) => {
   const params = {};
   const {

@@ -13,6 +13,7 @@ module.exports = function (app) {
   );
 
   app.post("/api/auth/signin", controller.signin);
+  app.post("/api/auth/me", controller.me);
 
   app.get("/api/auth/access-token", controller.accesstoken);
 
