@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const address = require('./address');
+
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define('company', {
     id: {

@@ -5,9 +5,6 @@
 //Her model kullanımı için  ismi değiştirin (company)
 // company_id bazında olacak tabii ki bunların hepsi
 const Data = company
-const cloneDeep = require('clone-deep');
- 
-
 
 module.exports = {
     //sql ile yapılmış sorgu

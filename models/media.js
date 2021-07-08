@@ -46,11 +46,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.UUID,
       allowNull: true
     },
-    company_types_id: {
-      type: DataTypes.UUID,
-      allowNull: true,
-      unique: "media_company_types_id"
-    },
     vehicle_id: {
       type: DataTypes.UUID,
       allowNull: true,
@@ -66,13 +61,6 @@ module.exports = function(sequelize, DataTypes) {
     paranoid: true,
     timestamps: true,
     indexes: [
-      {
-        name: "media_company_types_id",
-        unique: true,
-        fields: [
-          { name: "company_types_id" },
-        ]
-      },
       {
         name: "media_company_unq",
         unique: true,
