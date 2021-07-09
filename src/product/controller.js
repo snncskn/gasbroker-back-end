@@ -33,8 +33,16 @@ module.exports = {
 
     try {
       const product = await Data.create({
-        name,
-        code,
+        company_id,
+        product_id,
+        last_offer_date,
+        publish_date,
+        product_detail,
+        product_quantity,
+        location,
+        freight_type,
+        type,
+        status,
       });
 
       res.status(200).json({
@@ -47,14 +55,33 @@ module.exports = {
   },
   update: async (req, res) => {
     const id = req.params.product_id;
-    const { name, code } = req.body;
+    const {
+      company_id,
+      product_id,
+      last_offer_date,
+      publish_date,
+      product_detail,
+      product_quantity,
+      location,
+      freight_type,
+      type,
+      status,
+    } = req.body;
 
     try {
       const product = await Data.findOne({ where: { id } });
 
       if (id) product.id = id;
-      if (name) product.name = name;
-      if (code) product.code = code;
+      if (id) product.company_id = company_id;
+      if (id) product.product_id = product_id;
+      if (id) product.last_offer_date = last_offer_date;
+      if (id) product.publish_date = publish_date;
+      if (id) product.product_detail = product_detail;
+      if (id) product.product_quantity = product_quantity;
+      if (id) product.location = location;
+      if (id) product.freight_type = freight_type;
+      if (id) product.type = type;
+      if (id) product.status = status;
 
       await product.save();
 
