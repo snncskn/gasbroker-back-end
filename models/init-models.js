@@ -10,6 +10,7 @@ var _role = require("./role");
 var _user = require("./user");
 var _user_roles = require("./user_roles");
 var _vehicle = require("./vehicle");
+var _proposal = require("./proposal");
 
 function initModels(sequelize) {
   var address = _address(sequelize, DataTypes);
@@ -23,6 +24,7 @@ function initModels(sequelize) {
   var user = _user(sequelize, DataTypes);
   var user_roles = _user_roles(sequelize, DataTypes);
   var vehicle = _vehicle(sequelize, DataTypes);
+  var proposal = _proposal(sequelize, DataTypes);
 
   return {
     address,
@@ -36,6 +38,7 @@ function initModels(sequelize) {
     user,
     user_roles,
     vehicle,
+    proposal
   };
 }
 module.exports = initModels;

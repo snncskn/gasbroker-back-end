@@ -51,7 +51,8 @@ db.role.hasMany(db.user_roles, { as: "user_roles", foreignKey: "roleId"});
 db.user_roles.belongsTo(db.user, { as: "user", foreignKey: "userId"});
 db.user.hasMany(db.user_roles, { as: "user_roles", foreignKey: "userId"});
 
-
+db.proposal.belongsTo(db.product, { as: "id_product", foreignKey: "id"});
+db.product.hasOne(db.proposal, { as: "proposal", foreignKey: "id"});
 
 
 module.exports = db;

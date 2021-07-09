@@ -50,8 +50,8 @@ module.exports = {
     res.status(200).send({
       error: null,
       access_token: 'asdasdasd',
-      email: 'muzeyr@gmail.com',
-      name: 'sinan coskun',
+      email: 'sinan@navigroup.com',
+      name: 'Sinan COŞKUN',
       userName: 'sinan.coskun',
       full_name: 'sinan coskun',
       birthday: '01.01.2020',
@@ -59,8 +59,8 @@ module.exports = {
       id: 99,
       address:'test',
       mobilePhone:'05074606083',
-      avatar:'assets/images/avatars/female-02.jpg',
-      photoURL: 'assets/images/avatars/female-02.jpg',
+      avatar:'assets/images/avatars/male-02.jpg',
+      photoURL: 'assets/images/avatars/male-02.jpg',
     
     });
   
