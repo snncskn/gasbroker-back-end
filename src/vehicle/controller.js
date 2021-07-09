@@ -4,7 +4,6 @@ const Data = vehicle;
 const Company = company;
 
 module.exports = {
-    //sql ile yapılmış sorgu
     getAllBySql: async (req, res) => {
 
         try {
@@ -18,8 +17,6 @@ module.exports = {
             res.json({ error: err })
         }
     },
-    //sql ile yapılmış sorgu
-    // örnek olsun diye ikinci parametreyi de ekleyeceğim
     getByIdBySql: async (req, res) => {
         const id = req.params.vehicle_id
         const parametre2 = 1
@@ -48,8 +45,6 @@ module.exports = {
         })
         next()
     },
-    // aşağıdakilerin hepsi ORM ile yapılmıştı
-    // mümkün oldukça ORM kullanalım
     getAll: async (req, res) => {
         try {
             const myvehicle = await Data.findAll({
