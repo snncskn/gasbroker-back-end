@@ -3,24 +3,6 @@ const { proposal } = require("../../models");
 const Data = proposal;
 
 module.exports = {
-  getById: async (req, res) => {
-    const id = req.params.vehicle_id;
-    const parametre2 = 1;
-    try {
-      const proposal = await Data.findAll({
-        include: "company",
-        include: "product",
-      });
-
-      res.status(200).json({
-        statusCode: 200,
-        body: proposal,
-      });
-    } catch (err) {
-      console.log(err);
-      res.json({ error: err });
-    }
-  },
   getAll: async (req, res) => {
     try {
       const proposal = await Data.findAll({
@@ -36,15 +18,13 @@ module.exports = {
       res.status(500).json({ error: err });
     }
   },
-  create: async (req, res) => {
-    const { company_id, name, type, registered_date } = req.body;
-
+  getById: async (req, res) => {
+    const id = req.params.proposal_id;
     try {
-      const proposal = await Data.create({
-        company_id,
-        name,
-        type,
-        registered_date,
+      const proposal = await Data.findOne({
+        where: { id },
+        include: "company",
+        include: "product",
       });
       res.status(200).json({
         statusCode: 200,
@@ -55,16 +35,71 @@ module.exports = {
       res.status(500).json({ error: err });
     }
   },
+  create: async (req, res) => {
+    const {
+      company_id,
+      proposal_id,
+      last_offer_date,
+      publish_date,
+      proposal_detail,
+      proposal_quantity,
+      location,
+      freight_type,
+      type,
+      status,
+    } = req.body;
+
+    try {
+      const proposal = await Data.create({
+        company_id,
+        proposal_id,
+        last_offer_date,
+        publish_date,
+        proposal_detail,
+        proposal_quantity,
+        location,
+        freight_type,
+        type,
+        status,
+      });
+
+      res.status(200).json({
+        statusCode: 200,
+        body: proposal,
+      });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+  },
   update: async (req, res) => {
     const id = req.params.proposal_id;
-    const { company_id, name, type, registered_date } = req.body;
+    const {
+      company_id,
+      proposal_id,
+      last_offer_date,
+      publish_date,
+      proposal_detail,
+      proposal_quantity,
+      location,
+      freight_type,
+      type,
+      status,
+    } = req.body;
+
     try {
       const proposal = await Data.findOne({ where: { id } });
-      if (name) proposal.name = name;
+
       if (id) proposal.id = id;
-      if (company_id) proposal.company_id = company_id;
-      if (type) proposal.type = type;
-      if (registered_date) proposal.registered_date = registered_date;
+      if (id) proposal.company_id = company_id;
+      if (id) proposal.proposal_id = proposal_id;
+      if (id) proposal.last_offer_date = last_offer_date;
+      if (id) proposal.publish_date = publish_date;
+      if (id) proposal.proposal_detail = proposal_detail;
+      if (id) proposal.proposal_quantity = proposal_quantity;
+      if (id) proposal.location = location;
+      if (id) proposal.freight_type = freight_type;
+      if (id) proposal.type = type;
+      if (id) proposal.status = status;
 
       await proposal.save();
 
@@ -73,7 +108,6 @@ module.exports = {
         body: proposal,
       });
     } catch (err) {
-      console.log(err);
       res.status(500).json({ error: err });
     }
   },
@@ -92,7 +126,6 @@ module.exports = {
         body: Data,
       });
     } catch (err) {
-      console.log(err);
       res.status(500).json({ error: err });
     }
   },
