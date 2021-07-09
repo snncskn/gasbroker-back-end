@@ -54,7 +54,11 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'proposal',
     schema: 'public',
-    timestamps: false,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+    deletedAt: 'deleted_at',
+    paranoid: true,
+    timestamps: true,
     indexes: [
       {
         name: "proposal_pk",

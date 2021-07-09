@@ -5,6 +5,7 @@ dotenv.config();
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
+const product = require('./product');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
@@ -51,8 +52,7 @@ db.role.hasMany(db.user_roles, { as: "user_roles", foreignKey: "roleId"});
 db.user_roles.belongsTo(db.user, { as: "user", foreignKey: "userId"});
 db.user.hasMany(db.user_roles, { as: "user_roles", foreignKey: "userId"});
 
-db.proposal.belongsTo(db.product, { as: "id_product", foreignKey: "id"});
-db.product.hasOne(db.proposal, { as: "proposal", foreignKey: "id"});
-
+db.proposal.belongsTo(db.product, { as : "product", foreignKey: "product_id"}); 
+db.proposal.belongsTo(db.company, { as : "company", foreignKey: "company_id"}); 
 
 module.exports = db;

@@ -6,8 +6,8 @@ module.exports = {
   getAll: async (req, res) => {
     try {
       const proposal = await Data.findAll({
-        include: "company",
         include: "product",
+        include: "company",
       });
       res.status(200).json({
         statusCode: 200,
@@ -23,8 +23,8 @@ module.exports = {
     try {
       const proposal = await Data.findOne({
         where: { id },
-        include: "company",
         include: "product",
+        include: "company",
       });
       res.status(200).json({
         statusCode: 200,
