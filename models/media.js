@@ -42,6 +42,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.JSON,
       allowNull: true
     },
+    ref_id: {
+      type: DataTypes.JSON,
+      allowNull: true
+    },
     product_id: {
       type: DataTypes.UUID,
       allowNull: true
