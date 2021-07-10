@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('proposal', {
     id: {
+      defaultValue: DataTypes.UUIDV4,
       type: DataTypes.UUID,
       allowNull: false,
       primaryKey: true,
@@ -49,6 +50,18 @@ module.exports = function(sequelize, DataTypes) {
     status: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    deleted_at: {
+      type: DataTypes.DATE,
+      allowNull: true
     }
   }, {
     sequelize,
