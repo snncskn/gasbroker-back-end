@@ -315,4 +315,25 @@ module.exports = {
         }
 
     },
+    findByCriteria: async (req, res) => {
+        try {
+          const filter = req.query.filter;
+          const page = req.query.page;
+          const size = req.query.size;
+  
+          const company = await Data.findAll({
+              limit: size,
+              offset: page,
+              where: { full_name: { [Op.like]: ''+filter+'' } },  
+          });
+          res.status(200).json({
+            statusCode: 200,
+            body: company,
+          });
+        } catch (err) {
+          console.log(err);
+          res.status(500).json({ error: err });
+        }
+      },
+  
 }
