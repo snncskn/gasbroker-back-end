@@ -1,4 +1,4 @@
-const { proposal } = require("../../models");
+const { proposal,product,company } = require("../../models");
 
 const Data = proposal;
 
@@ -6,8 +6,7 @@ module.exports = {
   getAll: async (req, res) => {
     try {
       const proposal = await Data.findAll({
-        include: "product",
-        include: "company",
+        include: [company, product]
       });
       res.status(200).json({
         statusCode: 200,
