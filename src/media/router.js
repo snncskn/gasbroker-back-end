@@ -7,6 +7,8 @@ const { authJwt } = require("../../auth/middleware");
 // parametre ile karışma ihtimali olanlar varsa onları daha ekle
 // requestlerde mümkün olduğunca next kullanma emin olmadıkça
 router.get('/check', controller.check)
+router.get('/s3/generateGetUrl', controller.getFileUrl)
+router.get('/s3/generatePutUrl', controller.getPutUrl)
 router.get('/sql/all/', [authJwt.verifyToken, authJwt.isAdmin], controller.getAllBySql)
 router.get('/sql/:media_id', controller.getByIdBySql)
 router.put('/delete/:company_id', [authJwt.verifyToken, authJwt.isModeratorOrAdmin], controller.delete)
