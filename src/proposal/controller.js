@@ -37,24 +37,27 @@ module.exports = {
     const {
       company_id,
       proposal_id,
+      product_id,
       last_offer_date,
       publish_date,
       proposal_detail,
-      proposal_quantity,
+      product_quantity,
       location,
       freight_type,
       type,
       status,
     } = req.body;
+    console.log( req.body)
 
     try {
       const proposal = await Data.create({
         company_id,
         proposal_id,
+        product_id,
         last_offer_date,
         publish_date,
         proposal_detail,
-        proposal_quantity,
+        product_quantity,
         location,
         freight_type,
         type,
