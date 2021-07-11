@@ -18,7 +18,7 @@ module.exports = {
     username: req.body.username,
     email: req.body.email,
     settings: req.body.settings,
-    password: bcrypt.hashSync(req.body.password, 8)
+    password: bcrypt.hashSync(req.body.pass, 8)
   })
     .then(user => {
       if (req.body.roles) {
