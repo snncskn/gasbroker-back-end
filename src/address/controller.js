@@ -23,13 +23,12 @@ module.exports = {
             res.status(500).json({ error: err })
         }
     },
-    getByCompanyID: async (req, res) => {
+    getByCompanyId: async (req, res) => {
         const company_id = req.params.company_id
         try {
-            const myaddress = await Data.findOne({
+            const myaddress = await Data.findAll({
                 where: { company_id: company_id },
-                // include: 'media',
-            })
+             })
             res.status(200).json({
                 statusCode: 200,
                 body: myaddress
