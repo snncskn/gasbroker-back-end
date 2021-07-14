@@ -39,9 +39,8 @@ app.use('/address', addressRouter)
 app.use('/product', productRouter)
 app.use('/proposal', proposalRouter)
 app.use('/offer', offerRouter)
-app.use('/processGroupRouter', processGroupRouter)
-app.use('/processSubGroupRouter', processSubGroupRouter)
-
+app.use('/process-group', processGroupRouter)
+app.use('/process-sub-group', processSubGroupRouter)
 
 //mail-sms
 app.use("/api/email", emailRouter);

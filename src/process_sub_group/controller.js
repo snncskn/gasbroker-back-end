@@ -5,10 +5,12 @@ const Data = process_sub_group;
 module.exports = {
   getAll: async (req, res) => {
     try {
-      const item = await Data.findAll({ include: { process_group } });
-      res.status(200).json({
+      const process_sub_group = await Data.findAll({
+        include: [process_group],
+      });
+      res.json({
         statusCode: 200,
-        body: item,
+        body: process_sub_group,
       });
     } catch (err) {
       res.status(500).json({ error: err });
@@ -17,13 +19,13 @@ module.exports = {
   getById: async (req, res) => {
     const id = req.params.process_sub_group_id;
     try {
-      const item = await Data.findOne({
+      const process_sub_group = await Data.findOne({
         where: { id },
-        include: { process_group },
+        include: [process_group],
       });
-      res.status(200).json({
+      res.json({
         statusCode: 200,
-        body: item,
+        body: process_sub_group,
       });
     } catch (err) {
       res.status(500).json({ error: err });
@@ -39,7 +41,7 @@ module.exports = {
         order,
       });
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: item,
       });
@@ -61,7 +63,7 @@ module.exports = {
 
       await item.save();
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: item,
       });
@@ -79,7 +81,7 @@ module.exports = {
         },
       });
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: Data,
       });
