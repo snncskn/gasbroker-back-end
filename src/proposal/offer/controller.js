@@ -1,5 +1,4 @@
-const { proposal_offer, company, product } = require("../../../models");
-
+const { proposal_offer } = require("../../../models");
 const Data = proposal_offer;
 
 module.exports = {
@@ -18,8 +17,7 @@ module.exports = {
     const id = req.params.offer_id;
     try {
       const proposal_offer = await Data.findOne({
-        where: { id },
-        include: [proposal_offer, company, product],
+        where: { id }
       });
       res.status(200).json({
         statusCode: 200,

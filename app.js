@@ -4,6 +4,8 @@ var logger = require('morgan');
 var dotenv = require('dotenv');
 var helmet = require('helmet')
 const { authJwt } = require("./auth/middleware");
+const emailRouter = require("./email/email.route");
+const smsRouter = require("./sms/sms.route");
 
 const { sequelize } = require('./models')
 const {
@@ -13,7 +15,8 @@ const {
     vehicleRouter,
     addressRouter,
     productRouter,
-    proposalRouter
+    proposalRouter,
+    offerRouter
 } = require('./src/api.router')
 
 dotenv.config();
@@ -33,6 +36,12 @@ app.use('/vehicle', vehicleRouter)
 app.use('/address', addressRouter)
 app.use('/product', productRouter)
 app.use('/proposal', proposalRouter)
+app.use('/offer', offerRouter)
+
+
+//mail-sms
+app.use("/api/email", emailRouter);
+app.use("/api/sms", smsRouter);
 
 
 //auth
