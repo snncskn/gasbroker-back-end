@@ -1,0 +1,1660 @@
+{
+    "info": {
+        "_postman_id": "c3778f7e-17cf-80b5-c75c-1473caf5c775",
+        "name": "gasbroker",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "company",
+            "item": [
+                {
+                    "name": "/sql/all/",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": "{{baseUrl}}/company/sql/all/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/sql/:company_id",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/company/sql/:company_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "company",
+                                "sql",
+                                ":company_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "company_id",
+                                    "value": "3f741e94-dbe6-4a45-99c4-a0f7ef1737cc"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/delete/:company_id",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/company/delete/:company_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "company",
+                                "delete",
+                                ":company_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "company_id",
+                                    "value": "b2fc0f1a-8eb5-4c95-ae5c-bc34f88d79ba"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/changeactive/:company_id",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/company/changeactive/:company_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "company",
+                                "changeactive",
+                                ":company_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "company_id",
+                                    "value": "b2fc0f1a-8eb5-4c95-ae5c-bc34f88d79ba"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/:company_id",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/company/:company_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "company",
+                                ":company_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "company_id",
+                                    "value": "3f741e94-dbe6-4a45-99c4-a0f7ef1737cc"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/:company_id",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "\n    {\n    \"is_active\":true,\n    \"is_deleted\":false,\n    \"company_name\":\"demox\",\n    \"full_company_name\":\"demo fullx\"\n}\n"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/company/:company_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "company",
+                                ":company_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "company_id",
+                                    "value": "3f741e94-dbe6-4a45-99c4-a0f7ef1737cc"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": "{{baseUrl}}/company/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text"
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "\n    {\n    \"is_active\":true,\n            \"is_deleted\":false,\n            \"company_name\":\"demo\",\n            \"full_company_name\":\"demo full\"\n}\n"
+                        },
+                        "url": "{{baseUrl}}/company"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/check",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": "{{baseUrl}}/company/check"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "vehicle",
+            "item": [
+                {
+                    "name": "/check",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": "{{baseUrl}}/vehicle/check"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/sql/all/",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": "{{baseUrl}}/vehicle/sql/all/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/sql/:vehicle_id",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/vehicle/sql/:vehicle_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "vehicle",
+                                "sql",
+                                ":vehicle_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "vehicle_id",
+                                    "value": "3f741e94-dbe6-4a45-99c4-a0f7ef1737cc"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/delete/:vehicle_id",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/vehicle/delete/:vehicle_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "vehicle",
+                                "delete",
+                                ":vehicle_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "vehicle_id",
+                                    "value": "b2fc0f1a-8eb5-4c95-ae5c-bc34f88d79ba"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/changeactive/:vehicle_id",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/vehicle/changeactive/:vehicle_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "vehicle",
+                                "changeactive",
+                                ":vehicle_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "vehicle_id",
+                                    "value": "b2fc0f1a-8eb5-4c95-ae5c-bc34f88d79ba"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/:vehicle_id",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/vehicle/:vehicle_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "vehicle",
+                                ":vehicle_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "vehicle_id",
+                                    "value": "3f741e94-dbe6-4a45-99c4-a0f7ef1737cc"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/:vehicle_id",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "\n    {\n    \"is_active\":true,\n    \"is_deleted\":false,\n    \"vehicle_name\":\"demox\",\n    \"full_vehicle_name\":\"demo fullx\"\n}\n"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/vehicle/:vehicle_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "vehicle",
+                                ":vehicle_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "vehicle_id",
+                                    "value": "3f741e94-dbe6-4a45-99c4-a0f7ef1737cc"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": "{{baseUrl}}/vehicle/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text"
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "\n    {\n    \"is_active\":true,\n            \"is_deleted\":false,\n            \"vehicle_name\":\"demo\",\n            \"full_vehicle_name\":\"demo full\"\n}\n"
+                        },
+                        "url": "{{baseUrl}}/vehicle"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "media",
+            "item": [
+                {
+                    "name": "s3",
+                    "item": [
+                        {
+                            "name": "/s3/generatePutUrl",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "session",
+                                        "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                        "type": "text",
+                                        "disabled": true
+                                    },
+                                    {
+                                        "key": "_scid",
+                                        "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                        "type": "text",
+                                        "disabled": true
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "localhost:3344/media/s3/generatePutUrl?Key=dene/demo44&ContentType=text/plain",
+                                    "host": [
+                                        "localhost"
+                                    ],
+                                    "port": "3344",
+                                    "path": [
+                                        "media",
+                                        "s3",
+                                        "generatePutUrl"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "Key",
+                                            "value": "dene/demo44"
+                                        },
+                                        {
+                                            "key": "ContentType",
+                                            "value": "text/plain"
+                                        }
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "/s3/generateGetUrl",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "session",
+                                        "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                        "type": "text",
+                                        "disabled": true
+                                    },
+                                    {
+                                        "key": "_scid",
+                                        "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                        "type": "text",
+                                        "disabled": true
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "localhost:3344/media/s3/generateGetUrl?Key=dene/demo.png",
+                                    "host": [
+                                        "localhost"
+                                    ],
+                                    "port": "3344",
+                                    "path": [
+                                        "media",
+                                        "s3",
+                                        "generateGetUrl"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "Key",
+                                            "value": "dene/demo.png"
+                                        },
+                                        {
+                                            "key": "ContentType",
+                                            "value": "text/plain\t",
+                                            "disabled": true
+                                        }
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "s3putUrl",
+                            "request": {
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+                                        "key": "Content-Type",
+                                        "value": "text/plain",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "Key",
+                                            "contentType": "text/plain",
+                                            "type": "file",
+                                            "src": [
+                                                "/Users/cihankaya/Desktop/gasbroker/github/gasbroker-back-end/src/media/s3/tests3/a2.txt",
+                                                "/Users/cihankaya/Desktop/gasbroker/github/gasbroker-back-end/src/media/s3/tests3/a1.txt"
+                                            ],
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "ContentType",
+                                            "value": "text/plain",
+                                            "contentType": " ",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                "url": {
+                                    "raw": "https://gasbroker.s3.eu-central-1.amazonaws.com/dene/demo5?Content-Type=text%2Fplain&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA24VDWAGFXCDBF5E5%2F20210629%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210629T050834Z&X-Amz-Expires=900&X-Amz-Signature=f71eaccb8e2544785c29f29be259aef51dd5882615a408ab4356f72e1c604a39&X-Amz-SignedHeaders=host",
+                                    "protocol": "https",
+                                    "host": [
+                                        "gasbroker",
+                                        "s3",
+                                        "eu-central-1",
+                                        "amazonaws",
+                                        "com"
+                                    ],
+                                    "path": [
+                                        "dene",
+                                        "demo5"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "text%2Fplain"
+                                        },
+                                        {
+                                            "key": "X-Amz-Algorithm",
+                                            "value": "AWS4-HMAC-SHA256"
+                                        },
+                                        {
+                                            "key": "X-Amz-Credential",
+                                            "value": "AKIA24VDWAGFXCDBF5E5%2F20210629%2Feu-central-1%2Fs3%2Faws4_request"
+                                        },
+                                        {
+                                            "key": "X-Amz-Date",
+                                            "value": "20210629T050834Z"
+                                        },
+                                        {
+                                            "key": "X-Amz-Expires",
+                                            "value": "900"
+                                        },
+                                        {
+                                            "key": "X-Amz-Signature",
+                                            "value": "f71eaccb8e2544785c29f29be259aef51dd5882615a408ab4356f72e1c604a39"
+                                        },
+                                        {
+                                            "key": "X-Amz-SignedHeaders",
+                                            "value": "host"
+                                        }
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "/check",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": "{{baseUrl}}/media/check"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/sql/all/",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": "{{baseUrl}}/media/sql/all/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/sql/:media_id",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/media/sql/:media_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "media",
+                                "sql",
+                                ":media_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "media_id",
+                                    "value": "9c7f0d42-d333-4ce0-be0d-9aae104d6e3d"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/delete/:media_id",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/media/delete/:media_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "media",
+                                "delete",
+                                ":media_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "media_id",
+                                    "value": "9c7f0d42-d333-4ce0-be0d-9aae104d6e3d"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/changeactive/:media_id",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/media/changeactive/:media_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "media",
+                                "changeactive",
+                                ":media_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "media_id",
+                                    "value": "9c7f0d42-d333-4ce0-be0d-9aae104d6e3d"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/:media_id",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/media/:media_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "media",
+                                ":media_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "media_id",
+                                    "value": "9c7f0d42-d333-4ce0-be0d-9aae104d6e3d"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/:media_id",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "\n    {\n    \"is_active\":true,\n    \"is_deleted\":false,\n    \"title\":\"demox\"\n}\n"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/media/:media_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "media",
+                                ":media_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "media_id",
+                                    "value": "9c7f0d42-d333-4ce0-be0d-9aae104d6e3d"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": "{{baseUrl}}/media/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text"
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "\n    {\n            \"title\":\"demo\",\n            \"type\":\"demo\",\n            \"description\":\"demo\",\n            \"video_url\":\"demo\",\n            \"ref\":\"demo\",\n             \"ref_id\":{\"company_id\":\"23edwe-23wew3-wew3swe\"},\n            \"file\": {\"file1\":\"demo1\",\"file2\":\"demo2\"}\n}\n"
+                        },
+                        "url": "{{baseUrl}}/media"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "parameter",
+            "item": [
+                {
+                    "name": "/check",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": "{{baseUrl}}/parameter/check"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/sql/all/",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": "{{baseUrl}}/parameter/sql/all/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/sql/:parameter_id",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/parameter/sql/:parameter_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "parameter",
+                                "sql",
+                                ":parameter_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "parameter_id",
+                                    "value": "a84b0126-fab1-4ec8-8a4c-8e7aed5905c9"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/delete/:parameter_id",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/parameter/delete/:parameter_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "parameter",
+                                "delete",
+                                ":parameter_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "parameter_id",
+                                    "value": "a84b0126-fab1-4ec8-8a4c-8e7aed5905c9"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/changeactive/:parameter_id",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/parameter/changeactive/:parameter_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "parameter",
+                                "changeactive",
+                                ":parameter_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "parameter_id",
+                                    "value": "a84b0126-fab1-4ec8-8a4c-8e7aed5905c9"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/:parameter_id",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/parameter/:parameter_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "parameter",
+                                ":parameter_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "parameter_id",
+                                    "value": "a84b0126-fab1-4ec8-8a4c-8e7aed5905c9"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/:parameter_id",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\n            \"name\": \"demox\",\n            \"category\": \"demox\",\n            \"description\": \"demox\",\n            \"lang_id\": \"demox\",\n            \"char_value\": \"demox\",\n            \"int_value\": \"444\",\n            \"float_value\": 444,\n            \"bool_value\": false,\n            \"json_value\": {\n                \"x\": \"demo1xxx\",\n                \"y\": \"demo2xxx\"\n            } \n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/parameter/:parameter_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "parameter",
+                                ":parameter_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "parameter_id",
+                                    "value": "a84b0126-fab1-4ec8-8a4c-8e7aed5905c9"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text",
+                                "disabled": true
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "url": "{{baseUrl}}/parameter/"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text"
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "\n    {\n            \"name\":\"demo\",\n            \"category\":\"demo\",\n            \"description\":\"demo\",\n            \"lang_id\":\"demo\",\n            \"char_value\":\"demo\",\n            \"int_value\":3333,\n            \"float_value\":3333,\n            \"bool_value\":true,\n            \"json_value\": {\"x\":\"demo1\",\"y\":\"demo2\"}\n}\n"
+                        },
+                        "url": "{{baseUrl}}/parameter"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "auth",
+            "item": [
+                {
+                    "name": "roledemo",
+                    "item": [
+                        {
+                            "name": "Public Content",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "session",
+                                        "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "_scid",
+                                        "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": ""
+                                },
+                                "url": "{{baseUrl}}/api/test/all"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "User Content",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "session",
+                                        "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "_scid",
+                                        "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": []
+                                },
+                                "url": "{{baseUrl}}/api/test/user"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Moderator Content",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "session",
+                                        "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "_scid",
+                                        "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": []
+                                },
+                                "url": "{{baseUrl}}/api/test/mod"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Admin Content",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "session",
+                                        "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "_scid",
+                                        "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "x-access-token",
+                                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjIzOTQ5MTcxLCJleHAiOjE2MjQwMzU1NzF9.CdYVVhMp7600wqWhzm4XF4EOtfwhlYxpqYKyZw2dffA",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": []
+                                },
+                                "url": "{{baseUrl}}/api/test/admin"
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "signup",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text"
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\":\"sinan\",\n    \"email\":\"sinan@coskun.com\",\n    \"password\":\"123qwe\",\n    \"roles\": [\"admin\",\"user\"]\n}"
+                        },
+                        "url": "{{baseUrl}}/auth/signup"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "signin",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "session",
+                                "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                "type": "text"
+                            },
+                            {
+                                "key": "_scid",
+                                "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\":\"cihan\",\n    \"password\":\"123qwe\"\n}"
+                        },
+                        "url": "{{baseUrl}}/auth/signin"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "email-sms",
+            "item": [
+                {
+                    "name": "email",
+                    "item": [
+                        {
+                            "name": "/email/check",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "session",
+                                        "type": "text",
+                                        "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                        "disabled": true
+                                    },
+                                    {
+                                        "key": "_scid",
+                                        "type": "text",
+                                        "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                        "disabled": true
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": ""
+                                },
+                                "url": "{{baseUrl}}/api/email/check"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "/email/send",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "session",
+                                        "type": "text",
+                                        "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                        "disabled": true
+                                    },
+                                    {
+                                        "key": "_scid",
+                                        "type": "text",
+                                        "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                        "disabled": true
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"recipient\": \"cihankaya42@gmail.com\",\n    \"subject\": \"demo1\",\n    \"text\": \"this is test email 1.\",\n    \"html\": \"<b>Testing 1</b>\"\n}"
+                                },
+                                "url": "{{baseUrl}}/api/email/send"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "/email/send_batch",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "session",
+                                        "type": "text",
+                                        "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                        "disabled": true
+                                    },
+                                    {
+                                        "key": "_scid",
+                                        "type": "text",
+                                        "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                        "disabled": true
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "[\n{\n    \"recipient\": \"cihankaya42@gmail.com\",\n    \"subject\": \"demo4\",\n    \"text\": \"this is test email 1.\",\n    \"html\": \"<b>Testing 7</b>\"\n},\n{\n    \"recipient\": \"snncskn@msn.com\",\n    \"subject\": \"demo3\",\n    \"text\": \"this is test email3.\",\n    \"html\": \"<b>Testing 3 super kelkitli</b>\"\n}\n]"
+                                },
+                                "url": "{{baseUrl}}/api/email/send_batch"
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "sms",
+                    "item": [
+                        {
+                            "name": "/sms/check",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "session",
+                                        "type": "text",
+                                        "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                        "disabled": true
+                                    },
+                                    {
+                                        "key": "_scid",
+                                        "type": "text",
+                                        "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                        "disabled": true
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": ""
+                                },
+                                "url": "{{baseUrl}}/api/sms/check"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "/sms/send",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "session",
+                                        "type": "text",
+                                        "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                        "disabled": true
+                                    },
+                                    {
+                                        "key": "_scid",
+                                        "type": "text",
+                                        "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                        "disabled": true
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"recipient\": \"cihankaya42@gmail.com\",\n    \"subject\": \"demo1\",\n    \"text\": \"this is test email 1.\",\n    \"html\": \"<b>Testing 1</b>\"\n}"
+                                },
+                                "url": "{{baseUrl}}/api/sms/send"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "/sms/send_batch",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "session",
+                                        "type": "text",
+                                        "value": "s1:358:bq3UJl5Fe43C1BKwGNoUXqExNSFy26WyDODDv0jL",
+                                        "disabled": true
+                                    },
+                                    {
+                                        "key": "_scid",
+                                        "type": "text",
+                                        "value": "75f45c07-8aef-4cbd-b2b8-c3b816183b38",
+                                        "disabled": true
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "[\n{\n    \"recipient\": \"cihankaya42@gmail.com\",\n    \"subject\": \"demo1\",\n    \"text\": \"this is test email 1.\",\n    \"html\": \"<b>Testing 1</b>\"\n},\n{\n    \"recipient\": \"leadSinan@gmail.com\",\n    \"subject\": \"demo3\",\n    \"text\": \"this is test email3.\",\n    \"html\": \"<b>Testing 3</b>\"\n}\n]"
+                                },
+                                "url": "{{baseUrl}}/api/sms/send_batch"
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

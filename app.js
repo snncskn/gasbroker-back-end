@@ -16,7 +16,9 @@ const {
     addressRouter,
     productRouter,
     proposalRouter,
-    offerRouter
+    offerRouter,
+    process_group,
+    process_sub_group,
 } = require('./src/api.router')
 
 dotenv.config();
@@ -37,6 +39,8 @@ app.use('/address', addressRouter)
 app.use('/product', productRouter)
 app.use('/proposal', proposalRouter)
 app.use('/offer', offerRouter)
+app.use('/process_group', process_group)
+app.use('/process_sub_group', process_sub_group)
 
 
 //mail-sms

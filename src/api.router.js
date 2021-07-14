@@ -5,6 +5,7 @@ var vehicleRouter = require('./vehicle/router')
 var addressRouter = require('./address/router')
 var productRouter = require('./product/router')
 var proposalRouter = require('./proposal/router')
+var offerRouter = require('./proposal/offer/router')
 
 module.exports = {
     companyRouter,
@@ -14,4 +15,5 @@ module.exports = {
     addressRouter,
     productRouter,
     proposalRouter,
+    offerRouter
 };

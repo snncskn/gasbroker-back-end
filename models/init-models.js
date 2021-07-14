@@ -12,6 +12,10 @@ var _user_roles = require("./user_roles");
 var _vehicle = require("./vehicle");
 var _proposal = require("./proposal");
 var _proposal_offer = require("./proposal_offer");
+var _process = require("./process");
+var _process_group = require("./process_group");
+var _process_sub_group = require("./process_sub_group");
+
 
 function initModels(sequelize) {
   var address = _address(sequelize, DataTypes);
@@ -27,6 +31,10 @@ function initModels(sequelize) {
   var vehicle = _vehicle(sequelize, DataTypes);
   var proposal = _proposal(sequelize, DataTypes);
   var proposal_offer = _proposal_offer(sequelize, DataTypes);
+  var process = _process(sequelize, DataTypes);
+  var process_group = _process_group(sequelize, DataTypes);
+  var process_sub_group = _process_sub_group(sequelize, DataTypes);
+  
 
   return {
     address,
@@ -41,7 +49,10 @@ function initModels(sequelize) {
     user_roles,
     vehicle,
     proposal,
-    proposal_offer
+    proposal_offer,
+    process,
+    process_group,
+    process_sub_group
   };
 }
 module.exports = initModels;

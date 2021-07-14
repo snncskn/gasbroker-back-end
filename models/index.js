@@ -58,4 +58,12 @@ db.proposal.belongsTo(db.company, {  foreignKey: "company_id"});
 db.proposal_offer.belongsTo(db.proposal, {  foreignKey: "proposal_id"});
 db.proposal.hasMany(db.proposal_offer, {  foreignKey: "proposal_id"});
 
+
+db.process.belongsTo(db.process_group, { as: "group", foreignKey: "group_id"});
+db.process_group.hasMany(db.process, { as: "processes", foreignKey: "group_id"});
+db.process_sub_group.belongsTo(db.process_group, { as: "group", foreignKey: "group_id"});
+db.process_group.hasMany(db.process_sub_group, { as: "process_sub_groups", foreignKey: "group_id"});
+db.process.belongsTo(db.process_sub_group, { as: "group_sub", foreignKey: "group_sub_id"});
+db.process_sub_group.hasMany(db.process, { as: "processes", foreignKey: "group_sub_id"});
+  
 module.exports = db;
