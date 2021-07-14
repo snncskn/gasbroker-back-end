@@ -1,12 +1,12 @@
-const { proposal_offer } = require("../../../models");
+const { proposal_offer, company, product } = require("../../../models");
 
 const Data = proposal_offer;
 
 module.exports = {
   getAll: async (req, res) => {
     try {
-      const proposal_offer = await Data.findAll({});
-      res.status(200).jsonp({
+      const proposal_offer = await Data.findAll();
+      res.status(200).json({
         statusCode: 200,
         body: proposal_offer,
       });
@@ -15,7 +15,7 @@ module.exports = {
     }
   },
   getById: async (req, res) => {
-    const id = req.params.proposal_offer_id;
+    const id = req.params.offer_id;
     try {
       const proposal_offer = await Data.findOne({
         where: { id },
@@ -26,15 +26,14 @@ module.exports = {
         body: proposal_offer,
       });
     } catch (err) {
-      console.log(err);
       res.status(500).json({ error: err });
     }
   },
   getOffersByProposalId: async (req, res) => {
     const id = req.params.proposal_id;
     try {
-      const proposal_offer = await Data.findOne({
-        where: { id },
+      const proposal_offer = await Data.findAll({
+        where: { proposal_id : id },
       });
       res.status(200).json({
         statusCode: 200,
@@ -66,7 +65,7 @@ module.exports = {
     }
   },
   update: async (req, res) => {
-    const id = req.params.proposal_offer_id;
+    const id = req.params.offer_id;
     const { proposal_id, offer_date, payment_type, price, deal_status } =
       req.body;
 
@@ -91,7 +90,7 @@ module.exports = {
     }
   },
   delete: async (req, res) => {
-    const id = req.params.proposal_offer_id;
+    const id = req.params.offer_id;
 
     try {
       await Data.destroy({

@@ -69,6 +69,37 @@ module.exports = {
 
   },
 
+  reset: (req, res) => {
+
+      try {
+        
+        /*User.findOne({  where: { email: req.body.email } }).then(user => {
+            if (!user) {
+              return res.status(404).send({ error: "invalid User" });
+            }
+
+            user.password = bcrypt.hashSync(123456, 8);
+            user.save();
+
+            res.status(200).send({
+              error: null,
+              newPassword:123456,
+              message: "new password will send mail" 
+            });
+           
+
+          }).catch(err => {
+            res.status(500).send({ error: err.message });
+          });
+          */
+
+          res.status(200).send('Şifreniz mail adresinize gönderilecektir.');
+
+      } catch (error) {
+        res.status(500).send({ message: error });
+      }
+    },
+
   signin: (req, res) => {
   const params = {};
   const {

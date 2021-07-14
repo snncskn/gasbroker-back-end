@@ -19,6 +19,7 @@ module.exports = function (app) {
 
   app.post("/api/auth/user/update", controller.userupdate);
 
+  app.post("/api/auth/reset", controller.reset);
 };
 
 
