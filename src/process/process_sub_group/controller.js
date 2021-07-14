@@ -1,4 +1,4 @@
-const { process_sub_group, process_group } = require("../../models");
+const { process_sub_group, process_group } = require("../../../models");
 
 const Data = process_sub_group;
 

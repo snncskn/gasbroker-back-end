@@ -17,6 +17,7 @@ const {
     productRouter,
     proposalRouter,
     offerRouter,
+    processRouter,
     processGroupRouter,
     processSubGroupRouter,
 } = require('./src/api.router')
@@ -39,6 +40,7 @@ app.use('/address', addressRouter)
 app.use('/product', productRouter)
 app.use('/proposal', proposalRouter)
 app.use('/offer', offerRouter)
+app.use('/process', processRouter)
 app.use('/process-group', processGroupRouter)
 app.use('/process-sub-group', processSubGroupRouter)
 
@@ -67,7 +69,7 @@ if (process.env.NODE_ENV === 'docker') {
 }
 
 app.listen({ port }, async () => {
-    console.log('Server up on http://localhost:' + port)
-    await sequelize.authenticate()
+    console.log('Server up on http://localhost:' + port);
+    await sequelize.authenticate();
     console.log('Database Connected!')
 })

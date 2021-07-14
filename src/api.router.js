@@ -6,8 +6,9 @@ var addressRouter = require("./address/router");
 var productRouter = require("./product/router");
 var proposalRouter = require("./proposal/router");
 var offerRouter = require("./proposal/offer/router"); 
-var processGroupRouter = require("./process_group/router"); 
-var processSubGroupRouter = require("./process_sub_group/router"); 
+var processRouter = require("./process/router"); 
+var processGroupRouter = require("./process/process_group/router"); 
+var processSubGroupRouter = require("./process/process_sub_group/router"); 
 
 module.exports = {
   companyRouter,
@@ -18,6 +19,7 @@ module.exports = {
   productRouter,
   proposalRouter,
   offerRouter,
+  processRouter,
   processGroupRouter,
   processSubGroupRouter
 };

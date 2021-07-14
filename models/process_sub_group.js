@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('process_sub_group', {
     id: {
+      defaultValue: DataTypes.UUIDV4,
       type: DataTypes.UUID,
       allowNull: false,
       primaryKey: true
@@ -26,7 +27,11 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'process_sub_group',
     schema: 'public',
-    timestamps: false,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+    deletedAt: 'deleted_at',
+    paranoid: true,
+    timestamps: true,
     indexes: [
       {
         name: "process_sub_group_pk",
