@@ -6,7 +6,7 @@ module.exports = {
   getAll: async (req, res) => {
     try {
       const product = await Data.findAll();
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: product,
       });
@@ -20,7 +20,7 @@ module.exports = {
       const product = await Data.findOne({
         where: { id },
       });
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: product,
       });
@@ -29,15 +29,16 @@ module.exports = {
     }
   },
   create: async (req, res) => {
-    const { name, code } = req.body;
+    const { name, code, unit } = req.body;
 
     try {
       const product = await Data.create({
         name,
         code,
+        unit
       });
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: product,
       });
@@ -47,7 +48,7 @@ module.exports = {
   },
   update: async (req, res) => {
     const id = req.params.product_id;
-    const { name, code } = req.body;
+    const { name, code, unit } = req.body;
 
     try {
       const product = await Data.findOne({ where: { id } });
@@ -55,10 +56,11 @@ module.exports = {
       if (id) product.id = id;
       if (name) product.name = name;
       if (code) product.code = code;
+      if (code) product.unit = unit;
 
       await product.save();
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: product,
       });
@@ -76,7 +78,7 @@ module.exports = {
         },
       });
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: Data,
       });
