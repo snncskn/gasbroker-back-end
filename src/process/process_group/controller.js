@@ -1,4 +1,4 @@
-const { process_group } = require("../../../models");
+const { process_group, process_sub_group } = require("../../../models");
 
 const Data = process_group;
 
@@ -19,6 +19,7 @@ module.exports = {
     try {
       const item = await Data.findOne({
         where: { id },
+        include: [process_sub_group]
       });
       res.json({
         statusCode: 200,
