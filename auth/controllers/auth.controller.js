@@ -73,7 +73,7 @@ module.exports = {
 
       try {
         
-        /*User.findOne({  where: { email: req.body.email } }).then(user => {
+       User.findOne({  where: { email: req.body.email } }).then(user => {
             if (!user) {
               return res.status(404).send({ error: "invalid User" });
             }
@@ -86,14 +86,11 @@ module.exports = {
               newPassword:123456,
               message: "new password will send mail" 
             });
-           
 
           }).catch(err => {
             res.status(500).send({ error: err.message });
           });
-          */
-
-          res.status(200).send('Şifreniz mail adresinize gönderilecektir.');
+         
 
       } catch (error) {
         res.status(500).send({ message: error });
