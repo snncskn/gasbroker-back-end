@@ -56,7 +56,7 @@ module.exports = {
       if (id) product.id = id;
       if (name) product.name = name;
       if (code) product.code = code;
-      if (code) product.unit = unit;
+      if (unit) product.unit = unit;
 
       await product.save();
 
