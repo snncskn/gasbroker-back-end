@@ -1,22 +1,20 @@
- 
-const { user  } = require("../../models");
-
+const { user } = require("../../models");
 
 const bcrypt = require("bcryptjs");
 
 const Data = user;
 
 module.exports = {
-  allAccess = (req, res) => {
+  allAccess: async (req, res) => {
     res.send("Public Content.");
   },
-  userBoard = (req, res) => {
+  userBoard: async (req, res) => {
     res.send("User Content.");
   },
-  adminBoard = (req, res) => {
+  adminBoard: async (req, res) => {
     res.send("Admin Content.");
   },
-  moderatorBoard = (req, res) => {
+  moderatorBoard: async (req, res) => {
     res.send("Moderator Content.");
   },
   getAll: async (req, res) => {
@@ -34,7 +32,7 @@ module.exports = {
     const id = req.params.user_id;
     try {
       const user = await Data.findOne({
-        where: { id }
+        where: { id },
       });
       res.json({
         statusCode: 200,
@@ -45,22 +43,15 @@ module.exports = {
     }
   },
   create: async (req, res) => {
-    const {
-      name,
-      email,
-      username,
-      password,
-      website
-    } = req.body;
-    
+    const { name, email, username, password, website } = req.body;
+
     try {
       const user = await Data.create({
         name,
         email,
         username,
-         password: bcrypt.hashSync(password, 8),
-        website
-      
+        password: bcrypt.hashSync(password, 8),
+        website,
       });
 
       res.json({
@@ -73,26 +64,20 @@ module.exports = {
   },
   update: async (req, res) => {
     const id = req.params.user_id;
-    const {
-      name,
-      email,
-      username,
-      password,
-      website
-    } = req.body;
+    const { name, email, username, password, website } = req.body;
 
     password: bcrypt.hashSync(password, 8);
 
     try {
       const user = await Data.findOne({ where: { id } });
 
-      if (id) user.id = id; 
-      if (name) user.name = name; 
-      if (email) user.email = email; 
-      if (username) user.username = username; 
-      if (password) user.password = password; 
-      if (id) user.website = website; 
-   
+      if (id) user.id = id;
+      if (name) user.name = name;
+      if (email) user.email = email;
+      if (username) user.username = username;
+      if (password) user.password = password;
+      if (id) user.website = website;
+
       await user.save();
 
       res.json({

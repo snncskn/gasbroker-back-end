@@ -24,11 +24,11 @@ module.exports = function (app) {
   );
 
 
-router.put("/delete/:user_id", controller.delete);
-router.get("/:user_id", controller.getById);
-router.put("/:user_id", controller.update);
-router.get("/", controller.getAll);
-router.post("/", controller.create);
+app.put("/delete/:user_id", controller.delete);
+app.get("/:user_id", controller.getById);
+app.put("/:user_id", controller.update);
+app.get("/", controller.getAll);
+app.post("/", controller.create);
 
 };
   
