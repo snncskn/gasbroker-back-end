@@ -22,4 +22,13 @@ module.exports = function (app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.adminBoard
   );
+
+
+router.put("/delete/:user_id", controller.delete);
+router.get("/:user_id", controller.getById);
+router.put("/:user_id", controller.update);
+router.get("/", controller.getAll);
+router.post("/", controller.create);
+
 };
+  
