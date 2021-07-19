@@ -98,24 +98,22 @@ module.exports = {
 
     },
     delete: async (req, res) => {
-        const address_id = req.params.address_id
+        
+        const id = req.params.address_id;
 
         try {
-            const myaddress = await Data.findOne({ where: { address_id } })
-            myaddress.is_active = false
-            myaddress.is_deleted = true
+            await Data.destroy({
+                where: {
+                  id: id
+                }
+              });
 
-            await myaddress.save()
-
-            res.status(200).json({
+            res.json({
                 statusCode: 200,
-                body: myaddress
             })
         } catch (err) {
-            console.log(err)
             res.status(500).json({ error: err })
         }
-        next()
     },
     changeActiveStatus: async (req, res) => {
         const address_id = req.params.address_id
