@@ -31,12 +31,12 @@ module.exports = {
   getAllByMainId: async (req, res) => {
     const id = req.params.main_id;
     try {
-      const product = await Data.findAll({
+      const products = await Data.findAll({
         where: { main_id : id },
       });
       res.json({
         statusCode: 200,
-        body: product,
+        body: products,
       });
     } catch (err) {
       res.status(500).json({ error: err });
