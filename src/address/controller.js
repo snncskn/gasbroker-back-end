@@ -42,8 +42,8 @@ module.exports = {
         description,
         type,
         company_id,
-        lat,
-        long,
+        latitude:lat,
+        longitude:long,
       });
       res.json({
         statusCode: 200,
@@ -53,6 +53,7 @@ module.exports = {
       res.status(500).json({ error: err });
     }
   },
+
   update: async (req, res) => {
     const address_id = req.params.address_id;
     const { is_active, is_deleted, description, title, lat, long} = req.body;
