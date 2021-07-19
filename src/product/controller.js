@@ -28,6 +28,20 @@ module.exports = {
       res.status(500).json({ error: err });
     }
   },
+  getAllByMainId: async (req, res) => {
+    const id = req.params.main_id;
+    try {
+      const product = await Data.findAll({
+        where: { main_id : id },
+      });
+      res.json({
+        statusCode: 200,
+        body: product,
+      });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+  },
   create: async (req, res) => {
     const { name, code, unit, main_id } = req.body;
 
