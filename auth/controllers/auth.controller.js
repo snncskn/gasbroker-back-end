@@ -149,6 +149,7 @@ module.exports = {
             photoURL: 'assets/images/avatars/Abbott.jpg',
             email: user.email,
             settings: user.settings,
+            permissions : user.permissions
           }
           // roles: authorities,
 

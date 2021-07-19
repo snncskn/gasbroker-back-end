@@ -95,6 +95,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.JSON,
       allowNull: true
     },
+    permissions: {
+      type: DataTypes.JSON,
+      allowNull: true
+    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: true
