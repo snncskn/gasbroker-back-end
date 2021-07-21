@@ -4,6 +4,7 @@ var parameterRouter = require("./parameter/router");
 var vehicleRouter = require("./vehicle/router");
 var addressRouter = require("./address/router");
 var productRouter = require("./product/router");
+var productItemRouter = require("./product/product_item/router");
 var proposalRouter = require("./proposal/router");
 var offerRouter = require("./proposal/offer/router"); 
 var processRouter = require("./process/router"); 
@@ -17,6 +18,7 @@ module.exports = {
   vehicleRouter,
   addressRouter,
   productRouter,
+  productItemRouter,
   proposalRouter,
   offerRouter,
   processRouter,

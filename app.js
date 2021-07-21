@@ -15,6 +15,7 @@ const {
     vehicleRouter,
     addressRouter,
     productRouter,
+    productItemRouter,
     proposalRouter,
     offerRouter,
     processRouter,
@@ -38,6 +39,7 @@ app.use('/parameter', parameterRouter)
 app.use('/vehicle', vehicleRouter)
 app.use('/address', addressRouter)
 app.use('/product', productRouter)
+app.use('/product-item', productItemRouter)
 app.use('/proposal', proposalRouter)
 app.use('/offer', offerRouter)
 app.use('/process', processRouter)
