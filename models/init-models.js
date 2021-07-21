@@ -13,7 +13,9 @@ var _proposal_offer = require("./proposal_offer");
 var _process = require("./process");
 var _process_group = require("./process_group");
 var _process_sub_group = require("./process_sub_group");
-
+var _product = require("./product");
+var _product_item = require("./product_item");
+  
 
 function initModels(sequelize) {
   var address = _address(sequelize, DataTypes);
@@ -30,6 +32,9 @@ function initModels(sequelize) {
   var process = _process(sequelize, DataTypes);
   var process_group = _process_group(sequelize, DataTypes);
   var process_sub_group = _process_sub_group(sequelize, DataTypes);
+  var product = _product(sequelize, DataTypes);
+  var product_item = _product_item(sequelize, DataTypes);
+  
   
 
   return {
@@ -46,7 +51,9 @@ function initModels(sequelize) {
     proposal_offer,
     process,
     process_group,
-    process_sub_group
+    process_sub_group,
+    product,
+    product_item,
   };
 }
 module.exports = initModels;

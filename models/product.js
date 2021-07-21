@@ -19,10 +19,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    main_id: {
-      type: DataTypes.UUID,
-      allowNull: false,
-    },
   }, {
     sequelize,
     tableName: 'product',

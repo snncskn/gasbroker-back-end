@@ -1,76 +1,72 @@
-const { product, product_item } = require("../../models");
+const { product_item } = require("../../../models");
 
-const Data = product;
+const Data = product_item;
 
 module.exports = {
   getAll: async (req, res) => {
     try {
-      const product = await Data.findAll({ include : [product_item]});
+      const item = await Data.findAll();
       res.json({
         statusCode: 200,
-        body: product,
+        body: item,
       });
     } catch (err) {
       res.status(500).json({ error: err });
     }
   },
   getById: async (req, res) => {
-    const id = req.params.product_id;
+    const id = req.params.product_item_id;
     try {
-      const product = await Data.findOne({
-        where: { id },
-        include : [product_item]
+      const item = await Data.findOne({
+        where: { id }
       });
       res.json({
         statusCode: 200,
-        body: product,
+        body: item,
       });
     } catch (err) {
       res.status(500).json({ error: err });
     }
   },
   create: async (req, res) => {
-    const { name, code, unit } = req.body;
+    const { product_id, quantity } = req.body;
 
     try {
-      const product = await Data.create({
-        name,
-        code,
-        unit
+      const item = await Data.create({
+        product_id, quantity
       });
 
       res.json({
         statusCode: 200,
-        body: product,
+        body: item,
       });
     } catch (err) {
       res.status(500).json({ error: err });
     }
   },
   update: async (req, res) => {
-    const id = req.params.product_id;
-    const { name, code, unit } = req.body;
+    const id = req.params.product_item_id;
+    const { product_id, quantity } = req.body;
 
     try {
-      const product = await Data.findOne({ where: { id } });
+      const item = await Data.findOne({ where: { id } });
 
-      if (id) product.id = id;
-      if (name) product.name = name;
-      if (code) product.code = code;
-      if (unit) product.unit = unit;
+      if (id) item.id = id;
+      if (product_id) item.product_id = product_id;
+      if (quantity) item.quantity = quantity;
 
-      await product.save();
+      await item.save();
 
       res.json({
         statusCode: 200,
-        body: product,
+        body: item,
       });
     } catch (err) {
       res.status(500).json({ error: err });
     }
   },
   delete: async (req, res) => {
-    const id = req.params.product_id;
+    const id = req.params.product_item_id;
 
     try {
       await Data.destroy({
