@@ -65,13 +65,14 @@ module.exports = {
     };
 
     try {
-      const totalCount = await Data.count();
+      const totalSize = await Data.count();
       const vehicles = await Data.findAll(whereClause);
 
       res.json({
         statusCode: 200,
         body: vehicles,
-        totalCount: totalCount,
+        totalSize: totalSize,
+        totalPage: round(totalSize / Number(req.query.size))
       });
     } catch (err) {
       res.status(500).json({ error: err });
