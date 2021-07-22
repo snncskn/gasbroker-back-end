@@ -1,20 +1,37 @@
 const { process, process_group, process_sub_group } = require("../../models");
+const { round } = require("lodash");
 
 const Data = process;
 
 module.exports = {
-  getAll: async (req, res) => {
+  getAll: async (req, res, next) => {
+    let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
+    let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
+    let size = req.query.size == undefined ? 100 : req.query.size;
+    let page = req.query.page == undefined ? 0 : req.query.page;
+
+    let whereClause = {
+      limit: size,
+      offset: page,
+      order: [[by, type]],
+      include: [process_group, process_sub_group],
+    };
+
     try {
-      const process = await Data.findAll({
-        include: [process_group, process_sub_group],
-      });
+      const totalSize = await Data.count();
+      const processes = await Data.findAll(whereClause);
+
       res.json({
         statusCode: 200,
-        body: process,
+        body: processes,
+        totalSize: totalSize,
+        totalPage: round(Number(totalSize) / Number(size)),
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      res.status(500).json({ err });
     }
+
+    next();
   },
   getById: async (req, res) => {
     const id = req.params.process_id;

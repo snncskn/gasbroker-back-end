@@ -1,21 +1,50 @@
 const { proposal, proposal_offer, product, company } = require("../../models");
+const { round }  = require("lodash");
+const { Op } = require("sequelize");
 
 const Data = proposal;
 
+
 module.exports = {
-  getAll: async (req, res) => {
+  getAll: async (req, res, next) => {
+    let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
+    let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
+    let size = req.query.size == undefined ? 100 : req.query.size;
+    let page = req.query.page == undefined ? 0 : req.query.page;
+
+    let filter = req.query.filter;
+
+    let whereStr = {};
+
+    if (filter) {
+      whereStr = {
+        type: { [Op.like]: "%" + filter + "%" },
+      };
+    }
+
+    let whereClause = {
+      limit: size,
+      offset: page,
+      order: [[by, type]],
+      include: [proposal_offer, company, product],
+      where: whereStr,
+    };
+
     try {
-      const proposal = await Data.findAll({
-        include: [proposal_offer, company, product],
-      });
-      res.status(200).json({
+      const totalSize = await Data.count();
+      const proposal = await Data.findAll(whereClause);
+
+      res.json({
         statusCode: 200,
         body: proposal,
+        totalSize: totalSize,
+        totalPage: round(Number(totalSize) / Number(size)),
       });
     } catch (err) {
-      console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({ error: err.stack });
     }
+
+    next();
   },
   getById: async (req, res) => {
     const id = req.params.proposal_id;

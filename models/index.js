@@ -61,9 +61,10 @@ db.user.belongsToMany(db.role, {
   foreignKey: "userId",
   otherKey: "roleId",
 });
+
 db.address.belongsTo(db.company, { as: "company", foreignKey: "company_id" });
 db.company.hasMany(db.address, { as: "addresses", foreignKey: "company_id" });
-db.vehicle.belongsTo(db.company, { as: "company", foreignKey: "company_id" });
+db.vehicle.belongsTo(db.company, {  foreignKey: "company_id" });
 db.company.hasMany(db.vehicle, { as: "vehicles", foreignKey: "company_id" });
 db.user_roles.belongsTo(db.role, { as: "role", foreignKey: "roleId" });
 db.role.hasMany(db.user_roles, { as: "user_roles", foreignKey: "roleId" });

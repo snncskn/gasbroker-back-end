@@ -1,5 +1,6 @@
 const { vehicle, company } = require("../../models");
 const { Op } = require("sequelize");
+const { round } = require("lodash");
 
 const Data = vehicle;
 const Company = company;
@@ -48,6 +49,9 @@ module.exports = {
   getAll: async (req, res, next) => {
     let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
     let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
+    let size = req.query.size == undefined ? 100 : req.query.size;
+    let page = req.query.page == undefined ? 0 : req.query.page;
+
     let filter = req.query.filter;
 
     let whereStr = {};
@@ -57,11 +61,11 @@ module.exports = {
     }
 
     let whereClause = {
-      limit: req.query.size,
-      offset: req.query.page,
+      limit: size,
+      offset: page,
       order: [[by, type]],
       where: whereStr,
-      include: 'company',
+      include : [Company]
     };
 
     try {
@@ -72,7 +76,7 @@ module.exports = {
         statusCode: 200,
         body: vehicles,
         totalSize: totalSize,
-        totalPage: round(totalSize / Number(req.query.size))
+        totalPage: round(Number(totalSize) / Number(size)),
       });
     } catch (err) {
       res.status(500).json({ error: err });

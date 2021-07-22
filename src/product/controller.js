@@ -1,55 +1,54 @@
 const { product, product_item } = require("../../models");
 const { Op } = require("sequelize");
+const { round } = require("lodash");
 
 const Data = product;
 
 module.exports = {
   getAll: async (req, res, next) => {
-
     let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
     let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
+    let size = req.query.size == undefined ? 100 : req.query.size;
+    let page = req.query.page == undefined ? 0 : req.query.page;
+
     let filter = req.query.filter;
 
     let whereStr = {};
-
     if (filter) {
-      whereStr = 
-          { name: { [Op.like]: "%" + filter + "%" } 
-      };
+      whereStr = { name: { [Op.like]: "%" + filter + "%" } };
     }
 
     let whereClause = {
-      limit: req.query.size,
-      offset: req.query.page,
+      limit: size,
+      offset: page,
       order: [[by, type]],
       where: whereStr,
-      include : [product_item]
+      include: [product_item],
     };
 
     try {
-      const totalSize = await Data.count(); 
+      const totalSize = await Data.count();
       const products = await Data.findAll(whereClause);
 
       res.json({
         statusCode: 200,
         body: products,
         totalSize: totalSize,
-        totalPage: round(totalSize / Number(req.query.size))
+        totalPage: round(Number(totalSize) / Number(size)),
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      res.status(500).json({  err });
     }
 
     next();
-
-
   },
+
   getById: async (req, res) => {
     const id = req.params.product_id;
     try {
       const product = await Data.findOne({
         where: { id },
-        include : [product_item]
+        include: [product_item],
       });
       res.json({
         statusCode: 200,
@@ -66,7 +65,7 @@ module.exports = {
       const product = await Data.create({
         name,
         code,
-        unit
+        unit,
       });
 
       res.json({
