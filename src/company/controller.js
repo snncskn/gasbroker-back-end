@@ -54,40 +54,9 @@ module.exports = {
     next();
   },
   getAll: async (req, res, next) => {
-    const by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
-    const type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
+    let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
+    let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
     let filter = req.query.filter;
-
-    /*if (filter) {
-
-      let field, value;
-      
-      let criterias = [];
-      let filters = req.query.filter.split("|");
-      filters.forEach((el) => {
-        criterias.push(el);
-      });
-
-      criterias.forEach((el) => {
-        let ls = el.split(":");
-        let field = ls[0],
-          value = ls[1];
-        whereClause.push({ field: field, value: value });
-      });
-   
-      let ls = filter.split(":");
-      field = ls[0];
-      value = ls[1];
-     
-    }
-
-    let allFilters = {
-      limit: req.query.size,
-      offset: req.query.page,
-      order: [[by, type]],
-      where: { name : { [Op.like]: value }, full_name : { [Op.like]: value }  },
-    };
-    */
 
     let whereStr = {};
 
@@ -97,7 +66,7 @@ module.exports = {
           { name: { [Op.like]: "%" + filter + "%" } },
           { full_name: { [Op.like]: "%" + filter + "%" } },
         ],
-      }
+      };
     }
 
     let whereClause = {
@@ -108,16 +77,14 @@ module.exports = {
     };
 
     try {
-      
       const recordCount = await Data.count();
-      const mycompany = await Data.findAll(whereClause);
+      const companies = await Data.findAll(whereClause);
 
       res.status(200).json({
         statusCode: 200,
-        body: mycompany,
+        body: companies,
         recordCount: recordCount,
       });
-
     } catch (err) {
       console.log(err);
       res.status(500).json({ error: err });
