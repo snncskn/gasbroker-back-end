@@ -1,18 +1,47 @@
 const { product, product_item } = require("../../models");
+const { Op } = require("sequelize");
 
 const Data = product;
 
 module.exports = {
-  getAll: async (req, res) => {
+  getAll: async (req, res, next) => {
+
+    let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
+    let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
+    let filter = req.query.filter;
+
+    let whereStr = {};
+
+    if (filter) {
+      whereStr = 
+          { name: { [Op.like]: "%" + filter + "%" } 
+      };
+    }
+
+    let whereClause = {
+      limit: req.query.size,
+      offset: req.query.page,
+      order: [[by, type]],
+      where: whereStr,
+      include : [product_item]
+    };
+
     try {
-      const product = await Data.findAll({ include : [product_item]});
+      const totalCount = await Data.count(); 
+      const products = await Data.findAll(whereClause);
+
       res.json({
         statusCode: 200,
-        body: product,
+        body: products,
+        totalCount: totalCount,
       });
     } catch (err) {
       res.status(500).json({ error: err });
     }
+
+    next();
+
+
   },
   getById: async (req, res) => {
     const id = req.params.product_id;

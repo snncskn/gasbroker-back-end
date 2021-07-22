@@ -7,7 +7,7 @@ module.exports = {
   getAllBySql: async (req, res) => {
     try {
       const [data, meta] = await db.query("SELECT * FROM company");
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: data,
       });
@@ -31,7 +31,7 @@ module.exports = {
           type: QueryTypes.SELECT,
         }
       );
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: data,
       });
@@ -41,7 +41,7 @@ module.exports = {
     }
   },
   check: async (req, res, next) => {
-    res.status(200).json({
+    res.json({
       statusCode: 200,
       body: JSON.stringify(
         {
@@ -80,13 +80,12 @@ module.exports = {
       const totalCount = await Data.count();
       const companies = await Data.findAll(whereClause);
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: companies,
         totalCount: totalCount,
       });
     } catch (err) {
-      console.log(err);
       res.status(500).json({ error: err });
     }
 
@@ -99,7 +98,7 @@ module.exports = {
         where: { id },
         include: "addresses",
       });
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: mycompany,
       });
@@ -189,7 +188,7 @@ module.exports = {
         media,
       });
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: mycompany,
       });
@@ -279,7 +278,7 @@ module.exports = {
 
       await mycompany.save();
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: mycompany,
       });
@@ -298,7 +297,7 @@ module.exports = {
         },
       });
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
       });
     } catch (err) {
@@ -315,7 +314,7 @@ module.exports = {
 
       await mycompany.save();
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: mycompany,
       });
@@ -335,7 +334,7 @@ module.exports = {
         offset: page,
         where: { full_name: { [Op.like]: "" + filter + "" } },
       });
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: company,
       });
