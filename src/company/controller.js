@@ -53,7 +53,7 @@ module.exports = {
     });
     next();
   },
-  getAll: async (req, res, next) => {
+  getAll: async (req, res, next) => { 
     let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
     let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
     let filter = req.query.filter;
@@ -77,13 +77,13 @@ module.exports = {
     };
 
     try {
-      const recordCount = await Data.count();
+      const totalCount = await Data.count();
       const companies = await Data.findAll(whereClause);
 
       res.status(200).json({
         statusCode: 200,
         body: companies,
-        recordCount: recordCount,
+        totalCount: totalCount,
       });
     } catch (err) {
       console.log(err);
