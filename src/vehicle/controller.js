@@ -1,170 +1,176 @@
-const { vehicle, company } = require('../../models')
+const { vehicle, company } = require("../../models");
+const { Op } = require("sequelize");
 
 const Data = vehicle;
 const Company = company;
 
 module.exports = {
-    getAllBySql: async (req, res) => {
+  getAllBySql: async (req, res) => {
+    try {
+      const myvehicle = await Data.findAll({ include: "company" });
+      res.status(200).json({
+        statusCode: 200,
+        body: myvehicle,
+      });
+    } catch (err) {
+      console.log(err);
+      res.json({ error: err });
+    }
+  },
+  getByIdBySql: async (req, res) => {
+    const id = req.params.vehicle_id;
+    const parametre2 = 1;
+    try {
+      const myvehicle = await Data.findAll({ include: Company });
 
-        try {
-            const myvehicle = await Data.findAll({include: "company"});
-            res.status(200).json({
-                statusCode: 200,
-                body: myvehicle
-            })
-        } catch (err) {
-            console.log(err)
-            res.json({ error: err })
-        }
-    },
-    getByIdBySql: async (req, res) => {
-        const id = req.params.vehicle_id
-        const parametre2 = 1
-        try {
-            const myvehicle = await Data.findAll({include: Company});
+      res.status(200).json({
+        statusCode: 200,
+        body: myvehicle,
+      });
+    } catch (err) {
+      console.log(err);
+      res.json({ error: err });
+    }
+  },
+  check: async (req, res, next) => {
+    res.status(200).json({
+      statusCode: 200,
+      body: JSON.stringify(
+        {
+          message: "Welcome to gasbroker api",
+        },
+        null,
+        2
+      ),
+    });
+    next();
+  },
+  getAll: async (req, res, next) => {
+    let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
+    let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
+    let filter = req.query.filter;
 
-            res.status(200).json({
-                statusCode: 200,
-                body: myvehicle
-            })
-        } catch (err) {
-            console.log(err)
-            res.json({ error: err })
-        }
-    },
-    check: async (req, res, next) => {
-        res.status(200).json({
-            statusCode: 200,
-            body: JSON.stringify(
-                {
-                    message: "Welcome to gasbroker api"
-                },
-                null,
-                2
-            )
-        })
-        next()
-    },
-    getAll: async (req, res) => {
-        try {
-            const myvehicle = await Data.findAll({
-                include: "company",
-            })
-            res.status(200).json({
-                statusCode: 200,
-                body: myvehicle
-            })
-        } catch (err) {
-            console.log(err)
-            res.status(500).json({ error: err })
-        }
-    },
-    getByID: async (req, res) => {
-        const id = req.params.vehicle_id
-        try {
-            const myvehicle = await Data.findOne({
-                where: { id },
-                include: "company",
-            })
-            res.status(200).json({
-                statusCode: 200,
-                body: myvehicle
-            })
-        } catch (err) {
-            console.log(err)
-            res.status(500).json({ error: err })
-        }
-    },
-    create: async (req, res) => {
-        const {
-            company_id,
-            name,
-            type,
-            registered_date
-        } = req.body
+    let whereStr = {};
 
-         try {
+    if (filter) {
+      whereStr = { name: { [Op.like]: "%" + filter + "%" } };
+    }
 
-            const myvehicle = await Data.create({
-                company_id,
-                name,
-                type,
-                registered_date
+    let whereClause = {
+      limit: req.query.size,
+      offset: req.query.page,
+      order: [[by, type]],
+      where: whereStr,
+      include: 'company',
+    };
 
-            })
-            res.status(200).json({
-                statusCode: 200,
-                body: myvehicle
-            })
-        } catch (err) {
-            console.log(err)
-            res.status(500).json({ error: err })
-        }
-    },
-    update: async (req, res) => {
-        const id = req.params.vehicle_id
-        const {
-            company_id,
-            name,
-            type,
-            registered_date
-        } = req.body
-        try {
-            const myvehicle = await Data.findOne({ where: { id } })
-            if (name) myvehicle.name = name
-            if (id) myvehicle.id = id
-            if (company_id) myvehicle.company_id = company_id
-            if (type) myvehicle.type = type
-            if (registered_date) myvehicle.registered_date = registered_date
+    try {
+      const totalCount = await Data.count();
+      const vehicles = await Data.findAll(whereClause);
 
-            await myvehicle.save()
+      res.json({
+        statusCode: 200,
+        body: vehicles,
+        totalCount: totalCount,
+      });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
 
-            res.status(200).json({
-                statusCode: 200,
-                body: myvehicle
-            })
-        } catch (err) {
-            console.log(err)
-            res.status(500).json({ error: err })
-        }
+    next();
+  },
+  getByID: async (req, res) => {
+    const id = req.params.vehicle_id;
+    try {
+      const myvehicle = await Data.findOne({
+        where: { id },
+        include: "company",
+      });
+      res.status(200).json({
+        statusCode: 200,
+        body: myvehicle,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: err });
+    }
+  },
+  create: async (req, res) => {
+    const { company_id, name, type, registered_date } = req.body;
 
-    },
-    delete: async (req, res) => {
-        const id = req.params.vehicle_id
+    try {
+      const myvehicle = await Data.create({
+        company_id,
+        name,
+        type,
+        registered_date,
+      });
+      res.status(200).json({
+        statusCode: 200,
+        body: myvehicle,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: err });
+    }
+  },
+  update: async (req, res) => {
+    const id = req.params.vehicle_id;
+    const { company_id, name, type, registered_date } = req.body;
+    try {
+      const myvehicle = await Data.findOne({ where: { id } });
+      if (name) myvehicle.name = name;
+      if (id) myvehicle.id = id;
+      if (company_id) myvehicle.company_id = company_id;
+      if (type) myvehicle.type = type;
+      if (registered_date) myvehicle.registered_date = registered_date;
 
-        try {
-            await Data.destroy({
-                where: {
-                  id: id
-                }
-              });
+      await myvehicle.save();
 
-            res.status(200).json({
-                statusCode: 200,
-                body: Data
-            })
-        } catch (err) {
-            console.log(err)
-            res.status(500).json({ error: err })
-        }
-    },
-    changeActiveStatus: async (req, res) => {
-        const id = req.params.vehicle_id
+      res.status(200).json({
+        statusCode: 200,
+        body: myvehicle,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: err });
+    }
+  },
+  delete: async (req, res) => {
+    const id = req.params.vehicle_id;
 
-        try {
-            const myvehicle = await Data.findOne({ where: { id } })
-            myvehicle.is_active = !myvehicle.is_active
+    try {
+      await Data.destroy({
+        where: {
+          id: id,
+        },
+      });
 
-            await myvehicle.save()
+      res.status(200).json({
+        statusCode: 200,
+        body: Data,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: err });
+    }
+  },
+  changeActiveStatus: async (req, res) => {
+    const id = req.params.vehicle_id;
 
-            res.status(200).json({
-                statusCode: 200,
-                body: myvehicle
-            })
-        } catch (err) {
-            console.log(err)
-            res.status(500).json({ error: err })
-        }
+    try {
+      const myvehicle = await Data.findOne({ where: { id } });
+      myvehicle.is_active = !myvehicle.is_active;
 
-    },
-}
+      await myvehicle.save();
+
+      res.status(200).json({
+        statusCode: 200,
+        body: myvehicle,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: err });
+    }
+  },
+};

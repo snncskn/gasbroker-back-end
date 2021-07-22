@@ -1,5 +1,6 @@
 const { db, QueryTypes, company } = require("../../models");
 const { Op } = require("sequelize");
+const { round } = require("lodash");
 
 const Data = company;
 
@@ -77,13 +78,14 @@ module.exports = {
     };
 
     try {
-      const totalCount = await Data.count();
+      const totalSize = await Data.count();
       const companies = await Data.findAll(whereClause);
 
       res.json({
         statusCode: 200,
         body: companies,
-        totalCount: totalCount,
+        totalSize: totalSize,
+        totalPage: round(totalSize / Number(req.query.size))
       });
     } catch (err) {
       res.status(500).json({ error: err });
