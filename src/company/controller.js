@@ -57,8 +57,10 @@ module.exports = {
   getAll: async (req, res, next) => {
     let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
     let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
-    let size = req.query.size == undefined ? 100 : req.query.size;
-    let page = req.query.page == undefined ? 0 : req.query.page;
+    let size = Number(req.query.size == undefined ? 100 : req.query.size);
+    let page = Number(
+      req.query.page == undefined || "0" ? 0 : req.query.page
+    );
 
     let filter = req.query.filter;
 
@@ -73,9 +75,11 @@ module.exports = {
       };
     }
 
+   
+
     let whereClause = {
       limit: size,
-      offset: page,
+      offset: (page * size),
       order: [[by, type]],
       where: whereStr,
       include: "addresses",
