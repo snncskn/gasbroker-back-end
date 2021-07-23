@@ -29,11 +29,11 @@ module.exports = {
     }
   },
   create: async (req, res) => {
-    const { product_id, quantity } = req.body;
+    const { product_id, quantity,name,unit } = req.body;
 
     try {
       const item = await Data.create({
-        product_id, quantity
+        product_id, quantity,name,unit
       });
 
       res.json({
@@ -46,7 +46,7 @@ module.exports = {
   },
   update: async (req, res) => {
     const id = req.params.product_item_id;
-    const { product_id, quantity } = req.body;
+    const { product_id, quantity,name,unit } = req.body;
 
     try {
       const item = await Data.findOne({ where: { id } });
@@ -54,6 +54,8 @@ module.exports = {
       if (id) item.id = id;
       if (product_id) item.product_id = product_id;
       if (quantity) item.quantity = quantity;
+      if (name) item.name = name;
+      if (unit) item.unit = unit;
 
       await item.save();
 
