@@ -51,6 +51,30 @@ module.exports = {
 
 
   me: (req, res) => {
+
+
+          
+    User.findOne({  where: { email: req.body.email } }).then(user => {
+      if (!user) {
+        return res.status(404).send({ error: "invalid User" });
+      }
+      res.send({
+      statusCode: 200,
+      body:user
+      });
+
+    }).catch(err => {
+      res.status(500).send({ error: err.message });
+    });
+   
+
+    /*
+  username: req.body.username,
+    email: req.body.email,
+    name: req.body.name,
+    phonenumber: req.body.mobilePhone,
+    settings: req.body.settings,
+  
     res.status(200).send({
       error: null,
       access_token: 'asdasdasd',
@@ -67,7 +91,7 @@ module.exports = {
       photoURL: 'assets/images/avatars/male-02.jpg',
     
     });
-  
+  */
 
   },
 
@@ -138,12 +162,14 @@ module.exports = {
       //   for (let i = 0; i < roles.length; i++) {
       //     authorities.push("ROLE_" + roles[i].name.toUpperCase());
       //   }
-     res.status(200).send({
+     res.send({
+       statusCode: 200,
         error: null,
         access_token: token,
         user: {
           id: user.id,
           uuid: user.user_id,
+          company_id : user.company_id,
           role: 'admin',
           data: {
             username: user.username,
