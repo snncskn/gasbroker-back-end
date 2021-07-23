@@ -79,7 +79,7 @@ module.exports = {
     }
   },
   create: async (req, res) => {
-    const { name, email, username, password, website, companyId } = req.body;
+    const { name, email, username, password, website, company_id } = req.body;
 
     try {
       const user = await Data.create({
@@ -88,7 +88,7 @@ module.exports = {
         username,
         password: bcrypt.hashSync(password, 8),
         website,
-        company_id:companyId,
+        company_id
       });
 
       res.json({
@@ -101,7 +101,7 @@ module.exports = {
   },
   update: async (req, res) => {
     const id = req.params.user_id;
-    const { name, email, username, website, companyId, permissions } = req.body;
+    const { name, email, username, website, company_id, permissions } = req.body;
 
     try {
       const user = await Data.findOne({ where: { id } });
@@ -111,7 +111,7 @@ module.exports = {
       if (email) user.email = email;
       if (username) user.username = username;
       if (id) user.website = website;
-      if (companyId) user.company_id = companyId;
+      if (company_id) user.company_id = company_id;
       if(permissions) user.permissions = JSON.stringify(permissions);
 
       await user.save();
