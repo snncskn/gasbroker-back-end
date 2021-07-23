@@ -169,11 +169,11 @@ module.exports = {
         user: {
           id: user.id,
           uuid: user.user_id,
-          company_id : user.company_id,
           role: 'admin',
           data: {
             username: user.username,
             displayName: 'cihan kaya',
+            company_id : user.company_id,
             photoURL: 'assets/images/avatars/Abbott.jpg',
             email: user.email,
             settings: user.settings,
