@@ -112,7 +112,7 @@ module.exports = {
       if (username) user.username = username;
       if (id) user.website = website;
       if (company_id) user.company_id = company_id;
-      if(permissions) user.permissions = JSON.stringify(permissions);
+      if(permissions) user.permissions = permissions;
 
       await user.save();
 
