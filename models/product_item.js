@@ -19,13 +19,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DECIMAL,
       allowNull: false
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     unit: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: true
     },
     created_at: {
       type: DataTypes.DATE,

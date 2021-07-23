@@ -17,6 +17,8 @@ module.exports = {
   User.create({
     username: req.body.username,
     email: req.body.email,
+    name: req.body.name,
+    phonenumber: req.body.mobilePhone,
     settings: req.body.settings,
     password: bcrypt.hashSync(req.body.pass, 8)
   })
@@ -52,7 +54,7 @@ module.exports = {
     res.status(200).send({
       error: null,
       access_token: 'asdasdasd',
-      email: 'sinan@navigroup.com',
+      email: 'power@navigroup.com',
       name: 'Sinan COŞKUN',
       userName: 'sinan.coskun',
       full_name: 'sinan coskun',

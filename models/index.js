@@ -86,6 +86,8 @@ db.process_sub_group.hasMany(db.process, { foreignKey: "group_sub_id" });
 
 db.product_item.belongsTo(db.product, { foreignKey: "product_id"});
 db.product.hasMany(db.product_item, {  foreignKey: "product_id"});
-  
+
+db.user.belongsTo(db.company, { foreignKey: "company_id"});
+db.company.hasMany(db.user, {  foreignKey: "company_id"});
 
 module.exports = db;

@@ -85,7 +85,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     company_id: {
       type: DataTypes.UUID,
-      allowNull: true
+      allowNull: true,
+      references: {
+        model: 'company',
+        key: 'id'
+      }
     },
     familyname: {
       type: DataTypes.STRING(100),
@@ -115,7 +119,11 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'user',
     schema: 'public',
-    timestamps: false,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+    deletedAt: 'deleted_at',
+    paranoid: true,
+    timestamps: true,
     indexes: [
       {
         name: "user_email_unique",

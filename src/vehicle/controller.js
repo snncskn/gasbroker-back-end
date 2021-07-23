@@ -116,7 +116,7 @@ module.exports = {
       });
     } catch (err) {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({ error: err.stack });
     }
   },
   update: async (req, res) => {

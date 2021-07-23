@@ -1,6 +1,8 @@
-const { user } = require("../../models");
+const { user, company } = require("../../models");
 
 const bcrypt = require("bcryptjs");
+const { round } = require("lodash");
+const { Op } = require("sequelize");
 
 const Data = user;
 
@@ -18,21 +20,55 @@ module.exports = {
     res.send("Moderator Content.");
   },
   getAll: async (req, res) => {
+    let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
+    let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
+    let size = req.query.size == undefined ? 100 : req.query.size;
+    let page = req.query.page == undefined ? 0 : req.query.page;
+
+    let filter = req.query.filter;
+
+    let whereStr = {};
+
+    if (filter) {
+      whereStr = {
+        [Op.or]: [
+          { name: { [Op.like]: "%" + filter + "%" } },
+          { username: { [Op.like]: "%" + filter + "%" } },
+          { email: { [Op.like]: "%" + filter + "%" } },
+        ],
+      };
+    }
+
+    let whereClause = {
+      limit: size,
+      offset: page,
+      order: [[by, type]],
+      where: whereStr,
+      include:[company]
+    };
+
     try {
-      const user = await Data.findAll();
+      const totalSize = await Data.count();
+      const users = await Data.findAll(whereClause);
+
       res.json({
         statusCode: 200,
-        body: user,
+        body: users,
+        totalSize: totalSize,
+        totalPage: round(Number(totalSize) / Number(size)),
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      res.status(500).json({ error: err.stack });
     }
+
+    
   },
   getById: async (req, res) => {
     const id = req.params.user_id;
     try {
       const user = await Data.findOne({
         where: { id },
+        include:[company]
       });
       res.json({
         statusCode: 200,
@@ -43,7 +79,7 @@ module.exports = {
     }
   },
   create: async (req, res) => {
-    const { name, email, username, password, website } = req.body;
+    const { name, email, username, password, website, company_id } = req.body;
 
     try {
       const user = await Data.create({
@@ -52,6 +88,7 @@ module.exports = {
         username,
         password: bcrypt.hashSync(password, 8),
         website,
+        company_id
       });
 
       res.json({
@@ -64,9 +101,7 @@ module.exports = {
   },
   update: async (req, res) => {
     const id = req.params.user_id;
-    const { name, email, username, password, website } = req.body;
-
-    password: bcrypt.hashSync(password, 8);
+    const { name, email, username, website, company_id, permissions } = req.body;
 
     try {
       const user = await Data.findOne({ where: { id } });
@@ -75,8 +110,9 @@ module.exports = {
       if (name) user.name = name;
       if (email) user.email = email;
       if (username) user.username = username;
-      if (password) user.password = password;
       if (id) user.website = website;
+      if (company_id) user.company_id = company_id;
+      if(permissions) user.permissions = JSON.stringify(permissions);
 
       await user.save();
 

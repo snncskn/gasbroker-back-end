@@ -14,7 +14,8 @@ module.exports = function (sequelize, DataTypes) {
     },
     name: {
       type: DataTypes.STRING(250),
-      allowNull: false
+      allowNull: false,
+      unique: "company_un"
     },
     full_name: {
       type: DataTypes.STRING(250),
@@ -143,6 +144,13 @@ module.exports = function (sequelize, DataTypes) {
         unique: true,
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "company_un",
+        unique: true,
+        fields: [
+          { name: "name" },
         ]
       },
     ]
