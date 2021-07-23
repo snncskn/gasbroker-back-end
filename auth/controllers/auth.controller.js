@@ -53,7 +53,7 @@ module.exports = {
   me: (req, res) => {
 
 
-          
+      /*      
     User.findOne({  where: { email: req.body.email } }).then(user => {
       if (!user) {
         return res.status(404).send({ error: "invalid User" });
@@ -68,13 +68,13 @@ module.exports = {
     });
    
 
-    /*
+  
   username: req.body.username,
     email: req.body.email,
     name: req.body.name,
     phonenumber: req.body.mobilePhone,
     settings: req.body.settings,
-  
+  */
     res.status(200).send({
       error: null,
       access_token: 'asdasdasd',
@@ -91,7 +91,7 @@ module.exports = {
       photoURL: 'assets/images/avatars/male-02.jpg',
     
     });
-  */
+  
 
   },
 
