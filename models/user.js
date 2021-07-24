@@ -114,6 +114,10 @@ module.exports = function(sequelize, DataTypes) {
     deleted_at: {
       type: DataTypes.DATE,
       allowNull: true
+    },
+    active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true
     }
   }, {
     sequelize,

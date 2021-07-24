@@ -128,6 +128,14 @@ module.exports = function (sequelize, DataTypes) {
     media: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true
+    },
+    tax_number: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    tax_office: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     sequelize,

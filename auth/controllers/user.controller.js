@@ -44,7 +44,7 @@ module.exports = {
       offset: page,
       order: [[by, type]],
       where: whereStr,
-      include:[company]
+      include: [company],
     };
 
     try {
@@ -60,15 +60,13 @@ module.exports = {
     } catch (err) {
       res.status(500).json({ error: err.stack });
     }
-
-    
   },
   getById: async (req, res) => {
     const id = req.params.user_id;
     try {
       const user = await Data.findOne({
         where: { id },
-        include:[company]
+        include: [company],
       });
       res.json({
         statusCode: 200,
@@ -88,7 +86,7 @@ module.exports = {
         username,
         password: bcrypt.hashSync(password, 8),
         website,
-        company_id
+        company_id,
       });
 
       res.json({
@@ -101,7 +99,8 @@ module.exports = {
   },
   update: async (req, res) => {
     const id = req.params.user_id;
-    const { name, email, username, website, company_id, permissions } = req.body;
+    const { name, email, username, website, company_id, permissions } =
+      req.body;
 
     try {
       const user = await Data.findOne({ where: { id } });
@@ -112,7 +111,7 @@ module.exports = {
       if (username) user.username = username;
       if (id) user.website = website;
       if (company_id) user.company_id = company_id;
-      if(permissions) user.permissions = permissions;
+      if (permissions) user.permissions = permissions;
 
       await user.save();
 
@@ -137,6 +136,22 @@ module.exports = {
       res.json({
         statusCode: 200,
         body: Data,
+      });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+  },
+  changeActive: async (req, res) => {
+    const id = req.params.user_id;
+
+    try {
+      const user = await Data.findOne({ where: { id } });
+      user.active = !user.active;
+
+      await user.save();
+
+      res.json({
+        statusCode: 200,
       });
     } catch (err) {
       res.status(500).json({ error: err });

@@ -3,9 +3,10 @@ var cors = require("cors");
 var logger = require('morgan');
 var dotenv = require('dotenv');
 var helmet = require('helmet')
-const { authJwt } = require("./auth/middleware");
+const { authJwt, emailMdw } = require("./auth/middleware");
 const emailRouter = require("./email/email.route");
 const smsRouter = require("./sms/sms.route");
+ 
 
 const { sequelize } = require('./models')
 const {
@@ -59,6 +60,7 @@ require('./auth/routes/user.routes')(app);
 // middleware
 // app.use(authJwt.setHeader)
  //app.use(authJwt.verifyToken)
+ //app.use(emailMdw.send);
 
 //helmet bu işlemi de yapıo
 //app.disable('x-powered-by'); // güvenlik gerekçesiyle server tipi gönderilmiyor

@@ -15,6 +15,8 @@ var _process_group = require("./process_group");
 var _process_sub_group = require("./process_sub_group");
 var _product = require("./product");
 var _product_item = require("./product_item");
+var _email = require("./email");
+var _menu = require("./menu");
   
 
 function initModels(sequelize) {
@@ -34,7 +36,8 @@ function initModels(sequelize) {
   var process_sub_group = _process_sub_group(sequelize, DataTypes);
   var product = _product(sequelize, DataTypes);
   var product_item = _product_item(sequelize, DataTypes);
-  
+  var email = _email(sequelize, DataTypes);
+  var menu = _menu(sequelize, DataTypes);
   
 
   return {
@@ -54,6 +57,8 @@ function initModels(sequelize) {
     process_sub_group,
     product,
     product_item,
+    email,
+    menu
   };
 }
 module.exports = initModels;

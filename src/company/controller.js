@@ -13,7 +13,6 @@ module.exports = {
         body: data,
       });
     } catch (err) {
-      console.log(err);
       res.json({ error: err });
     }
   },
@@ -37,7 +36,6 @@ module.exports = {
         body: data,
       });
     } catch (err) {
-      console.log(err);
       res.json({ error: err });
     }
   },
@@ -58,9 +56,7 @@ module.exports = {
     let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
     let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
     let size = Number(req.query.size == undefined ? 100 : req.query.size);
-    let page = Number(
-      req.query.page == undefined || "0" ? 0 : req.query.page
-    );
+    let page = Number(req.query.page == undefined || "0" ? 0 : req.query.page);
 
     let filter = req.query.filter;
 
@@ -75,11 +71,9 @@ module.exports = {
       };
     }
 
-   
-
     let whereClause = {
       limit: size,
-      offset: (page * size),
+      offset: page * size,
       order: [[by, type]],
       where: whereStr,
       include: "addresses",
@@ -113,7 +107,6 @@ module.exports = {
         body: mycompany,
       });
     } catch (err) {
-      console.log(err);
       res.status(500).json({ error: err });
     }
   },
@@ -155,7 +148,8 @@ module.exports = {
       process,
       types,
       media,
-      addresses,
+      tax_number,
+      tax_office
     } = req.body;
 
     try {
@@ -196,6 +190,8 @@ module.exports = {
         process,
         types,
         media,
+        tax_number,
+        tax_office
       });
 
       res.json({
@@ -203,7 +199,6 @@ module.exports = {
         body: mycompany,
       });
     } catch (err) {
-      console.log(err);
       res.status(500).json({ error: err });
     }
   },
@@ -246,6 +241,8 @@ module.exports = {
       process,
       types,
       media,
+      tax_number,
+      tax_office
     } = req.body;
     try {
       const mycompany = await Data.findOne({ where: { id } });
@@ -282,9 +279,11 @@ module.exports = {
       if (industry) mycompany.industry = industry;
       if (technology) mycompany.technology = technology;
       if (metarial) mycompany.metarial = metarial;
-      if (process) mycompany.process = proces;
+      if (process) mycompany.process = process;
       if (types) mycompany.types = types;
       if (media) mycompany.media = media;
+      if (tax_number) mycompany.tax_number = tax_number;
+      if (tax_office) mycompany.tax_office = tax_office;
 
       await mycompany.save();
 
@@ -293,7 +292,6 @@ module.exports = {
         body: mycompany,
       });
     } catch (err) {
-      console.log(err);
       res.status(500).json({ error: err });
     }
   },
@@ -311,7 +309,6 @@ module.exports = {
         statusCode: 200,
       });
     } catch (err) {
-      console.log(err);
       res.status(500).json({ error: err });
     }
   },
@@ -329,7 +326,6 @@ module.exports = {
         body: mycompany,
       });
     } catch (err) {
-      console.log(err);
       res.status(500).json({ error: err });
     }
   },
@@ -349,7 +345,6 @@ module.exports = {
         body: company,
       });
     } catch (err) {
-      console.log(err);
       res.status(500).json({ error: err });
     }
   },
