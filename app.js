@@ -25,7 +25,7 @@ const {
 } = require('./src/api.router')
 
 dotenv.config();
-const port = 8080
+const port = 8000
 
 const app = express()
 app.use(express.urlencoded({ extended: true }))
