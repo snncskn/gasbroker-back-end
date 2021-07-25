@@ -8,6 +8,6 @@ router.put("/:offer_id", controller.update);
 router.put("/delete/:offer_id", controller.delete);
 router.get("/:offer_id", controller.getById);
 router.get("/", controller.getAll);
-router.get("/proposal/:proposal_id", controller.getOffersByProposalId);
+router.get("/offers/:proposal_id", controller.getOffersByProposalId);
 
 module.exports = router;

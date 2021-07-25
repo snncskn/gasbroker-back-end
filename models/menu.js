@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    menu_id: {
+    menu_name: {
       type: DataTypes.STRING,
       allowNull: false
     },

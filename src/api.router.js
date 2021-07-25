@@ -10,6 +10,7 @@ var offerRouter = require("./proposal/offer/router");
 var processRouter = require("./process/router"); 
 var processGroupRouter = require("./process/process_group/router"); 
 var processSubGroupRouter = require("./process/process_sub_group/router"); 
+var menuRouter = require("./menu/router"); 
 
 module.exports = {
   companyRouter,
@@ -23,5 +24,6 @@ module.exports = {
   offerRouter,
   processRouter,
   processGroupRouter,
-  processSubGroupRouter
+  processSubGroupRouter,
+  menuRouter
 };

@@ -22,10 +22,11 @@ const {
     processRouter,
     processGroupRouter,
     processSubGroupRouter,
+    menuRouter,
 } = require('./src/api.router')
 
 dotenv.config();
-const port = 8000
+const port = process.env.PORT || 3300
 
 const app = express()
 app.use(express.urlencoded({ extended: true }))
@@ -46,6 +47,7 @@ app.use('/offer', offerRouter)
 app.use('/process', processRouter)
 app.use('/process-group', processGroupRouter)
 app.use('/process-sub-group', processSubGroupRouter)
+app.use('/menu', menuRouter)
 
 //mail-sms
 app.use("/api/email", emailRouter);
