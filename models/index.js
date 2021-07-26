@@ -90,4 +90,7 @@ db.product.hasMany(db.product_item, {  foreignKey: "product_id"});
 db.user.belongsTo(db.company, { foreignKey: "company_id"});
 db.company.hasMany(db.user, {  foreignKey: "company_id"});
 
+db.proposal_offer.belongsTo(db.company, { foreignKey: "company_id"});
+db.company.hasMany(db.proposal_offer, { foreignKey: "company_id"});
+
 module.exports = db;

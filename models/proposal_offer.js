@@ -31,6 +31,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
+    company_id: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'company',
+        key: 'id'
+      }
+    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: true

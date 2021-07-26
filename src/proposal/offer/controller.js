@@ -1,11 +1,13 @@
-const { proposal_offer } = require("../../../models");
+const { proposal_offer, company } = require("../../../models");
 const Data = proposal_offer;
 
 module.exports = {
   getAll: async (req, res) => {
     try {
-      const proposal_offer = await Data.findAll();
-      res.status(200).json({
+      const proposal_offer = await Data.findAll({
+        include: [{ model: company, attributes: ["id", "name"] }],
+      });
+      res.json({
         statusCode: 200,
         body: proposal_offer,
       });
@@ -17,9 +19,10 @@ module.exports = {
     const id = req.params.offer_id;
     try {
       const proposal_offer = await Data.findOne({
-        where: { id }
+        where: { id },
+        include: [{ model: company, attributes: ["id", "name"] }],
       });
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: proposal_offer,
       });
@@ -31,9 +34,10 @@ module.exports = {
     const id = req.params.proposal_id;
     try {
       const proposal_offer = await Data.findAll({
-        where: { proposal_id : id },
+        where: { proposal_id: id },
+        include: [{ model: company, attributes: ["id", "name"] }],
       });
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: proposal_offer,
       });
@@ -42,19 +46,26 @@ module.exports = {
     }
   },
   create: async (req, res) => {
-    const { proposal_id, offer_date, payment_type, price, deal_status } =
-      req.body;
+    const {
+      proposal_id,
+      company_id,
+      offer_date,
+      payment_type,
+      price,
+      deal_status,
+    } = req.body;
 
     try {
       const proposal_offer = await Data.create({
         proposal_id,
+        company_id,
         offer_date,
         payment_type,
         price,
         deal_status,
       });
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: proposal_offer,
       });
@@ -64,14 +75,21 @@ module.exports = {
   },
   update: async (req, res) => {
     const id = req.params.offer_id;
-    const { proposal_id, offer_date, payment_type, price, deal_status } =
-      req.body;
+    const {
+      proposal_id,
+      company_id,
+      offer_date,
+      payment_type,
+      price,
+      deal_status,
+    } = req.body;
 
     try {
       const proposal_offer = await Data.findOne({ where: { id } });
 
       if (id) proposal.id = id;
       if (id) proposal.proposal_id = proposal_id;
+      if (id) proposal.company_id = company_id;
       if (id) proposal.offer_date = offer_date;
       if (id) proposal.payment_type = payment_type;
       if (id) proposal.price = price;
@@ -79,7 +97,7 @@ module.exports = {
 
       await proposal_offer.save();
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: proposal_offer,
       });
@@ -97,7 +115,7 @@ module.exports = {
         },
       });
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: Data,
       });
