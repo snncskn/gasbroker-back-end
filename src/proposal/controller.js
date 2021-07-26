@@ -12,6 +12,7 @@ module.exports = {
     let size = req.query.size == undefined ? 100 : req.query.size;
     let page = req.query.page == undefined ? 0 : req.query.page;
 
+    console.log(req.headers["company_id"]);
     let filter = req.query.filter;
 
     let whereStr = {};

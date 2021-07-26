@@ -58,11 +58,12 @@ module.exports = {
     try {
       const proposal_offer = await Data.create({
         proposal_id,
-        company_id,
+        company_id:req.headers["company_id"],
         offer_date,
         payment_type,
         price,
         deal_status,
+        
       });
 
       res.json({
