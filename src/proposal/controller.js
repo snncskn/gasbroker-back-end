@@ -1,7 +1,6 @@
 const { proposal, proposal_offer, product, company } = require("../../models");
 const { round }  = require("lodash");
 const { Op } = require("sequelize");
-
 const Data = proposal;
 
 
@@ -12,7 +11,7 @@ module.exports = {
     let size = req.query.size == undefined ? 100 : req.query.size;
     let page = req.query.page == undefined ? 0 : req.query.page;
 
-    console.log(req.headers["company_id"]);
+  console.log(req.headers["user_id"]);
     let filter = req.query.filter;
 
     let whereStr = {};
