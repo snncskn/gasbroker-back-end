@@ -160,6 +160,7 @@ module.exports = {
               username: user.username,
               displayName: "cihan kaya",
               company_id: user.company_id,
+              user_id: user.user_id,
               photoURL: "assets/images/avatars/Abbott.jpg",
               email: user.email,
               settings: user.settings,
