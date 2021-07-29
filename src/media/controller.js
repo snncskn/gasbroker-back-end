@@ -36,7 +36,6 @@ module.exports = {
       .catch((err) => {
         res.status(500).json({ error: err });
       });
-
   },
   upload: async (req, res) => {
     await generatePutUrl(req.query.fileName, "text/plain")
@@ -54,9 +53,10 @@ module.exports = {
           },
         };
 
-        axios.put(putURL, file, options).then((res) => {
-
-               //write db 
+        axios
+          .put(putURL, file, options)
+          .then((res) => {
+            //write db
           })
           .catch((err) => {
             console.error(err);
@@ -151,7 +151,7 @@ module.exports = {
       res.status(500).json({ error: err });
     }
   },
-  delete: async (req, res) => {
+  delete: async (req, res, next) => {
     const id = req.params.media_id;
 
     try {
@@ -165,8 +165,7 @@ module.exports = {
         statusCode: 200,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
-    next();
   },
 };

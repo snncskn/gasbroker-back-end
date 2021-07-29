@@ -149,7 +149,7 @@ module.exports = {
       types,
       media,
       tax_number,
-      tax_office
+      tax_office,
     } = req.body;
 
     try {
@@ -191,7 +191,7 @@ module.exports = {
         types,
         media,
         tax_number,
-        tax_office
+        tax_office,
       });
 
       res.json({
@@ -242,7 +242,7 @@ module.exports = {
       types,
       media,
       tax_number,
-      tax_office
+      tax_office,
     } = req.body;
     try {
       const mycompany = await Data.findOne({ where: { id } });
@@ -295,7 +295,7 @@ module.exports = {
       res.status(500).json({ error: err });
     }
   },
-  delete: async (req, res) => {
+  delete: async (req, res, next) => {
     const id = req.params.company_id;
 
     try {
@@ -309,7 +309,7 @@ module.exports = {
         statusCode: 200,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
   changeActiveStatus: async (req, res) => {

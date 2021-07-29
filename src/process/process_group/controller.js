@@ -67,7 +67,7 @@ module.exports = {
       res.status(500).json({ error: err });
     }
   },
-  delete: async (req, res) => {
+  delete: async (req, res, next) => {
     const id = req.params.process_group_id;
 
     try {
@@ -82,7 +82,7 @@ module.exports = {
         body: Data,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
 };

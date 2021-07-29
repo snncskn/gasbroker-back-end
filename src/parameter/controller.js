@@ -12,7 +12,7 @@ module.exports = {
 
         try {
             const [data, meta] = await db.query("SELECT * FROM parameter");
-            res.status(200).json({
+            res.json({
                 statusCode: 200,
                 body: data
             })
@@ -38,7 +38,7 @@ module.exports = {
                         type: QueryTypes.SELECT
                     }
                 );
-            res.status(200).json({
+            res.json({
                 statusCode: 200,
                 body: data
             })
@@ -61,7 +61,7 @@ module.exports = {
                     }
                 );
             
-            res.status(200).json({
+            res.json({
                 statusCode: 200,
                 body: data
             })
@@ -71,7 +71,7 @@ module.exports = {
         }
     },
     check: async (req, res, next) => {
-        res.status(200).json({
+        res.json({
             statusCode: 200,
             body: JSON.stringify(
                 {
@@ -88,7 +88,7 @@ module.exports = {
     getAll: async (req, res) => {
         try {
             const myparameter = await Data.findAll()
-             res.status(200).json({
+             res.json({
                 statusCode: 200,
                 body: myparameter
             })
@@ -104,7 +104,7 @@ module.exports = {
                 where: { id },
                 // include: 'parameter',
             })
-            res.status(200).json({
+            res.json({
                 statusCode: 200,
                 body: myparameter
             })
@@ -120,7 +120,7 @@ module.exports = {
             const myparameter = await Data.findAll({
                 where: { category:id },
             })
-            res.status(200).json({
+            res.json({
                 statusCode: 200,
                 body: myparameter
             })
@@ -155,7 +155,7 @@ module.exports = {
                 bool_value,
                 json_value
             })
-            res.status(200).json({
+            res.json({
                 statusCode: 200,
                 body: myparameter
             })
@@ -190,7 +190,7 @@ module.exports = {
             if (json_value) myparameter.json_value = json_value
             await myparameter.save()
 
-            res.status(200).json({
+            res.json({
                 statusCode: 200,
                 body: myparameter
             })
@@ -211,7 +211,7 @@ module.exports = {
                 }
             });
 
-            res.status(200).json({
+            res.json({
                 statusCode: 200,
                 body: myparameter
             })
@@ -229,7 +229,7 @@ module.exports = {
 
             await myparameter.save()
 
-            res.status(200).json({
+            res.json({
                 statusCode: 200,
                 body: myparameter
             })

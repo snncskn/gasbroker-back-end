@@ -3,11 +3,11 @@ var cors = require("cors");
 var logger = require('morgan');
 var dotenv = require('dotenv');
 var helmet = require('helmet')
-const { authJwt, emailMdw } = require("./auth/middleware");
+const { authJwt, emailMdw ,errorHandler } = require("./auth/middleware");
+ 
 const emailRouter = require("./email/email.route");
 const smsRouter = require("./sms/sms.route");
  
-
 const { sequelize } = require('./models')
 const {
     companyRouter,
@@ -48,21 +48,22 @@ app.use('/process', processRouter)
 app.use('/process-group', processGroupRouter)
 app.use('/process-sub-group', processSubGroupRouter)
 app.use('/menu', menuRouter)
-
+ 
 //mail-sms
 app.use("/api/email", emailRouter);
 app.use("/api/sms", smsRouter);
-
 
 //auth
 // routes
 require('./auth/routes/auth.routes')(app);
 require('./auth/routes/user.routes')(app);
 
+ 
 // middleware
 // app.use(authJwt.setHeader)
  //app.use(authJwt.verifyToken)
- //app.use(emailMdw.send);
+//app.use(emailMdw.send);
+
 
 //helmet bu işlemi de yapıo
 //app.disable('x-powered-by'); // güvenlik gerekçesiyle server tipi gönderilmiyor
@@ -73,6 +74,8 @@ if (process.env.NODE_ENV === 'docker') {
         console.log('Drop and Resync Database with { force: true }');
     });
 }
+
+app.use(errorHandler);
 
 app.listen({ port }, async () => {
     console.log('Server up on http://localhost:' + port);

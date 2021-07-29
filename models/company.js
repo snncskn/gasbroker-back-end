@@ -144,8 +144,13 @@ module.exports = function (sequelize, DataTypes) {
     createdAt: 'created_at',
     updatedAt: 'updated_at',
     deletedAt: 'deleted_at',
-    paranoid: true,
+    paranoid: false,
     timestamps: true,
+    hooks: {
+      afterDestroy() {
+        console.log();
+      }
+    },
     indexes: [
       {
         name: "company_pkey",

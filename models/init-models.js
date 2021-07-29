@@ -17,7 +17,7 @@ var _product = require("./product");
 var _product_item = require("./product_item");
 var _email = require("./email");
 var _menu = require("./menu");
-  
+var _log = require("./log");  
 
 function initModels(sequelize) {
   var address = _address(sequelize, DataTypes);
@@ -38,7 +38,7 @@ function initModels(sequelize) {
   var product_item = _product_item(sequelize, DataTypes);
   var email = _email(sequelize, DataTypes);
   var menu = _menu(sequelize, DataTypes);
-  
+  var log = _log(sequelize, DataTypes);
 
   return {
     address,
@@ -58,7 +58,8 @@ function initModels(sequelize) {
     product,
     product_item,
     email,
-    menu
+    menu,
+    log
   };
 }
 module.exports = initModels;

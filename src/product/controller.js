@@ -37,7 +37,7 @@ module.exports = {
         totalPage: round(Number(totalSize) / Number(size)),
       });
     } catch (err) {
-      res.status(500).json({  err });
+      res.status(500).json({ err });
     }
 
     next();
@@ -98,7 +98,7 @@ module.exports = {
       res.status(500).json({ error: err });
     }
   },
-  delete: async (req, res) => {
+  delete: async (req, res, next) => {
     const id = req.params.product_id;
 
     try {
@@ -113,7 +113,7 @@ module.exports = {
         body: Data,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
 };

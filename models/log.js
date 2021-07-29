@@ -1,31 +1,31 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('product', {
+  return sequelize.define('log', {
     id: {
       type: DataTypes.UUID,
       allowNull: false,
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4
     },
-    name: {
-      type: DataTypes.STRING,
+    detail: {
+      type: DataTypes.JSON,
       allowNull: false
-    },
-    code: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    unit: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
+    }
   }, {
     sequelize,
-    tableName: 'product',
+    tableName: 'log',
     schema: 'public',
+    timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
-    paranoid: false,
-    timestamps: true,
+    indexes: [
+      {
+        name: "log_pk",
+        unique: true,
+        fields: [
+          { name: "id" },
+        ]
+      },
+    ]
   });
 };

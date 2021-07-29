@@ -23,7 +23,7 @@ module.exports = {
     }
 
     let whereClause = {
-      order: [[by, type]],
+    // order: [[by, type]],
       include: [proposal_offer, company, product],
     };
 
@@ -50,12 +50,11 @@ module.exports = {
         where: { id },
         include: [proposal_offer, company, product],
       });
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: proposal,
       });
     } catch (err) {
-      console.log(err);
       res.status(500).json({ error: err });
     }
   },
@@ -73,8 +72,6 @@ module.exports = {
       type,
       status,
     } = req.body;
-    console.log(req.body);
-
     try {
       const proposal = await Data.create({
         company_id,
@@ -90,7 +87,7 @@ module.exports = {
         status,
       });
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: proposal,
       });
@@ -130,7 +127,7 @@ module.exports = {
 
       await proposal.save();
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: proposal,
       });
@@ -148,7 +145,7 @@ module.exports = {
         },
       });
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: Data,
       });

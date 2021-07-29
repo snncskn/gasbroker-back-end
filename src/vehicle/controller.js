@@ -9,7 +9,7 @@ module.exports = {
   getAllBySql: async (req, res) => {
     try {
       const myvehicle = await Data.findAll({ include: "company" });
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: myvehicle,
       });
@@ -24,7 +24,7 @@ module.exports = {
     try {
       const myvehicle = await Data.findAll({ include: Company });
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: myvehicle,
       });
@@ -34,7 +34,7 @@ module.exports = {
     }
   },
   check: async (req, res, next) => {
-    res.status(200).json({
+    res.json({
       statusCode: 200,
       body: JSON.stringify(
         {
@@ -65,7 +65,7 @@ module.exports = {
       offset: page,
       order: [[by, type]],
       where: whereStr,
-      include : [Company]
+      include: [Company],
     };
 
     try {
@@ -91,7 +91,7 @@ module.exports = {
         where: { id },
         include: "company",
       });
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: myvehicle,
       });
@@ -110,7 +110,7 @@ module.exports = {
         type,
         registered_date,
       });
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: myvehicle,
       });
@@ -132,7 +132,7 @@ module.exports = {
 
       await myvehicle.save();
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: myvehicle,
       });
@@ -141,7 +141,7 @@ module.exports = {
       res.status(500).json({ error: err });
     }
   },
-  delete: async (req, res) => {
+  delete: async (req, res, next) => {
     const id = req.params.vehicle_id;
 
     try {
@@ -151,13 +151,12 @@ module.exports = {
         },
       });
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: Data,
       });
     } catch (err) {
-      console.log(err);
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
   changeActiveStatus: async (req, res) => {
@@ -169,7 +168,7 @@ module.exports = {
 
       await myvehicle.save();
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: myvehicle,
       });
