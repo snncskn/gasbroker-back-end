@@ -1,8 +1,9 @@
 const { proposal, proposal_offer, product, company } = require("../../models");
-const { round }  = require("lodash");
+const { round } = require("lodash");
 const { Op } = require("sequelize");
 const Data = proposal;
-
+const UserService = require("../../auth/user.service");
+const userService = new UserService();
 
 module.exports = {
   getAll: async (req, res, next) => {
@@ -11,12 +12,22 @@ module.exports = {
     let size = req.query.size == undefined ? 100 : req.query.size;
     let page = req.query.page == undefined ? 0 : req.query.page;
 
-  console.log(req.headers["user_id"]);
-    let filter = req.query.filter;
+    console.log(req.headers["user_id"]);
 
-    if (filter) {
-      whereStr = {
-        type: { [Op.like]: "%" + filter + "%" },
+    const company_id = await userService.userCompany(req.headers["user_id"]);
+
+    let filter = req.query.filter;
+     
+
+    let whereStr = { 
+       company_id: { [Op.eq]: company_id },
+    };
+  
+    if (filter !== '') {
+      whereStr.where = {
+        $or: [
+          {type: {$like: '%' + filter + '%'}}, 
+        ]
       };
     }
 
@@ -25,6 +36,7 @@ module.exports = {
       offset: page * size,
       order: [[by, type]],
       include: [proposal_offer, company, product],
+      where: whereStr
     };
 
     try {

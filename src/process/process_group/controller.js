@@ -1,25 +1,53 @@
 const { process_group, process_sub_group } = require("../../../models");
-
+const { round } = require("lodash");
 const Data = process_group;
 
 module.exports = {
-  getAll: async (req, res) => {
+  getAll: async (req, res, next) => {
+    let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
+    let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
+    let size = req.query.size == undefined ? 100 : req.query.size;
+    let page = req.query.page == undefined ? 0 : req.query.page;
+
+    let filter = req.query.filter;
+    let whereStr = {};
+
+    if (filter) {
+      whereStr = {
+        description: { [Op.like]: "%" + filter + "%" },
+      };
+    }
+
+    let whereClause = {
+      limit: size,
+      offset: page,
+      order: [[by, type]],
+      include: [process_sub_group],
+      where: whereStr,
+    };
+
     try {
-      const item = await Data.findAll();
+      const totalSize = await Data.count();
+      const items = await Data.findAll(whereClause);
+
       res.json({
         statusCode: 200,
-        body: item,
+        body: items,
+        totalSize: totalSize,
+        totalPage: round(Number(totalSize) / Number(size)),
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      res.status(500).json({ err });
     }
+
+    next();
   },
   getById: async (req, res) => {
     const id = req.params.process_group_id;
     try {
       const item = await Data.findOne({
         where: { id },
-        include: [process_sub_group]
+        include: [process_sub_group],
       });
       res.json({
         statusCode: 200,
