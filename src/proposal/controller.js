@@ -14,12 +14,6 @@ module.exports = {
   console.log(req.headers["user_id"]);
     let filter = req.query.filter;
 
-    let whereClause = {
-      limit: size,
-      offset: page * size,
-      order: [[by, type]]
-    };
-
     if (filter) {
       whereStr = {
         type: { [Op.like]: "%" + filter + "%" },
@@ -27,7 +21,9 @@ module.exports = {
     }
 
     let whereClause = {
-    // order: [[by, type]],
+      limit: size,
+      offset: page * size,
+      order: [[by, type]],
       include: [proposal_offer, company, product],
     };
 
