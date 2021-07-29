@@ -14,7 +14,11 @@ module.exports = {
   console.log(req.headers["user_id"]);
     let filter = req.query.filter;
 
-    let whereStr = {};
+    let whereClause = {
+      limit: size,
+      offset: page * size,
+      order: [[by, type]]
+    };
 
     if (filter) {
       whereStr = {
