@@ -49,6 +49,7 @@ function errorHandler(error, request, response, next) {
   switch (error.name) {
     case "SequelizeForeignKeyConstraintError":
       response.status(601);
+      errorResponse.statusCode = 601;
       break;
     default:
       response.status(500);
@@ -76,7 +77,7 @@ function errorHandler(error, request, response, next) {
        * Set a JSON formatted response body.
        * Response header: `Content-Type: `application/json`
        */
-      response.json({ message: errorResponse.body });
+      response.json({ message: errorResponse });
     },
     /**
      * Callback to run when none of the others are matched.
@@ -86,7 +87,7 @@ function errorHandler(error, request, response, next) {
        * Set a plain text response body.
        * Response header: `Content-Type: text/plain`
        */
-      response.type("text/plain").send(errorResponse.body);
+      response.type("text/plain").send(errorResponse);
     },
   });
 
