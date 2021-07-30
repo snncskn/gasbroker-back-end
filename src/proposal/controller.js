@@ -33,7 +33,7 @@ module.exports = {
 
     let whereClause = {
       limit: size,
-      offset: page * size,
+      offset: page,
       order: [[by, type]],
       include: [proposal_offer, company, product],
       where: whereStr
