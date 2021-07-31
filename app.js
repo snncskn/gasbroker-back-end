@@ -3,7 +3,7 @@ var cors = require("cors");
 var logger = require('morgan');
 var dotenv = require('dotenv');
 var helmet = require('helmet')
-const { authJwt, emailMdw ,errorHandler } = require("./auth/middleware");
+const { authJwt, emailMdw ,errorHandler, ware } = require("./auth/middleware");
  
 const emailRouter = require("./email/email.route");
 const smsRouter = require("./sms/sms.route");
@@ -20,6 +20,7 @@ const {
     proposalRouter,
     offerRouter,
     processRouter,
+    processItemRouter,
     processGroupRouter,
     processSubGroupRouter,
     menuRouter,
@@ -45,6 +46,7 @@ app.use('/product-item', productItemRouter)
 app.use('/proposal', proposalRouter)
 app.use('/offer', offerRouter)
 app.use('/process', processRouter)
+app.use('/process-item', processItemRouter)
 app.use('/process-group', processGroupRouter)
 app.use('/process-sub-group', processSubGroupRouter)
 app.use('/menu', menuRouter)
@@ -61,7 +63,7 @@ require('./auth/routes/user.routes')(app);
  
 // middleware
 // app.use(authJwt.setHeader)
- //app.use(authJwt.verifyToken)
+//app.use(authJwt.verifyToken)
 //app.use(emailMdw.send);
 
 
@@ -74,6 +76,7 @@ if (process.env.NODE_ENV === 'docker') {
         console.log('Drop and Resync Database with { force: true }');
     });
 }
+app.use(ware);
 
 app.use(errorHandler);
 

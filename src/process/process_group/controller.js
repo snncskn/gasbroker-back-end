@@ -1,6 +1,7 @@
 const { process_group, process_sub_group } = require("../../../models");
 const { round } = require("lodash");
 const Data = process_group;
+const { Op } = require("sequelize");
 
 module.exports = {
   getAll: async (req, res, next) => {
@@ -14,7 +15,7 @@ module.exports = {
 
     if (filter) {
       whereStr = {
-        description: { [Op.like]: "%" + filter + "%" },
+        process_date: { [Op.like]: "%" + filter + "%" },
       };
     }
 

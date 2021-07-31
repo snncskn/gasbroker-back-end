@@ -5,29 +5,69 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: DataTypes.UUIDV4,
       type: DataTypes.UUID,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      references: {
+        model: 'proposal',
+        key: 'id'
+      }
     },
-    group_id: {
+    proposal_id: {
       type: DataTypes.UUID,
       allowNull: false
     },
-    group_sub_id: {
+    voyage_code: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    vendor_id: {
       type: DataTypes.UUID,
-      allowNull: false
+      allowNull: true,
+      references: {
+        model: 'company',
+        key: 'id'
+      }
     },
-    process_date: {
-      type: DataTypes.DATE,
-      allowNull: false
+    recipient_id: {
+      type: DataTypes.UUID,
+      allowNull: true,
+      references: {
+        model: 'company',
+        key: 'id'
+      }
     },
-    address: {
-      type: DataTypes.STRING,
-      allowNull: false
+    broker_id: {
+      type: DataTypes.UUID,
+      allowNull: true,
+      references: {
+        model: 'company',
+        key: 'id'
+      }
     },
-    latitude: {
-      type: DataTypes.STRING,
-      allowNull: true
+    captain_id: {
+      type: DataTypes.UUID,
+      allowNull: true,
+      references: {
+        model: 'company',
+        key: 'id'
+      }
     },
-    longitude: {
+    agency_id: {
+      type: DataTypes.UUID,
+      allowNull: true,
+      references: {
+        model: 'company',
+        key: 'id'
+      }
+    },
+    loading_master_id: {
+      type: DataTypes.UUID,
+      allowNull: true,
+      references: {
+        model: 'company',
+        key: 'id'
+      }
+    },
+    descrition: {
       type: DataTypes.STRING,
       allowNull: true
     },

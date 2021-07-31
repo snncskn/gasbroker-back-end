@@ -13,11 +13,19 @@ module.exports = function(sequelize, DataTypes) {
     },
     company_id: {
       type: DataTypes.UUID,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'company',
+        key: 'id'
+      }
     },
     product_id: {
       type: DataTypes.UUID,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'product',
+        key: 'id'
+      }
     },
     last_offer_date: {
       type: DataTypes.DATE,

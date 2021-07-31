@@ -9,9 +9,9 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     user_id: {
-      defaultValue: DataTypes.UUIDV4,
       type: DataTypes.UUID,
-      allowNull: false
+      allowNull: false,
+      unique: "user_un"
     },
     name: {
       type: DataTypes.STRING(255),
@@ -141,6 +141,13 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "user_un",
+        unique: true,
+        fields: [
+          { name: "user_id" },
         ]
       },
       {

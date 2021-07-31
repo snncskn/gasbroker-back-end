@@ -125,10 +125,6 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true
     },
-    media: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: true
-    },
     tax_number: {
       type: DataTypes.STRING,
       allowNull: true
@@ -147,8 +143,8 @@ module.exports = function (sequelize, DataTypes) {
     paranoid: false,
     timestamps: true,
     hooks: {
-      afterDestroy() {
-        console.log();
+      beforeDestroy() {
+          
       }
     },
     indexes: [

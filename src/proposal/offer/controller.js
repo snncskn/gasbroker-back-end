@@ -53,6 +53,7 @@ module.exports = {
       payment_type,
       price,
       deal_status,
+      currency,
     } = req.body;
 
     try {
@@ -63,7 +64,7 @@ module.exports = {
         payment_type,
         price,
         deal_status,
-        
+        currency,
       });
 
       res.json({
@@ -82,6 +83,7 @@ module.exports = {
       offer_date,
       payment_type,
       price,
+      currency,
       deal_status,
     } = req.body;
 
@@ -89,12 +91,13 @@ module.exports = {
       const proposal_offer = await Data.findOne({ where: { id } });
 
       if (id) proposal.id = id;
-      if (id) proposal.proposal_id = proposal_id;
-      if (id) proposal.company_id = company_id;
-      if (id) proposal.offer_date = offer_date;
-      if (id) proposal.payment_type = payment_type;
-      if (id) proposal.price = price;
-      if (id) proposal.deal_status = deal_status;
+      if (proposal_id) proposal.proposal_id = proposal_id;
+      if (company_id) proposal.company_id = company_id;
+      if (offer_date) proposal.offer_date = offer_date;
+      if (payment_type) proposal.payment_type = payment_type;
+      if (price) proposal.price = price;
+      if (currency) proposal.currency = currency;
+      if (deal_status) proposal.deal_status = deal_status;
 
       await proposal_offer.save();
 

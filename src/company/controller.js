@@ -1,57 +1,11 @@
-const { db, QueryTypes, company } = require("../../models");
+const { company, address, media } = require("../../models");
 const { Op } = require("sequelize");
 const { round } = require("lodash");
 
 const Data = company;
 
 module.exports = {
-  getAllBySql: async (req, res) => {
-    try {
-      const [data, meta] = await db.query("SELECT * FROM company");
-      res.json({
-        statusCode: 200,
-        body: data,
-      });
-    } catch (err) {
-      res.json({ error: err });
-    }
-  },
-  // örnek olsun diye ikinci parametreyi de ekleyeceğim
-  getByIdBySql: async (req, res) => {
-    const company_id = req.params.company_id;
-    const parametre2 = 1;
-    try {
-      const [data, meta] = await db.query(
-        "SELECT * FROM company where id = :company_id and 1 = :parametre_adi",
-        {
-          replacements: {
-            company_id,
-            parametre_adi: parametre2,
-          },
-          type: QueryTypes.SELECT,
-        }
-      );
-      res.json({
-        statusCode: 200,
-        body: data,
-      });
-    } catch (err) {
-      res.json({ error: err });
-    }
-  },
-  check: async (req, res, next) => {
-    res.json({
-      statusCode: 200,
-      body: JSON.stringify(
-        {
-          message: "Welcome to gasbroker api",
-        },
-        null,
-        2
-      ),
-    });
-    next();
-  },
+  
   getAll: async (req, res, next) => {
     let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
     let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
@@ -76,7 +30,7 @@ module.exports = {
       offset: page * size,
       order: [[by, type]],
       where: whereStr,
-      include: "addresses",
+      include: [address, media], 
     };
 
     try {
@@ -100,7 +54,7 @@ module.exports = {
     try {
       const mycompany = await Data.findOne({
         where: { id },
-        include: "addresses",
+       include: [address, media], 
       });
       res.json({
         statusCode: 200,
@@ -147,7 +101,6 @@ module.exports = {
       metarial,
       process,
       types,
-      media,
       tax_number,
       tax_office,
     } = req.body;
@@ -189,7 +142,6 @@ module.exports = {
         metarial,
         process,
         types,
-        media,
         tax_number,
         tax_office,
       });
@@ -240,7 +192,6 @@ module.exports = {
       metarial,
       process,
       types,
-      media,
       tax_number,
       tax_office,
     } = req.body;
@@ -281,7 +232,6 @@ module.exports = {
       if (metarial) mycompany.metarial = metarial;
       if (process) mycompany.process = process;
       if (types) mycompany.types = types;
-      if (media) mycompany.media = media;
       if (tax_number) mycompany.tax_number = tax_number;
       if (tax_office) mycompany.tax_office = tax_office;
 
@@ -297,6 +247,7 @@ module.exports = {
   },
   delete: async (req, res, next) => {
     const id = req.params.company_id;
+    const item = await Data.findOne({ where: { id } });
 
     try {
       await Data.destroy({
@@ -308,6 +259,7 @@ module.exports = {
       res.json({
         statusCode: 200,
       });
+
     } catch (err) {
       next(err);
     }

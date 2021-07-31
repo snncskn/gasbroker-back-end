@@ -10,6 +10,14 @@ module.exports = function(sequelize, DataTypes) {
     detail: {
       type: DataTypes.JSON,
       allowNull: false
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: true
     }
   }, {
     sequelize,

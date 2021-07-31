@@ -17,7 +17,9 @@ var _product = require("./product");
 var _product_item = require("./product_item");
 var _email = require("./email");
 var _menu = require("./menu");
-var _log = require("./log");  
+var _log = require("./log");
+var _process = require("./process");
+var _process_item = require("./process_item");
 
 function initModels(sequelize) {
   var address = _address(sequelize, DataTypes);
@@ -32,6 +34,7 @@ function initModels(sequelize) {
   var proposal = _proposal(sequelize, DataTypes);
   var proposal_offer = _proposal_offer(sequelize, DataTypes);
   var process = _process(sequelize, DataTypes);
+  var process_item = _process_item(sequelize, DataTypes);
   var process_group = _process_group(sequelize, DataTypes);
   var process_sub_group = _process_sub_group(sequelize, DataTypes);
   var product = _product(sequelize, DataTypes);
@@ -53,6 +56,7 @@ function initModels(sequelize) {
     proposal,
     proposal_offer,
     process,
+    process_item,
     process_group,
     process_sub_group,
     product,

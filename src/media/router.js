@@ -9,9 +9,6 @@ router.put("/delete/:media_id", [authJwt.verifyToken, authJwt.isModeratorOrAdmin
 router.get("/:media_id", controller.getById);
 router.put("/:media_id", controller.update);
 router.get("/", [authJwt.verifyToken, authJwt.isAdmin], controller.getAll);
- 
-
-router.post("/upload", controller.upload);
-router.post("/download", controller.getFileUrl);
+router.post("/", controller.create); 
 
 module.exports = router;

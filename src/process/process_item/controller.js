@@ -1,9 +1,13 @@
-const { process, proposal, user } = require("../../models");
+const {
+  process_item,
+  process_group,
+  process_sub_group,
+} = require("../../../models");
 const { round } = require("lodash");
 const { Op } = require("sequelize");
 const moment = require("moment");
 
-const Data = process;
+const Data = process_item;
 
 module.exports = {
   getAll: async (req, res, next) => {
@@ -16,24 +20,28 @@ module.exports = {
     let whereStr = {};
 
     if (filter) {
-      whereStr = {};
+      whereStr = {
+        process_date: {
+          [Op.eq]: moment.date(filter, "dd.MM.yyyy"),
+        },
+      };
     }
 
     let whereClause = {
       limit: size,
       offset: page,
       order: [[by, type]],
-      //include: [proposal, user],
-      where: whereStr,
+      include: [process_group, process_sub_group],
+      // where: whereStr
     };
 
     try {
       const totalSize = await Data.count();
-      const processes = await Data.findAll(whereClause);
+      const process_item = await Data.findAll(whereClause);
 
       res.json({
         statusCode: 200,
-        body: processes,
+        body: process_item,
         totalSize: totalSize,
         totalPage: round(Number(totalSize) / Number(size)),
       });
@@ -44,15 +52,15 @@ module.exports = {
     next();
   },
   getById: async (req, res) => {
-    const id = req.params.process_id;
+    const id = req.params.process_item_id;
     try {
-      const process = await Data.findOne({
+      const process_item = await Data.findOne({
         where: { id },
-        //include: [process_group, process_sub_group],
+        include: [process_group, process_sub_group],
       });
       res.json({
         statusCode: 200,
-        body: process,
+        body: process_item,
       });
     } catch (err) {
       res.status(500).json({ error: err });
@@ -60,79 +68,70 @@ module.exports = {
   },
   create: async (req, res) => {
     const {
-      proposal_id,
-      voyage_code,
-      vendor_id,
-      recipient_id,
-      broker_id,
-      captain_id,
-      agency_id,
-      loading_master_id,
-      description,
+      process_id,
+      group_id,
+      group_sub_id,
+      process_date,
+      address,
+      latitude,
+      longitude,
     } = req.body;
 
     try {
-      const process = await Data.create({
-        proposal_id,
-        voyage_code,
-        vendor_id,
-        recipient_id,
-        broker_id,
-        captain_id,
-        agency_id,
-        loading_master_id,
-        description,
+      const process_item = await Data.create({
+        process_id,
+        group_id,
+        group_sub_id,
+        process_date,
+        address,
+        latitude,
+        longitude,
       });
 
       res.json({
         statusCode: 200,
-        body: process,
+        body: process_item,
       });
     } catch (err) {
       res.status(500).json({ error: err });
     }
   },
   update: async (req, res) => {
-    const id = req.params.process_id;
+    const id = req.params.process_item_id;
     const {
-      proposal_id,
-      voyage_code,
-      vendor_id,
-      recipient_id,
-      broker_id,
-      captain_id,
-      agency_id,
-      loading_master_id,
-      description,
+      process_id,
+      group_id,
+      group_sub_id,
+      process_date,
+      address,
+      latitude,
+      longitude,
     } = req.body;
 
     try {
-      const process = await Data.findOne({ where: { id } });
+      const process_item = await Data.findOne({ where: { id } });
 
-      if (id) process.id = id;
+      if (id) process_item.id = id;
+      if (process_id) process_item.process_id = process_id;
+      if (group_id) process_item.group_id = group_id;
+      if (group_sub_id) process_item.group_sub_id = group_sub_id;
+      if (process_date) process_item.process_date = process_date;
+      if (address) process_item.address = address;
+      if (latitude) process_item.latitude = latitude;
+      if (longitude) process_item.longitude = longitude;
 
-      if (proposal_id) process.proposal_id = proposal_id;
-      if (voyage_code) process.voyage_code = voyage_code;
-      if (vendor_id) process.vendor_id = vendor_id;
-      if (recipient_id) process.recipient_id = recipient_id;
-      if (broker_id) process.broker_id = broker_id;
-      if (captain_id) process.captain_id = captain_id;
-      if (agency_id) process.agency_id = agency_id;
-      if (loading_master_id) process.loading_master_id = loading_master_id;
-      if (description) process.description = description;
-
-      await process.save();
+      await process_item.save();
 
       res.json({
         statusCode: 200,
-        body: process,
+        body: process_item,
       });
     } catch (err) {
       res.status(500).json({ error: err });
     }
   },
   delete: async (req, res) => {
-    const id = req.params.process_id;
+    const id = req.params.process_item_id;
 
     try {
       await Data.destroy({

@@ -103,7 +103,7 @@ module.exports = {
       description,
       video_url,
       ref,
-      file,
+      path,
       ref_id,
     } = req.body;
 
@@ -116,7 +116,7 @@ module.exports = {
         description,
         video_url,
         ref,
-        file,
+        path,
         ref_id,
       });
       res.json({
@@ -129,7 +129,7 @@ module.exports = {
   },
   update: async (req, res) => {
     const id = req.params.media_id;
-    const { title, type, description, video_url, ref, file } = req.body;
+    const { title, type, description, video_url, ref, path } = req.body;
 
     try {
       const mymedia = await Data.findOne({ where: { id } });
@@ -139,7 +139,7 @@ module.exports = {
       if (description) mymedia.description = description;
       if (video_url) mymedia.video_url = video_url;
       if (ref) mymedia.ref = ref;
-      if (file) mymedia.file = file;
+      if (path) mymedia.path = path;
 
       await mymedia.save();
 

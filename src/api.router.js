@@ -8,6 +8,7 @@ var productItemRouter = require("./product/product_item/router");
 var proposalRouter = require("./proposal/router");
 var offerRouter = require("./proposal/offer/router"); 
 var processRouter = require("./process/router"); 
+var processItemRouter = require("./process/process_item/router"); 
 var processGroupRouter = require("./process/process_group/router"); 
 var processSubGroupRouter = require("./process/process_sub_group/router"); 
 var menuRouter = require("./menu/router"); 
@@ -23,6 +24,7 @@ module.exports = {
   proposalRouter,
   offerRouter,
   processRouter,
+  processItemRouter,
   processGroupRouter,
   processSubGroupRouter,
   menuRouter

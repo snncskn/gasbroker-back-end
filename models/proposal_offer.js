@@ -21,11 +21,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     payment_type: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     },
     price: {
       type: DataTypes.DECIMAL,
-      allowNull: true
+      allowNull: false
     },
     deal_status: {
       type: DataTypes.STRING,
@@ -38,6 +38,10 @@ module.exports = function(sequelize, DataTypes) {
         model: 'company',
         key: 'id'
       }
+    },
+    currency: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
     created_at: {
       type: DataTypes.DATE,
