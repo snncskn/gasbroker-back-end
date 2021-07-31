@@ -1,4 +1,10 @@
-const { process, proposal, user } = require("../../models");
+const {
+  process,
+  proposal,
+  user,
+  process_group,
+  process_sub_group,
+} = require("../../models");
 const { round } = require("lodash");
 const { Op } = require("sequelize");
 const moment = require("moment");
@@ -53,6 +59,21 @@ module.exports = {
       res.json({
         statusCode: 200,
         body: process,
+      });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+  },
+  getProcessesByProposalId: async (req, res) => {
+    const id = req.params.proposal_id;
+    try {
+      const processes = await Data.findOne({
+        where: { proposal: id },
+        include: [process_group, process_sub_group],
+      });
+      res.json({
+        statusCode: 200,
+        body: processes,
       });
     } catch (err) {
       res.status(500).json({ error: err });

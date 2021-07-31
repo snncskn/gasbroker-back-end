@@ -66,6 +66,21 @@ module.exports = {
       res.status(500).json({ error: err });
     }
   },
+  getItemsByProcessId: async (req, res) => {
+    const id = req.params.process_id;
+    try {
+      const items = await Data.findOne({
+        where: { process_id: id },
+        include: [process_group, process_sub_group],
+      });
+      res.json({
+        statusCode: 200,
+        body: items,
+      });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+  },
   create: async (req, res) => {
     const {
       process_id,

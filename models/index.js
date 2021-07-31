@@ -107,8 +107,9 @@ db.process.belongsTo(db.company, { as: "recipient", foreignKey: "recipient_id"})
 db.company.hasMany(db.process, { as: "recipient_processes", foreignKey: "recipient_id"});
 db.process.belongsTo(db.company, { as: "vendor", foreignKey: "vendor_id"});
 db.company.hasMany(db.process, { as: "vendor_processes", foreignKey: "vendor_id"});
-db.proposal.belongsTo(db.company, { as: "company", foreignKey: "company_id"});
-db.company.hasMany(db.proposal, { as: "proposals", foreignKey: "company_id"});
+
+db.proposal.belongsTo(db.company, { foreignKey: "company_id"});
+db.company.hasMany(db.proposal, { foreignKey: "company_id"});
 
 db.proposal.belongsTo(db.product, { foreignKey: "product_id"});
 db.product.hasMany(db.proposal, {  foreignKey: "product_id"});

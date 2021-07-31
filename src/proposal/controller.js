@@ -23,13 +23,14 @@ module.exports = {
        company_id: { [Op.eq]: company_id },
     };
   
-    if (filter !== '') {
+   /* if (filter !== '') {
       whereStr.where = {
         $or: [
           {type: {$like: '%' + filter + '%'}}, 
         ]
       };
     }
+    */
 
     let whereClause = {
       limit: size,

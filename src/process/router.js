@@ -7,5 +7,6 @@ router.get("/:process_id", controller.getById);
 router.put("/:process_id", controller.update);
 router.get("/", controller.getAll);
 router.post("/", controller.create);
+router.get("/processes/:proposal_id", controller.getProcessesByProposalId);
 
 module.exports = router;

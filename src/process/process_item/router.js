@@ -8,4 +8,6 @@ router.put("/:process_item_id", controller.update);
 router.get("/", controller.getAll);
 router.post("/", controller.create);
 
+router.get("/items/:process_id", controller.getItemsByProcessId);
+
 module.exports = router;
