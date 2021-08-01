@@ -1,7 +1,6 @@
 const { media } = require("../../models");
-
 const { axios } = require("axios");
-
+const sequelize = require("sequelize");
 const { generateGetUrl, generatePutUrl } = require("./s3/AWSPresigner");
 // Üstekiler sabit kalsın
 //Her model kullanımı için  ismi değiştirin (media)
@@ -94,6 +93,48 @@ module.exports = {
       res.status(500).json({ error: err });
     }
   },
+  getMediasByCompanyId: async (req, res) => {
+    const id = req.params.company_id;
+    try {
+      const medias = await Data.findOne({
+        where: { company_id: id },
+      });
+      res.json({
+        statusCode: 200,
+        body: medias,
+      });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+  },
+  getMediasByVehicleId: async (req, res) => {
+    const id = req.params.vehicle_id;
+    try {
+      const medias = await Data.findOne({
+        where: { vehicle_id: id },
+      });
+      res.json({
+        statusCode: 200,
+        body: medias,
+      });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+  },
+  getMediasByProductId: async (req, res) => {
+    const id = req.params.product_id;
+    try {
+      const medias = await Data.findOne({
+        where: { product_id: id },
+      });
+      res.json({
+        statusCode: 200,
+        body: medias,
+      });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+  },
   create: async (req, res) => {
     const {
       company_id,
@@ -105,6 +146,7 @@ module.exports = {
       ref,
       path,
       ref_id,
+      file_path
     } = req.body;
 
     try {
@@ -118,18 +160,22 @@ module.exports = {
         ref,
         path,
         ref_id,
+        file_path
       });
       res.json({
         statusCode: 200,
         body: mymedia,
       });
+
+      
+
     } catch (err) {
       res.status(500).json({ error: err });
     }
   },
   update: async (req, res) => {
     const id = req.params.media_id;
-    const { title, type, description, video_url, ref, path } = req.body;
+    const { title, type, description, video_url, ref, path, file_path} = req.body;
 
     try {
       const mymedia = await Data.findOne({ where: { id } });
@@ -140,6 +186,7 @@ module.exports = {
       if (video_url) mymedia.video_url = video_url;
       if (ref) mymedia.ref = ref;
       if (path) mymedia.path = path;
+      if (file_path) mymedia.file_path = file_path;
 
       await mymedia.save();
 

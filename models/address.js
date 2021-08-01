@@ -38,6 +38,13 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     sequelize,
+    validate: {
+      bothCoordsOrNone() {
+        if ((this.latitude === null) !== (this.longitude === null)) {
+          throw new Error('Either both latitude and longitude, or neither!');
+        }
+      },
+    },
     tableName: 'address',
     schema: 'public',
     createdAt: 'created_at',

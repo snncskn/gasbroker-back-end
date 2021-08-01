@@ -68,7 +68,7 @@ module.exports = {
     const id = req.params.proposal_id;
     try {
       const processes = await Data.findOne({
-        where: { proposal: id },
+        where: { proposal_id: id },
         include: [process_group, process_sub_group],
       });
       res.json({

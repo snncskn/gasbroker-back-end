@@ -33,6 +33,7 @@ function generateGetUrl(Key) {
                 reject(err);
             } else {
                 // If there is no errors we will send back the pre-signed GET URL
+                console.log(url);
                 resolve(url);
             }
         });

@@ -26,7 +26,7 @@ module.exports = {
         },
       };
     }
-
+    //let myDate = moment(req.body.date).format(“YYYY-MM-DD”);
     let whereClause = {
       limit: size,
       offset: page,

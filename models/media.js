@@ -54,6 +54,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.JSON,
       allowNull: true
     },
+    file_path: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true
+    },
     product_id: {
       type: DataTypes.UUID,
       allowNull: true

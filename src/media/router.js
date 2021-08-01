@@ -11,4 +11,8 @@ router.put("/:media_id", controller.update);
 router.get("/", [authJwt.verifyToken, authJwt.isAdmin], controller.getAll);
 router.post("/", controller.create); 
 
+router.get("/medias/:company_id", controller.getMediasByCompanyId);
+router.get("/medias/:vehicle_id", controller.getMediasByVehicleId);
+router.get("/medias/:product_id", controller.getMediasByProductId);
+
 module.exports = router;
