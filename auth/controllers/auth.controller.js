@@ -20,30 +20,13 @@ module.exports = {
       phonenumber: req.body.mobilePhone,
       settings: req.body.settings,
       password: bcrypt.hashSync(req.body.pass, 8),
+      permissions : req.body.permissions
     })
       .then((user) => {
-        if (req.body.roles) {
-          Role.findAll({
-            where: {
-              name: {
-                [Op.or]: req.body.roles,
-              },
-            },
-          }).then((roles) => {
-            user.setRoles(roles).then(() => {
-              res.send({ message: "User registered successfully!" });
-            });
-          });
-        } else {
-          // user role = 1
-          user.setRoles([1]).then(() => {
-            res.send({ message: "User registered successfully!" });
-          });
-        }
         res.send({ message: "User registered successfully!" });
       })
       .catch((err) => {
-        res.status(500).send({ message: err.message });
+        res.status(500).send({ message: err });
       });
   },
 
