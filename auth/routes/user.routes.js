@@ -26,6 +26,7 @@ module.exports = function (app) {
 app.get("/api/user", controller.getAll);
 app.put("/api/user/delete/:user_id", controller.delete);
 app.get("/api/user/:user_id", controller.getById);
+app.put("/api/user/settings/:user_id", controller.updateSettings);
 app.put("/api/user/:user_id", controller.update);
 app.post("/api/user/", controller.create);
 app.put("/api/change-active/:user_id", controller.changeActive);

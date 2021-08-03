@@ -67,7 +67,7 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    descrition: {
+    description: {
       type: DataTypes.STRING,
       allowNull: true
     },
