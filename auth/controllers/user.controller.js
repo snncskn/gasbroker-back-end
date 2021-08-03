@@ -129,12 +129,12 @@ module.exports = {
       req.body;
 
     try {
-      const user = await Data.findOne({ where: { id } });
+      const user = await Data.findOne({ where: { user_id: id } });
 
       if (id) user.id = id;
-      if (setting) user.setting = setting;
+      if (setting) user.settings = setting;
 
-      await user.save();
+      await user.update();
 
       res.json({
         statusCode: 200,
