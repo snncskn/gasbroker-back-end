@@ -123,6 +123,27 @@ module.exports = {
       res.status(500).json({ error: err });
     }
   },
+  updateSettings: async (req, res) => {
+    const id = req.params.user_id;
+    const { setting } =
+      req.body;
+
+    try {
+      const user = await Data.findOne({ where: { id } });
+
+      if (id) user.id = id;
+      if (setting) user.setting = setting;
+
+      await user.save();
+
+      res.json({
+        statusCode: 200,
+        body: user,
+      });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+  },
   delete: async (req, res) => {
     const id = req.params.user_id;
 
