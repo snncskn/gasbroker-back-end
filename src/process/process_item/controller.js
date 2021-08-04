@@ -69,7 +69,7 @@ module.exports = {
   getItemsByProcessId: async (req, res) => {
     const id = req.params.process_id;
     try {
-      const items = await Data.findOne({
+      const items = await Data.findAll({
         where: { process_id: id },
         include: [process_group, process_sub_group],
       });
