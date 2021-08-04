@@ -20,7 +20,7 @@ module.exports = {
       phonenumber: req.body.mobilePhone,
       settings: req.body.settings,
       password: bcrypt.hashSync(req.body.pass, 8),
-      permissions : req.body.permissions
+      permissions: req.body.permissions,
     })
       .then((user) => {
         res.send({ message: "User registered successfully!" });
@@ -31,43 +31,31 @@ module.exports = {
   },
 
   me: (req, res) => {
-    /*      p
-    User.findOne({  where: { email: req.body.email } }).then(user => {
-      if (!user) {
-        return res.status(404).send({ error: "invalid User" });
-      }
-      res.send({
-      statusCode: 200,
-      body:user
+
+    User.findOne({ where: { email: 'admin@navigroup.com' } })
+      .then((user) => {
+        if (!user) {
+          return res.status(404).send({ error: "invalid User" });
+        }
+        res.send({
+          statusCode: 200,
+          email: user.email,
+          name: user.name,
+          userName: user.username,
+          full_name: req.body.name,
+          birthday: "01.06.2021",
+          gender: "E",
+          id: user.id,
+          address: "test",
+          mobilePhone: user.phonenumber,
+          avatar: "assets/images/avatars/male-02.jpg",
+          photoURL: "assets/images/avatars/male-02.jpg",
+        });
+      })
+      .catch((err) => {
+        res.status(500).send({ error: err.message });
       });
 
-    }).catch(err => {
-      res.status(500).send({ error: err.message });
-    });
-   
-
-  
-  username: req.body.username,
-    email: req.body.email,
-    name: req.body.name,
-    phonenumber: req.body.mobilePhone,
-    settings: req.body.settings,
-  */
-    res.status(200).send({
-      error: null,
-      access_token: "asdasdasd",
-      email: "power@navigroup.com",
-      name: "Sinan COŞKUN",
-      userName: "sinan.coskun",
-      full_name: "sinan coskun",
-      birthday: "01.01.2020",
-      gender: "E",
-      id: 99,
-      address: "test",
-      mobilePhone: "05074606083",
-      avatar: "assets/images/avatars/male-02.jpg",
-      photoURL: "assets/images/avatars/male-02.jpg",
-    });
   },
 
   reset: (req, res) => {
@@ -141,7 +129,7 @@ module.exports = {
             role: "admin",
             data: {
               username: user.username,
-              displayName: "cihan kaya",
+              displayName: user.username,
               company_id: user.company_id,
               user_id: user.user_id,
               photoURL: "assets/images/avatars/Abbott.jpg",
@@ -194,8 +182,9 @@ module.exports = {
           //   for (let i = 0; i < roles.length; i++) {
           //     authorities.push("ROLE_" + roles[i].name.toUpperCase());
           //   }
-          res.status(200).send({
+          res.send({
             error: null,
+            statusCode: 200,
             access_token: newtoken,
             user: {
               id: user.id,
@@ -205,9 +194,8 @@ module.exports = {
                 username: user.username,
                 email: user.email,
                 settings: user.settings,
-                displayName: "cihan kaya",
+                displayName: user.username,
                 photoURL: "assets/images/avatars/Abbott.jpg",
-                email: "cihan@kaya.com",
               },
               // roles: authorities,
             },
@@ -241,12 +229,13 @@ module.exports = {
       User.findOne({ where: { id: decoded.id } })
         .then((myuser) => {
           if (email) myuser.email = email;
-          if (settings) myuser.settings = settings;
-          console.log(settings);
+          if (settings) myuser.settings = settings; 
 
           myuser.save();
-          res.status(200).send({
+
+          res.send({
             error: null,
+            statusCode: 200,
             access_token: token,
             user: {
               id: myuser.id,
@@ -254,7 +243,7 @@ module.exports = {
               role: "admin",
               data: {
                 username: myuser.username,
-                displayName: "cihan kaya",
+                displayName: myuser.username,
                 photoURL: "assets/images/avatars/Abbott.jpg",
                 email: myuser.email,
                 settings: myuser.settings,

@@ -134,7 +134,7 @@ module.exports = {
       if (id) user.id = id;
       if (setting) user.settings = setting;
 
-      await user.update();
+      await user.save();
 
       res.json({
         statusCode: 200,

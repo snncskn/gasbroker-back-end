@@ -1,7 +1,5 @@
 const {
   process,
-  proposal,
-  user,
   process_group,
   process_sub_group,
 } = require("../../models");
@@ -29,7 +27,6 @@ module.exports = {
       limit: size,
       offset: page,
       order: [[by, type]],
-      //include: [proposal, user],
       where: whereStr,
     };
 
@@ -54,7 +51,6 @@ module.exports = {
     try {
       const process = await Data.findOne({
         where: { id },
-        //include: [process_group, process_sub_group],
       });
       res.json({
         statusCode: 200,
@@ -69,7 +65,6 @@ module.exports = {
     try {
       const processes = await Data.findOne({
         where: { proposal_id: id },
-      //  include: [process_group, process_sub_group],
       });
       res.json({
         statusCode: 200,
