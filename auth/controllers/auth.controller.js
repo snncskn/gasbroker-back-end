@@ -1,5 +1,7 @@
 var dotenv = require("dotenv");
 const db = require("../../models");
+const { emailService } = require("../../email/dependency");
+
 const User = db.user;
 const Role = db.role;
 
@@ -7,6 +9,9 @@ const Op = db.Sequelize.Op;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const crypto = require('crypto');
+const randomBytesAsync = promisify(crypto.randomBytes);
+
 
 dotenv.config();
 
@@ -257,4 +262,53 @@ module.exports = {
         });
     });
   },
+
+  postForgot: (req, res, next) => {
+    const createRandomToken = randomBytesAsync(16)
+      .then(buf => buf.toString('hex'));
+
+    const setRandomToken = token =>
+      User
+        .findOne({
+          where: {
+            email: req.body.email
+          }
+        })
+        .then(user => {
+          if (!user) {
+            return res.status(400).send({ error: 'Account with that email address does not exist.' })
+          }
+
+
+          user.passwordResetToken = token
+          user.passwordResetExpires = Date.now() + 3600000
+          return user.save()
+        })
+
+    const sendForgotPasswordEmail = (user) => {
+      if (!user) return
+      const token = user.passwordResetToken;
+
+      const mailOptions = {
+        recipient: user.email,
+        from: process.env.EMAIL_DOMAIN || 'gasbroker.navi@gmail.com',
+        subject: 'Reset your password on Gas Broker',
+        text: `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n
+        Please click on the following link, or paste this into your browser to complete the process:\n\n
+        http://${req.headers.host}/reset/${token}\n\n
+        If you did not request this, please ignore this email and your password will remain unchanged.\n`
+      };
+      try {
+        let info = await emailService.send(mailOptions);
+        res.send({ message: "Reset password link sent successfully!" });
+      } catch (err) {
+        res.status(500).send({ message: err.message });
+      }
+    };
+
+    createRandomToken
+      .then(setRandomToken)
+      .then(sendForgotPasswordEmail)
+  }
+
 };
