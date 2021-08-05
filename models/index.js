@@ -135,4 +135,7 @@ db.company.hasMany(db.proposal, { foreignKey: "company_id"});
 db.proposal.belongsTo(db.product, { foreignKey: "product_id"});
 db.product.hasMany(db.proposal, {  foreignKey: "product_id"});
 
+db.company_approval.belongsTo(db.company, {   foreignKey: "company_id"});
+db.company.hasMany(db.company_approval, {  foreignKey: "company_id"});
+
 module.exports = db;

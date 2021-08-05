@@ -20,6 +20,7 @@ var _menu = require("./menu");
 var _log = require("./log");
 var _process = require("./process");
 var _process_item = require("./process_item");
+var _company_approval = require("./company_approval");
 
 function initModels(sequelize) {
   var address = _address(sequelize, DataTypes);
@@ -42,6 +43,7 @@ function initModels(sequelize) {
   var email = _email(sequelize, DataTypes);
   var menu = _menu(sequelize, DataTypes);
   var log = _log(sequelize, DataTypes);
+  var company_approval = _company_approval(sequelize, DataTypes);
 
   return {
     address,
@@ -63,7 +65,8 @@ function initModels(sequelize) {
     product_item,
     email,
     menu,
-    log
+    log,
+    company_approval
   };
 }
 module.exports = initModels;
