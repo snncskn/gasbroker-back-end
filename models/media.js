@@ -11,11 +11,19 @@ module.exports = function(sequelize, DataTypes) {
     company_id: {
       type: DataTypes.UUID,
       allowNull: true,
+      references: {
+        model: 'company',
+        key: 'id'
+      },
       unique: "media_company_unq"
     },
     user_id: {
       type: DataTypes.UUID,
       allowNull: true,
+      references: {
+        model: 'user',
+        key: 'user_id'
+      },
       unique: "media_user_unq"
     },
     title: {
@@ -38,12 +46,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(100),
       allowNull: true
     },
-    file: {
+    path: {
       type: DataTypes.JSON,
       allowNull: true
     },
     ref_id: {
       type: DataTypes.JSON,
+      allowNull: true
+    },
+    file_path: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true
     },
     product_id: {
@@ -53,16 +65,19 @@ module.exports = function(sequelize, DataTypes) {
     vehicle_id: {
       type: DataTypes.UUID,
       allowNull: true,
+      references: {
+        model: 'vehicle',
+        key: 'id'
+      },
       unique: "media_vehicle_unq"
-    }
+    },
   }, {
     sequelize,
     tableName: 'media',
     schema: 'public',
     createdAt: 'created_at',
     updatedAt: 'updated_at',
-    deletedAt: 'deleted_at',
-    paranoid: true,
+    paranoid: false,
     timestamps: true,
     indexes: [
       {

@@ -13,11 +13,13 @@ module.exports = function (app) {
   );
 
   app.post("/api/auth/signin", controller.signin);
+  app.post("/api/auth/me", controller.me);
 
   app.get("/api/auth/access-token", controller.accesstoken);
 
   app.post("/api/auth/user/update", controller.userupdate);
 
+  app.post("/api/auth/reset", controller.reset);
 };
 
 

@@ -14,15 +14,18 @@ module.exports = function(sequelize, DataTypes) {
     code: {
       type: DataTypes.STRING,
       allowNull: false
-    }
+    },
+    unit: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
   }, {
     sequelize,
     tableName: 'product',
     schema: 'public',
     createdAt: 'created_at',
     updatedAt: 'updated_at',
-    deletedAt: 'deleted_at',
-    paranoid: true,
+    paranoid: false,
     timestamps: true,
   });
 };

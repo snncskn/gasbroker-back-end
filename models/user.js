@@ -10,7 +10,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     user_id: {
       type: DataTypes.UUID,
-      allowNull: false
+      allowNull: false,
+      unique: "user_un"
     },
     name: {
       type: DataTypes.STRING(255),
@@ -19,7 +20,10 @@ module.exports = function(sequelize, DataTypes) {
     email: {
       type: DataTypes.STRING(255),
       allowNull: false,
-      unique: "user_email_unique"
+      unique: "user_email_unique",
+      validate: {
+        isEmail: true,
+      },
     },
     username: {
       type: DataTypes.STRING(255),
@@ -52,7 +56,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     website: {
       type: DataTypes.STRING(255),
-      allowNull: true
+      allowNull: true,
+      validate: {
+        contains: 'com'
+      }
     },
     picture: {
       type: DataTypes.STRING(255),
@@ -84,13 +91,21 @@ module.exports = function(sequelize, DataTypes) {
     },
     company_id: {
       type: DataTypes.UUID,
-      allowNull: true
+      allowNull: true,
+      references: {
+        model: 'company',
+        key: 'id'
+      }
     },
     familyname: {
       type: DataTypes.STRING(100),
       allowNull: true
     },
     settings: {
+      type: DataTypes.JSON,
+      allowNull: true
+    },
+    permissions: {
       type: DataTypes.JSON,
       allowNull: true
     },
@@ -105,12 +120,20 @@ module.exports = function(sequelize, DataTypes) {
     deleted_at: {
       type: DataTypes.DATE,
       allowNull: true
+    },
+    active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true
     }
   }, {
     sequelize,
     tableName: 'user',
     schema: 'public',
-    timestamps: false,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+    deletedAt: 'deleted_at',
+    paranoid: true,
+    timestamps: true,
     indexes: [
       {
         name: "user_email_unique",
@@ -124,6 +147,13 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "user_un",
+        unique: true,
+        fields: [
+          { name: "user_id" },
         ]
       },
       {

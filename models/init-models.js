@@ -4,12 +4,22 @@ var _company = require("./company");
 var _media = require("./media");
 var _parameter = require("./parameter");
 var _product = require("./product");
-var _product_category = require("./product_category");
-var _product_category_property = require("./product_category_property");
 var _role = require("./role");
 var _user = require("./user");
 var _user_roles = require("./user_roles");
 var _vehicle = require("./vehicle");
+var _proposal = require("./proposal");
+var _proposal_offer = require("./proposal_offer");
+var _process = require("./process");
+var _process_group = require("./process_group");
+var _process_sub_group = require("./process_sub_group");
+var _product = require("./product");
+var _product_item = require("./product_item");
+var _email = require("./email");
+var _menu = require("./menu");
+var _log = require("./log");
+var _process = require("./process");
+var _process_item = require("./process_item");
 
 function initModels(sequelize) {
   var address = _address(sequelize, DataTypes);
@@ -17,12 +27,21 @@ function initModels(sequelize) {
   var media = _media(sequelize, DataTypes);
   var parameter = _parameter(sequelize, DataTypes);
   var product = _product(sequelize, DataTypes);
-  var product_category = _product_category(sequelize, DataTypes);
-  var product_category_property = _product_category_property(sequelize, DataTypes);
   var role = _role(sequelize, DataTypes);
   var user = _user(sequelize, DataTypes);
   var user_roles = _user_roles(sequelize, DataTypes);
   var vehicle = _vehicle(sequelize, DataTypes);
+  var proposal = _proposal(sequelize, DataTypes);
+  var proposal_offer = _proposal_offer(sequelize, DataTypes);
+  var process = _process(sequelize, DataTypes);
+  var process_item = _process_item(sequelize, DataTypes);
+  var process_group = _process_group(sequelize, DataTypes);
+  var process_sub_group = _process_sub_group(sequelize, DataTypes);
+  var product = _product(sequelize, DataTypes);
+  var product_item = _product_item(sequelize, DataTypes);
+  var email = _email(sequelize, DataTypes);
+  var menu = _menu(sequelize, DataTypes);
+  var log = _log(sequelize, DataTypes);
 
   return {
     address,
@@ -30,12 +49,21 @@ function initModels(sequelize) {
     media,
     parameter,
     product,
-    product_category,
-    product_category_property,
     role,
     user,
     user_roles,
     vehicle,
+    proposal,
+    proposal_offer,
+    process,
+    process_item,
+    process_group,
+    process_sub_group,
+    product,
+    product_item,
+    email,
+    menu,
+    log
   };
 }
 module.exports = initModels;

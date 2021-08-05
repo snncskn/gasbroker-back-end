@@ -21,7 +21,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     title: {
       type: DataTypes.STRING(255),
-      allowNull: true
+      allowNull: true,
+      unique: "address_un"
     },
     latitude: {
       type: DataTypes.STRING(255),
@@ -37,6 +38,13 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     sequelize,
+    validate: {
+      bothCoordsOrNone() {
+        if ((this.latitude === null) !== (this.longitude === null)) {
+          throw new Error('Either both latitude and longitude, or neither!');
+        }
+      },
+    },
     tableName: 'address',
     schema: 'public',
     createdAt: 'created_at',
@@ -45,6 +53,13 @@ module.exports = function(sequelize, DataTypes) {
     paranoid: true,
     timestamps: true,
     indexes: [
+      {
+        name: "address_un",
+        unique: true,
+        fields: [
+          { name: "title" },
+        ]
+      },
       {
         name: "company_address_pk",
         unique: true,

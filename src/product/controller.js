@@ -1,26 +1,56 @@
-const { db, QueryTypes, product } = require("../../models");
+const { product, product_item } = require("../../models");
+const { Op } = require("sequelize");
+const { round } = require("lodash");
 
 const Data = product;
 
 module.exports = {
-  getAll: async (req, res) => {
+  getAll: async (req, res, next) => {
+    let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
+    let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
+    let size = req.query.size == undefined ? 100 : req.query.size;
+    let page = req.query.page == undefined ? 0 : req.query.page;
+
+    let filter = req.query.filter;
+
+    let whereStr = {};
+    if (filter) {
+      whereStr = { name: { [Op.like]: "%" + filter + "%" } };
+    }
+
+    let whereClause = {
+      limit: size,
+      offset: page,
+      order: [[by, type]],
+      where: whereStr,
+      include: [product_item],
+    };
+
     try {
-      const product = await Data.findAll();
-      res.status(200).json({
+      const totalSize = await Data.count();
+      const products = await Data.findAll(whereClause);
+
+      res.json({
         statusCode: 200,
-        body: product,
+        body: products,
+        totalSize: totalSize,
+        totalPage: round(Number(totalSize) / Number(size)),
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      res.status(500).json({ err });
     }
+
+    next();
   },
+
   getById: async (req, res) => {
     const id = req.params.product_id;
     try {
       const product = await Data.findOne({
         where: { id },
+        include: [product_item],
       });
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: product,
       });
@@ -29,15 +59,16 @@ module.exports = {
     }
   },
   create: async (req, res) => {
-    const { name, code } = req.body;
+    const { name, code, unit } = req.body;
 
     try {
       const product = await Data.create({
         name,
         code,
+        unit,
       });
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: product,
       });
@@ -47,7 +78,7 @@ module.exports = {
   },
   update: async (req, res) => {
     const id = req.params.product_id;
-    const { name, code } = req.body;
+    const { name, code, unit } = req.body;
 
     try {
       const product = await Data.findOne({ where: { id } });
@@ -55,10 +86,11 @@ module.exports = {
       if (id) product.id = id;
       if (name) product.name = name;
       if (code) product.code = code;
+      if (unit) product.unit = unit;
 
       await product.save();
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: product,
       });
@@ -66,7 +98,7 @@ module.exports = {
       res.status(500).json({ error: err });
     }
   },
-  delete: async (req, res) => {
+  delete: async (req, res, next) => {
     const id = req.params.product_id;
 
     try {
@@ -76,12 +108,12 @@ module.exports = {
         },
       });
 
-      res.status(200).json({
+      res.json({
         statusCode: 200,
         body: Data,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
 };

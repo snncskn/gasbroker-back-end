@@ -9,11 +9,13 @@ module.exports = function(sequelize, DataTypes) {
     },
     name: {
       type: DataTypes.STRING(250),
-      allowNull: false
+      allowNull: false,
+      unique: "parameter_un"
     },
     category: {
       type: DataTypes.STRING(100),
-      allowNull: true
+      allowNull: true,
+      unique: "parameter_un"
     },
     description: {
       type: DataTypes.TEXT,
@@ -54,6 +56,14 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "parameter_un",
+        unique: true,
+        fields: [
+          { name: "name" },
+          { name: "category" },
         ]
       },
     ]

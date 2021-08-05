@@ -14,7 +14,8 @@ module.exports = function (sequelize, DataTypes) {
     },
     name: {
       type: DataTypes.STRING(250),
-      allowNull: false
+      allowNull: false,
+      unique: "company_un"
     },
     full_name: {
       type: DataTypes.STRING(250),
@@ -124,8 +125,12 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true
     },
-    media: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+    tax_number: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    tax_office: {
+      type: DataTypes.STRING,
       allowNull: true
     }
   }, {
@@ -135,14 +140,26 @@ module.exports = function (sequelize, DataTypes) {
     createdAt: 'created_at',
     updatedAt: 'updated_at',
     deletedAt: 'deleted_at',
-    paranoid: true,
+    paranoid: false,
     timestamps: true,
+    hooks: {
+      beforeDestroy() {
+          
+      }
+    },
     indexes: [
       {
         name: "company_pkey",
         unique: true,
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "company_un",
+        unique: true,
+        fields: [
+          { name: "name" },
         ]
       },
     ]
