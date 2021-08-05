@@ -1,19 +1,12 @@
-var dotenv = require("dotenv");
 const db = require("../../models");
+const User = db.user;
+
+const crypto = require('crypto');
+const bcrypt = require("bcrypt");
 const { emailService } = require("../../email/dependency");
 
-const User = db.user;
-const Role = db.role;
-
-const Op = db.Sequelize.Op;
-
 var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
-const crypto = require('crypto');
-const randomBytesAsync = promisify(crypto.randomBytes);
 
-
-dotenv.config();
 
 module.exports = {
   signup: (req, res) => {
@@ -61,31 +54,6 @@ module.exports = {
         res.status(500).send({ error: err.message });
       });
 
-  },
-
-  reset: (req, res) => {
-    try {
-      User.findOne({ where: { email: req.body.email } })
-        .then((user) => {
-          if (!user) {
-            return res.status(404).send({ error: "invalid User" });
-          }
-
-          user.password = bcrypt.hashSync(123456, 8);
-          user.save();
-
-          res.status(200).send({
-            error: null,
-            newPassword: 123456,
-            message: "new password will send mail",
-          });
-        })
-        .catch((err) => {
-          res.status(500).send({ error: err.message });
-        });
-    } catch (error) {
-      res.status(500).send({ message: error });
-    }
   },
 
   signin: (req, res) => {
@@ -234,7 +202,7 @@ module.exports = {
       User.findOne({ where: { id: decoded.id } })
         .then((myuser) => {
           if (email) myuser.email = email;
-          if (settings) myuser.settings = settings; 
+          if (settings) myuser.settings = settings;
 
           myuser.save();
 
@@ -263,52 +231,59 @@ module.exports = {
     });
   },
 
-  postForgot: (req, res, next) => {
-    const createRandomToken = randomBytesAsync(16)
-      .then(buf => buf.toString('hex'));
 
-    const setRandomToken = token =>
-      User
-        .findOne({
-          where: {
-            email: req.body.email
-          }
-        })
-        .then(user => {
-          if (!user) {
-            return res.status(400).send({ error: 'Account with that email address does not exist.' })
-          }
+  recover: (req, res) => {
 
+    User.findOne({ where: { email: req.query.email } }).then(user => {
 
-          user.passwordResetToken = token
-          user.passwordResetExpires = Date.now() + 3600000
-          return user.save()
-        })
+      if (!user) {
+        return res.status(401).json({ message: 'The email address ' + req.body.email + ' is not associated with any account. Double-check your email address and try again.' });
+      }
 
-    const sendForgotPasswordEmail = (user) => {
-      if (!user) return
-      const token = user.passwordResetToken;
+      user.passwordResetToken = crypto.randomBytes(20).toString("hex");
+      user.passwordResetExpires = Date.now() + 3600000
+
+      user.save();
+
+      const link = "http://" + req.headers.host + "/api/auth/reset/" + user.passwordResetToken;
 
       const mailOptions = {
-        recipient: user.email,
+        recipient: "snncskn@msn.com",
         from: process.env.EMAIL_DOMAIN || 'gasbroker.navi@gmail.com',
         subject: 'Reset your password on Gas Broker',
-        text: `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n
-        Please click on the following link, or paste this into your browser to complete the process:\n\n
-        http://${req.headers.host}/reset/${token}\n\n
-        If you did not request this, please ignore this email and your password will remain unchanged.\n`
+        text: "<br>You are receiving this email because you (or someone else) have requested the reset of the password for your account." +
+          "<br>Please click on the following link, or paste this into your browser to complete the process : " +
+          "<br><br><b>  <a href="+ link +">"+ link +"</a>   </a></b>" +
+          "<br><br>If you did not request this, please ignore this email and your password will remain unchanged."
       };
+
       try {
-        let info = await emailService.send(mailOptions);
+        emailService.send(mailOptions);
         res.send({ message: "Reset password link sent successfully!" });
       } catch (err) {
         res.status(500).send({ message: err.message });
       }
-    };
 
-    createRandomToken
-      .then(setRandomToken)
-      .then(sendForgotPasswordEmail)
-  }
+    })
+      .catch(err => res.status(500).json({ message: err.message }));
+  },
+
+
+  reset: (req, res) => {
+
+    User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } })
+      .then((user) => {
+
+        if (!user) { return res.status(401).json({ message: 'Password reset token is invalid or has expired.' }); }
+
+        user.password = bcrypt.hashSync(req.body.password, 8);
+        user.save();
+
+        res.status(200).json({ message: 'Your password has been updated.' });
+      })
+      .catch(err => res.status(500).json({ message: err.message }));
+  },
+
+
 
 };

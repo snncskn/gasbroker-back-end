@@ -1,5 +1,6 @@
 const { user, company } = require("../models");
-
+const crypto = require("crypto");
+const bcrypt = require("bcrypt");
 class UserService {
   constructor() {}
 

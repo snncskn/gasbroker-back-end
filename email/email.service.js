@@ -27,7 +27,7 @@ class EmailService {
       return null;
     }
 
-    if (!(email.recipient && email.subject && email.text && email.html)) {
+    if (!(email.recipient && email.subject && email.text)) {
       return null;
     }
 
@@ -36,7 +36,7 @@ class EmailService {
       from: EMAIL_DOMAIN,
       subject: email.subject,
       text: email.text,
-      html: email.html,
+      html: email.text,
     });
   }
 
