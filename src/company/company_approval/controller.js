@@ -27,7 +27,9 @@ module.exports = {
         description,
         approval_user_id: req.headers["user_id"],
       });
-      res.status(200);
+      res.json({
+        statusCode: 200,
+      });
     } catch (err) {
       res.status(500).json({ error: err });
     }

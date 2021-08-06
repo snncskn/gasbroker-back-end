@@ -25,7 +25,7 @@ module.exports = function (app) {
     check('email').isEmail().withMessage('Enter a valid email address'),
   ], controller.recover);
 
-  app.post('/api/auth/reset/:token', [
+  app.post('/api/auth/change-password/:token', [
     check('password').not().isEmpty().isLength({ min: 6 }).withMessage('Must be at least 6 chars long'),
     check('confirmPassword', 'Passwords do not match').custom((value, { req }) => (value === req.body.password)),
   ], controller.reset);
