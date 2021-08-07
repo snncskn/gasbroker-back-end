@@ -109,7 +109,7 @@ module.exports = {
       if (name) user.name = name;
       if (email) user.email = email;
       if (username) user.username = username;
-      if (id) user.website = website;
+      if (website) user.website = website;
       if (company_id) user.company_id = company_id;
       if (permissions) user.permissions = permissions;
 
