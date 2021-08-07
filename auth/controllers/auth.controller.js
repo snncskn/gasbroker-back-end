@@ -104,6 +104,7 @@ module.exports = {
               username: user.username,
               displayName: user.username,
               company_id: user.company_id,
+              default_url : '/apps/company/form/'+ user.user_id,
               user_id: user.user_id,
               photoURL: "assets/images/avatars/Abbott.jpg",
               email: user.email,
