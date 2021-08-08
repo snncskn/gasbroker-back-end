@@ -7,6 +7,8 @@ module.exports = {
     try {
       const approvals = await Data.findAll({
         where: { company_id: req.params.company_id },
+        order: [['created_at', 'desc']],
+
       });
       res.json({
         statusCode: 200,
