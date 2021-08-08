@@ -3,7 +3,7 @@ const { product_item } = require("../../../models");
 const Data = product_item;
 
 module.exports = {
-  getAll: async (req, res) => {
+  getAll: async (req, res, next) => {
     try {
       const item = await Data.findAll();
       res.json({
@@ -11,10 +11,10 @@ module.exports = {
         body: item,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  getById: async (req, res) => {
+  getById: async (req, res, next) => {
     const id = req.params.product_item_id;
     try {
       const item = await Data.findOne({
@@ -25,10 +25,10 @@ module.exports = {
         body: item,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  create: async (req, res) => {
+  create: async (req, res, next) => {
     const { product_id, quantity,name,unit } = req.body;
 
     try {
@@ -41,10 +41,10 @@ module.exports = {
         body: item,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  update: async (req, res) => {
+  update: async (req, res, next) => {
     const id = req.params.product_item_id;
     const { product_id, quantity,name,unit } = req.body;
 
@@ -64,7 +64,7 @@ module.exports = {
         body: item,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
   delete: async (req, res, next) => {

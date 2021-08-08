@@ -13,11 +13,11 @@ module.exports = {
         body: approvals,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
     next();
   },
-  create: async (req, res) => {
+  create: async (req, res, next) => {
     const { company_id, status, description } = req.body;
 
     try {
@@ -31,7 +31,7 @@ module.exports = {
         statusCode: 200,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
 };

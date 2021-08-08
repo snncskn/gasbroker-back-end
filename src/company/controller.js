@@ -27,7 +27,7 @@ module.exports = {
 
     let whereClause = {
       limit: size,
-      offset: page * size,
+      offset: page,
       order: [[by, type]],
       where: whereStr,
       include: [address, media], 
@@ -44,12 +44,12 @@ module.exports = {
         totalPage: round(Number(totalSize) / Number(size)),
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
 
     next();
   },
-  getByID: async (req, res) => {
+  getByID: async (req, res, next) => {
     const id = req.params.company_id;
     try {
       const mycompany = await Data.findOne({
@@ -61,10 +61,10 @@ module.exports = {
         body: mycompany,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  create: async (req, res) => {
+  create: async (req, res, next) => {
     const {
       tanent_id,
       name,
@@ -151,10 +151,10 @@ module.exports = {
         body: mycompany,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  update: async (req, res) => {
+  update: async (req, res, next) => {
     const id = req.params.company_id;
     const {
       tanent_id,
@@ -242,7 +242,7 @@ module.exports = {
         body: mycompany,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
   delete: async (req, res, next) => {
@@ -264,7 +264,7 @@ module.exports = {
       next(err);
     }
   },
-  changeActiveStatus: async (req, res) => {
+  changeActiveStatus: async (req, res, next) => {
     const id = req.params.company_id;
 
     try {
@@ -278,10 +278,10 @@ module.exports = {
         body: mycompany,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  findByCriteria: async (req, res) => {
+  findByCriteria: async (req, res, next) => {
     try {
       const filter = req.query.filter;
       const page = req.query.page;
@@ -297,7 +297,7 @@ module.exports = {
         body: company,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
 };

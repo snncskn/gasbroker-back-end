@@ -3,8 +3,8 @@ var cors = require("cors");
 var logger = require("morgan");
 var dotenv = require("dotenv");
 var helmet = require("helmet");
+const session = require('express-session');
 const { authJwt, emailMdw, errorHandler, ware } = require("./auth/middleware");
-
 const emailRouter = require("./email/email.route");
 const smsRouter = require("./sms/sms.route");
 
@@ -28,6 +28,7 @@ const {
 } = require("./src/api.router");
 
 dotenv.config();
+
 const port = process.env.PORT || 3300;
 
 const app = express();
@@ -36,6 +37,20 @@ app.use(express.json());
 app.use(cors());
 app.use(logger("dev"));
 app.use(helmet());
+
+// middleware
+app.use(authJwt.setHeader);
+//app.use(authJwt.verifyToken);
+//app.use(authJwt.isAdmin);
+
+ // yeni bir redis istemcisi oluşturduk
+ //const client = redis.createClient();
+ // oturum modeli
+ app.use(session({
+     secret: "user_id",
+     resave: true,
+     saveUninitialized: true,
+ }));
 
 app.use("/company", companyRouter);
 app.use("/media", mediaRouter);
@@ -53,19 +68,16 @@ app.use("/process-sub-group", processSubGroupRouter);
 app.use("/menu", menuRouter);
 app.use("/company-approval", companyApprovalRouter);
 
-
 //mail-sms
 app.use("/api/email", emailRouter);
 app.use("/api/sms", smsRouter);
 
 //auth
-// routes
+//routes
 require("./auth/routes/auth.routes")(app);
 require("./auth/routes/user.routes")(app);
 
-// middleware
-// app.use(authJwt.setHeader)
-//app.use(authJwt.verifyToken)
+
 //app.use(emailMdw.send);
 
 //helmet bu işlemi de yapıo
@@ -80,6 +92,8 @@ if (process.env.NODE_ENV === "docker") {
 app.use(ware);
 
 app.use(errorHandler);
+
+
 
 app.listen({ port }, async () => {
   console.log("Server up on http://localhost:" + port);

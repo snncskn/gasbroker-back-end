@@ -6,7 +6,7 @@ const Data = vehicle;
 const Company = company;
 
 module.exports = {
-  getAllBySql: async (req, res) => {
+  getAllBySql: async (req, res, next) => {
     try {
       const myvehicle = await Data.findAll({ include: "company" });
       res.json({
@@ -18,7 +18,7 @@ module.exports = {
       res.json({ error: err });
     }
   },
-  getByIdBySql: async (req, res) => {
+  getByIdBySql: async (req, res, next) => {
     const id = req.params.vehicle_id;
     const parametre2 = 1;
     try {
@@ -79,12 +79,12 @@ module.exports = {
         totalPage: round(Number(totalSize) / Number(size)),
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
 
     next();
   },
-  getByID: async (req, res) => {
+  getByID: async (req, res, next) => {
     const id = req.params.vehicle_id;
     try {
       const myvehicle = await Data.findOne({
@@ -97,10 +97,10 @@ module.exports = {
       });
     } catch (err) {
       console.log(err);
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  create: async (req, res) => {
+  create: async (req, res, next) => {
     const { company_id, name, type, registered_date } = req.body;
 
     try {
@@ -119,7 +119,7 @@ module.exports = {
       res.status(500).json({ error: err.stack });
     }
   },
-  update: async (req, res) => {
+  update: async (req, res, next) => {
     const id = req.params.vehicle_id;
     const { company_id, name, type, registered_date } = req.body;
     try {
@@ -138,7 +138,7 @@ module.exports = {
       });
     } catch (err) {
       console.log(err);
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
   delete: async (req, res, next) => {
@@ -159,7 +159,7 @@ module.exports = {
       next(err);
     }
   },
-  changeActiveStatus: async (req, res) => {
+  changeActiveStatus: async (req, res, next) => {
     const id = req.params.vehicle_id;
 
     try {
@@ -174,7 +174,7 @@ module.exports = {
       });
     } catch (err) {
       console.log(err);
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
 };

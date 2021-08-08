@@ -8,7 +8,7 @@ const Data = parameter
 module.exports = {
     //sql ile yapılmış sorgu
     // power user için
-    getAllBySql: async (req, res) => {
+    getAllBySql: async (req, res, next) => {
 
         try {
             const [data, meta] = await db.query("SELECT * FROM parameter");
@@ -23,7 +23,7 @@ module.exports = {
     },
     //sql ile yapılmış sorgu
     // örnek olsun diye ikinci parametreyi de ekleyeceğim
-    getByIdBySql: async (req, res) => {
+    getByIdBySql: async (req, res, next) => {
         const id = req.params.parameter_id
         const parametre2 = 1
         try {
@@ -47,7 +47,7 @@ module.exports = {
             res.json({ error: err })
         }
     },
-    getByParametersBySql: async (req, res) => {
+    getByParametersBySql: async (req, res, next) => {
         const types = req.body.types
         try {
             const data =
@@ -85,7 +85,7 @@ module.exports = {
     },
     // aşağıdakilerin hepsi ORM ile yapılmıştı
     // mümkün oldukça ORM kullanalım
-    getAll: async (req, res) => {
+    getAll: async (req, res, next) => {
         try {
             const myparameter = await Data.findAll()
              res.json({
@@ -97,7 +97,7 @@ module.exports = {
             res.status(500).json({ error: err })
         }
     },
-    getByID: async (req, res) => {
+    getByID: async (req, res, next) => {
         const id = req.params.parameter_id
         try {
             const myparameter = await Data.findOne({
@@ -113,7 +113,7 @@ module.exports = {
             res.status(500).json({ error: err })
         }
     },
-    getByCategory: async (req, res) => {
+    getByCategory: async (req, res, next) => {
         const id = req.params.parameter_id
         console.log(id)
         try {
@@ -129,7 +129,7 @@ module.exports = {
             res.status(500).json({ error: err })
         }
     },
-    create: async (req, res) => {
+    create: async (req, res, next) => {
         const {
             name,
             category,
@@ -164,7 +164,7 @@ module.exports = {
             res.status(500).json({ error: err })
         }
     },
-    update: async (req, res) => {
+    update: async (req, res, next) => {
         const id = req.params.parameter_id
         const {
             name,
@@ -200,7 +200,7 @@ module.exports = {
         }
 
     },
-    delete: async (req, res) => {
+    delete: async (req, res, next) => {
         const id = req.params.id
 
         try {
@@ -220,7 +220,7 @@ module.exports = {
             res.status(500).json({ error: err })
         }
     },
-    changeActiveStatus: async (req, res) => {
+    changeActiveStatus: async (req, res, next) => {
         const id = req.params.parameter_id
 
         try {

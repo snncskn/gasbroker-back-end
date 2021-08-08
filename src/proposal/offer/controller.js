@@ -2,7 +2,7 @@ const { proposal_offer, company } = require("../../../models");
 const Data = proposal_offer;
 
 module.exports = {
-  getAll: async (req, res) => {
+  getAll: async (req, res, next) => {
     try {
       const proposal_offer = await Data.findAll({
         include: [{ model: company, attributes: ["id", "name"] }],
@@ -12,10 +12,10 @@ module.exports = {
         body: proposal_offer,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  getById: async (req, res) => {
+  getById: async (req, res, next) => {
     const id = req.params.offer_id;
     try {
       const proposal_offer = await Data.findOne({
@@ -27,10 +27,10 @@ module.exports = {
         body: proposal_offer,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  getOffersByProposalId: async (req, res) => {
+  getOffersByProposalId: async (req, res, next) => {
     const id = req.params.proposal_id;
     try {
       const proposal_offer = await Data.findAll({
@@ -42,10 +42,10 @@ module.exports = {
         body: proposal_offer,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  create: async (req, res) => {
+  create: async (req, res, next) => {
     const {
       proposal_id,
       company_id,
@@ -72,10 +72,10 @@ module.exports = {
         body: proposal_offer,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  update: async (req, res) => {
+  update: async (req, res, next) => {
     const id = req.params.offer_id;
     const {
       proposal_id,
@@ -90,14 +90,14 @@ module.exports = {
     try {
       const proposal_offer = await Data.findOne({ where: { id } });
 
-      if (id) proposal.id = id;
-      if (proposal_id) proposal.proposal_id = proposal_id;
-      if (company_id) proposal.company_id = company_id;
-      if (offer_date) proposal.offer_date = offer_date;
-      if (payment_type) proposal.payment_type = payment_type;
-      if (price) proposal.price = price;
-      if (currency) proposal.currency = currency;
-      if (deal_status) proposal.deal_status = deal_status;
+      if (id) proposal_offer.id = id;
+      if (proposal_id) proposal_offer.proposal_id = proposal_id;
+      if (company_id) proposal_offer.company_id = company_id;
+      if (offer_date) proposal_offer.offer_date = offer_date;
+      if (payment_type) proposal_offer.payment_type = payment_type;
+      if (price) proposal_offer.price = price;
+      if (currency) proposal_offer.currency = currency;
+      if (deal_status) proposal_offer.deal_status = deal_status;
 
       await proposal_offer.save();
 
@@ -106,10 +106,10 @@ module.exports = {
         body: proposal_offer,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  delete: async (req, res) => {
+  delete: async (req, res, next) => {
     const id = req.params.offer_id;
 
     try {
@@ -124,7 +124,7 @@ module.exports = {
         body: Data,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
 };

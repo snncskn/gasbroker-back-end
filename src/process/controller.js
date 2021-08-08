@@ -46,7 +46,7 @@ module.exports = {
 
     next();
   },
-  getById: async (req, res) => {
+  getById: async (req, res, next) => {
     const id = req.params.process_id;
     try {
       const process = await Data.findOne({
@@ -57,10 +57,10 @@ module.exports = {
         body: process,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  getProcessesByProposalId: async (req, res) => {
+  getProcessesByProposalId: async (req, res, next) => {
     const id = req.params.proposal_id;
     try {
       const processes = await Data.findOne({
@@ -71,10 +71,10 @@ module.exports = {
         body: processes,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  create: async (req, res) => {
+  create: async (req, res, next) => {
     const {
       proposal_id,
       voyage_code,
@@ -105,10 +105,10 @@ module.exports = {
         body: process,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  update: async (req, res) => {
+  update: async (req, res, next) => {
     const id = req.params.process_id;
     const {
       proposal_id,
@@ -144,10 +144,10 @@ module.exports = {
         body: process,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  delete: async (req, res) => {
+  delete: async (req, res, next) => {
     const id = req.params.process_id;
 
     try {
@@ -162,7 +162,7 @@ module.exports = {
         body: Data,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
 };

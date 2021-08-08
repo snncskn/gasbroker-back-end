@@ -1,22 +1,24 @@
-const db = require("../../models");
+const db  = require("../../models");
 const User = db.user;
-
+const userRoles = db.user_roles;
+const role = db.role;
+const { emailService } = require("../../email/dependency");
 const crypto = require('crypto');
 const bcrypt = require("bcrypt");
-const { emailService } = require("../../email/dependency");
-
 var jwt = require("jsonwebtoken");
 
 
 module.exports = {
-  signup: (req, res) => {
+  signup: (req, res, next) => {
+
+
     // Save User to Database
     User.create({
       username: req.body.username,
       email: req.body.email,
       name: req.body.name,
       phonenumber: req.body.mobilePhone,
-      settings: req.body.settings,
+      settings: '{"layout":"enterprise","scheme":"light","theme":"default"}',
       password: bcrypt.hashSync(req.body.pass, 8),
       permissions: req.body.permissions,
     })
@@ -24,13 +26,13 @@ module.exports = {
         res.send({ message: "User registered successfully!" });
       })
       .catch((err) => {
-        res.status(500).send({ message: err });
+        next(err);
       });
   },
 
-  me: (req, res) => {
+  me: (req, res, next) => {
 
-    User.findOne({ where: { email: 'admin@navigroup.com' } })
+    User.findOne({ where: { user_id: req.headers["user_id"] } })
       .then((user) => {
         if (!user) {
           return res.status(404).send({ error: "invalid User" });
@@ -51,12 +53,12 @@ module.exports = {
         });
       })
       .catch((err) => {
-        res.status(500).send({ error: err.message });
+        next(err);
       });
 
   },
 
-  signin: (req, res) => {
+  signin: (req, res, next) => {
     const params = {};
     const { username, email } = req.body;
 
@@ -65,6 +67,7 @@ module.exports = {
 
     User.findOne({
       where: { ...params },
+      include: [userRoles],
     })
       .then((user) => {
         if (!user) {
@@ -84,7 +87,7 @@ module.exports = {
         }
 
         var token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET, {
-          expiresIn: 86400, // 24 hours
+          expiresIn: 3600, // 1 hours
         });
 
         // var authorities = [];
@@ -92,6 +95,18 @@ module.exports = {
         //   for (let i = 0; i < roles.length; i++) {
         //     authorities.push("ROLE_" + roles[i].name.toUpperCase());
         //   }
+
+        var session = req.session;
+        session.user_id = 'user.user_id';
+      
+        let uRole = null;
+
+        if (user.user_roles[0]) {
+          role.findOne({ where: { id: user.user_roles[0].roleId } }).then((role) => {
+            uRole = role.name;
+          });
+        }
+
         res.send({
           statusCode: 200,
           error: null,
@@ -99,12 +114,12 @@ module.exports = {
           user: {
             id: user.id,
             uuid: user.user_id,
-            role: "admin",
+            role: uRole,
             data: {
               username: user.username,
               displayName: user.username,
               company_id: user.company_id,
-              default_url : '/apps/company/form/'+ user.user_id,
+              default_url: '/apps/company/form/' + user.company_id,
               user_id: user.user_id,
               photoURL: "assets/images/avatars/Abbott.jpg",
               email: user.email,
@@ -118,10 +133,10 @@ module.exports = {
       })
 
       .catch((err) => {
-        res.status(500).send({ error: err.message });
+        next(err);
       });
   },
-  accesstoken: (req, res) => {
+  accesstoken: (req, res, next) => {
     const access_token = req.headers["x-access-token"];
 
     let token = access_token;
@@ -183,7 +198,7 @@ module.exports = {
     });
   },
 
-  userupdate: (req, res) => {
+  userupdate: (req, res, next) => {
     let token = req.headers["x-access-token"];
     const { displayName, photoURL, email, settings } = req.body.user.data;
 
@@ -227,13 +242,13 @@ module.exports = {
           });
         })
         .catch((err) => {
-          res.status(500).send({ error: err.message });
+         next(err);
         });
     });
   },
 
 
-  recover: (req, res) => {
+  recover: (req, res, next) => {
 
     User.findOne({ where: { email: req.query.email } }).then(user => {
 
@@ -254,7 +269,7 @@ module.exports = {
         subject: 'Reset your password on Gas Broker',
         text: "<br>You are receiving this email because you (or someone else) have requested the reset of the password for your account." +
           "<br>Please click on the following link, or paste this into your browser to complete the process : " +
-          "<br><br><b>  <a href="+ link +">"+ link +"</a>   </a></b>" +
+          "<br><br><b>  <a href=" + link + ">" + link + "</a>   </a></b>" +
           "<br><br>If you did not request this, please ignore this email and your password will remain unchanged."
       };
 
@@ -270,7 +285,7 @@ module.exports = {
   },
 
 
-  reset: (req, res) => {
+  reset: (req, res, next) => {
 
     User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } })
       .then((user) => {

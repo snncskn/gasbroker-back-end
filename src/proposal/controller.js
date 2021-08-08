@@ -12,7 +12,7 @@ module.exports = {
     let size = req.query.size == undefined ? 100 : req.query.size;
     let page = req.query.page == undefined ? 0 : req.query.page;
 
-    console.log(req.headers["user_id"]);
+    console.log(req.session.user_id);
 
     const company_id = await userService.userCompany(req.headers["user_id"]);
 
@@ -41,22 +41,21 @@ module.exports = {
     };
 
     try {
-      const totalSize = await Data.count();
       const proposal = await Data.findAll(whereClause);
-
+    
       res.json({
         statusCode: 200,
         body: proposal,
-        totalSize: totalSize,
-        totalPage: round(Number(totalSize) / Number(size)),
+        totalSize: proposal.length,
+        totalPage: round(Number(proposal.length) / Number(size)),
       });
     } catch (err) {
-      res.status(500).json({ error: err.stack });
+      next(err);
     }
 
     next();
   },
-  getById: async (req, res) => {
+  getById: async (req, res, next) => {
     const id = req.params.proposal_id;
     try {
       const proposal = await Data.findOne({
@@ -68,10 +67,10 @@ module.exports = {
         body: proposal,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  create: async (req, res) => {
+  create: async (req, res, next) => {
     const {
       company_id,
       proposal_id,
@@ -105,10 +104,10 @@ module.exports = {
         body: proposal,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  update: async (req, res) => {
+  update: async (req, res, next) => {
     const id = req.params.proposal_id;
     const {
       company_id,
@@ -145,10 +144,10 @@ module.exports = {
         body: proposal,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  delete: async (req, res) => {
+  delete: async (req, res, next) => {
     const id = req.params.proposal_id;
 
     try {
@@ -163,7 +162,7 @@ module.exports = {
         body: Data,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
 };

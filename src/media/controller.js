@@ -8,7 +8,7 @@ const { generateGetUrl, generatePutUrl } = require("./s3/AWSPresigner");
 const Data = media;
 
 module.exports = {
-  getPutUrl: async (req, res) => {
+  getPutUrl: async (req, res, next) => {
     // Both Key and ContentType are defined in the client side.
     // Key refers to the remote name of the file.
     // ContentType refers to the MIME content type, in this case image/jpeg
@@ -22,7 +22,7 @@ module.exports = {
         res.send(err);
       });
   },
-  getFileUrl: async (req, res) => {
+  getFileUrl: async (req, res, next) => {
     // Both Key and ContentType are defined in the client side.
     // Key refers to the remote name of the file.
     const { fileInfo } = req.query;
@@ -33,10 +33,10 @@ module.exports = {
         res.send(getURL);
       })
       .catch((err) => {
-        res.status(500).json({ error: err });
+        next(err);
       });
   },
-  upload: async (req, res) => {
+  upload: async (req, res, next) => {
     await generatePutUrl(req.query.fileName, "text/plain")
       .then((putURL) => {
         const { file } = req.file;
@@ -62,12 +62,12 @@ module.exports = {
           });
       })
       .catch((err) => {
-        res.status(500).json({ error: err });
+        next(err);
       });
   },
   // aşağıdakilerin hepsi ORM ile yapılmıştı
   // mümkün oldukça ORM kullanalım
-  getAll: async (req, res) => {
+  getAll: async (req, res, next) => {
     try {
       const mymedia = await Data.findAll();
       res.json({
@@ -75,10 +75,10 @@ module.exports = {
         body: mymedia,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  getById: async (req, res) => {
+  getById: async (req, res, next) => {
     const id = req.params.media_id;
     try {
       const mymedia = await Data.findOne({
@@ -90,10 +90,10 @@ module.exports = {
         body: mymedia,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  getMediasByCompanyId: async (req, res) => {
+  getMediasByCompanyId: async (req, res, next) => {
     const id = req.params.company_id;
     try {
       const medias = await Data.findOne({
@@ -104,10 +104,10 @@ module.exports = {
         body: medias,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  getMediasByVehicleId: async (req, res) => {
+  getMediasByVehicleId: async (req, res, next) => {
     const id = req.params.vehicle_id;
     try {
       const medias = await Data.findOne({
@@ -118,10 +118,10 @@ module.exports = {
         body: medias,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  getMediasByProductId: async (req, res) => {
+  getMediasByProductId: async (req, res, next) => {
     const id = req.params.product_id;
     try {
       const medias = await Data.findOne({
@@ -132,10 +132,10 @@ module.exports = {
         body: medias,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  create: async (req, res) => {
+  create: async (req, res, next) => {
     const {
       company_id,
       user_id,
@@ -170,10 +170,10 @@ module.exports = {
       
 
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  update: async (req, res) => {
+  update: async (req, res, next) => {
     const id = req.params.media_id;
     const { title, type, description, video_url, ref, path, file_path} = req.body;
 
@@ -195,7 +195,7 @@ module.exports = {
         body: mymedia,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
   delete: async (req, res, next) => {

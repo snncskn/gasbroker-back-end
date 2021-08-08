@@ -7,19 +7,19 @@ const { Op } = require("sequelize");
 const Data = user;
 
 module.exports = {
-  allAccess: async (req, res) => {
+  allAccess: async (req, res, next) => {
     res.send("Public Content.");
   },
-  userBoard: async (req, res) => {
+  userBoard: async (req, res, next) => {
     res.send("User Content.");
   },
-  adminBoard: async (req, res) => {
+  adminBoard: async (req, res, next) => {
     res.send("Admin Content.");
   },
-  moderatorBoard: async (req, res) => {
+  moderatorBoard: async (req, res, next) => {
     res.send("Moderator Content.");
   },
-  getAll: async (req, res) => {
+  getAll: async (req, res, next) => {
     let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
     let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
     let size = req.query.size == undefined ? 100 : req.query.size;
@@ -61,7 +61,7 @@ module.exports = {
       res.status(500).json({ error: err.stack });
     }
   },
-  getById: async (req, res) => {
+  getById: async (req, res, next) => {
     const id = req.params.user_id;
     try {
       const user = await Data.findOne({
@@ -73,10 +73,10 @@ module.exports = {
         body: user,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  create: async (req, res) => {
+  create: async (req, res, next) => {
     const { name, email, username, password, website, company_id } = req.body;
 
     try {
@@ -94,10 +94,10 @@ module.exports = {
         body: user,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  update: async (req, res) => {
+  update: async (req, res, next) => {
     const id = req.params.user_id;
     const { name, email, username, website, company_id, permissions } =
       req.body;
@@ -120,10 +120,10 @@ module.exports = {
         body: user,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  updateSettings: async (req, res) => {
+  updateSettings: async (req, res, next) => {
     const id = req.params.user_id;
     const { setting } =
       req.body;
@@ -141,10 +141,10 @@ module.exports = {
         body: user,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  delete: async (req, res) => {
+  delete: async (req, res, next) => {
     const id = req.params.user_id;
 
     try {
@@ -159,10 +159,10 @@ module.exports = {
         body: Data,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  changeActive: async (req, res) => {
+  changeActive: async (req, res, next) => {
     const id = req.params.user_id;
 
     try {
@@ -175,7 +175,7 @@ module.exports = {
         statusCode: 200,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
 };
