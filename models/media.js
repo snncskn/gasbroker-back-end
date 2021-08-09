@@ -15,7 +15,6 @@ module.exports = function(sequelize, DataTypes) {
         model: 'company',
         key: 'id'
       },
-      unique: "media_company_unq"
     },
     user_id: {
       type: DataTypes.UUID,
@@ -24,7 +23,6 @@ module.exports = function(sequelize, DataTypes) {
         model: 'user',
         key: 'user_id'
       },
-      unique: "media_user_unq"
     },
     title: {
       type: DataTypes.STRING(250),

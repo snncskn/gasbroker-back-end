@@ -3,7 +3,11 @@ var cors = require("cors");
 var logger = require("morgan");
 var dotenv = require("dotenv");
 var helmet = require("helmet");
+
 const session = require('express-session');
+const redis = require('redis');
+const connectRedis = require('connect-redis');
+
 const { authJwt, emailMdw, errorHandler, ware } = require("./auth/middleware");
 const emailRouter = require("./email/email.route");
 const smsRouter = require("./sms/sms.route");
@@ -43,14 +47,37 @@ app.use(authJwt.setHeader);
 //app.use(authJwt.verifyToken);
 //app.use(authJwt.isAdmin);
 
- // yeni bir redis istemcisi oluşturduk
- //const client = redis.createClient();
- // oturum modeli
- app.use(session({
-     secret: "user_id",
-     resave: true,
-     saveUninitialized: true,
- }));
+
+const RedisStore = connectRedis(session);
+//Configure redis client
+const redisClient = redis.createClient({
+    host: 'localhost',
+    port: 6379
+});
+
+redisClient.on('error', function (err) {
+    console.log('Could not establish a connection with redis. ' + err);
+});
+
+redisClient.on('connect', function (err) {
+    console.log('Connected to redis successfully');
+});
+
+//Configure session middleware
+app.use(session({
+    store: new RedisStore({ client: redisClient }),
+    secret: 'secret$%^134',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false, // if true only transmit cookie over https
+        httpOnly: false, // if true prevent client side JS from reading the cookie 
+        maxAge: 1000 * 60 * 10 // session max age in miliseconds
+    }
+}))
+
+
+
 
 app.use("/company", companyRouter);
 app.use("/media", mediaRouter);

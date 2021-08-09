@@ -72,7 +72,7 @@ db.user.belongsTo(db.company, { foreignKey: "company_id" });
 db.company.hasMany(db.user, { foreignKey: "company_id" });
 
 db.media.belongsTo(db.company, { foreignKey: "company_id" });
-db.company.hasOne(db.media, { foreignKey: "company_id" });
+db.company.hasMany(db.media, { foreignKey: "company_id" });
 
 db.vehicle.belongsTo(db.company, { foreignKey: "company_id" });
 db.company.hasMany(db.vehicle, { foreignKey: "company_id" });

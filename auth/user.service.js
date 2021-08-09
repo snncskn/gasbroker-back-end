@@ -1,4 +1,4 @@
-const { user, company } = require("../models");
+const { user, company, user_roles } = require("../models");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 class UserService {
@@ -13,7 +13,17 @@ class UserService {
       include: [{ model: company, attributes: ["id"] }],
     });
     return item.company_id;
+  };
+
+  async setRoles(role_id, user_id) {
+   await user_roles.create({
+      roleId: role_id, 
+      userId: user_id
+    });    
   }
-}
+
+};
+
+
 
 module.exports = UserService;

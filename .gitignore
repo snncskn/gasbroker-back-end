@@ -31,3 +31,5 @@ Thumbs.db
 
 
 .history
+dump.rdb
+package-lock.json

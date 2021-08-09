@@ -1,4 +1,4 @@
-const { user, company } = require("../../models");
+const { user, company, user_roles } = require("../../models");
 
 const bcrypt = require("bcryptjs");
 const { round } = require("lodash");
@@ -178,4 +178,5 @@ module.exports = {
       next(err);
     }
   },
+  
 };
