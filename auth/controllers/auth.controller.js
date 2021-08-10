@@ -23,17 +23,19 @@ module.exports = {
       settings: '{"layout":"enterprise","scheme":"light","theme":"default"}',
       password: bcrypt.hashSync(req.body.pass, 8),
       permissions: req.body.permissions,
-      active: true
+      active: true,
     })
       .then((user) => {
         // user role = 2 / segment role
-        userService.setRoles(2, user.id).then(() => {
-          res.send({ message: "User registered successfully!" });
-          req.session.user = user;
-        }).catch((err) => {
-          next(err);
-        });
-
+        userService
+          .setRoles(2, user.id)
+          .then(() => {
+            res.send({ message: "User registered successfully!" });
+            req.session.user = user;
+          })
+          .catch((err) => {
+            next(err);
+          });
       })
       .catch((err) => {
         next(err);
@@ -41,33 +43,30 @@ module.exports = {
   },
 
   me: (req, res, next) => {
+    User.findOne({ where: { email: "admin@navigroup.com" } })
+      .then((user) => {
+        if (!user) {
+          return res.status(404).send({ error: "invalid User" });
+        }
 
-      User.findOne({ where: { email:'admin@navigroup.com' } })
-        .then((user) => {
-          if (!user) {
-            return res.status(404).send({ error: "invalid User" });
-          }
-
-          res.send({
-            statusCode: 200,
-            email: user.email,
-            name: user.name,
-            userName: user.username,
-            full_name: req.body.name,
-            birthday: "01.06.2021",
-            gender: "E",
-            id: user.id,
-            address: "test",
-            mobilePhone: user.phonenumber,
-            avatar: user.avatar,
-            photoURL: user.photo_url,
-          });
-
-        })
-        .catch((err) => {
-          next(err);
+        res.send({
+          statusCode: 200,
+          email: user.email,
+          name: user.name,
+          userName: user.username,
+          full_name: req.body.name,
+          birthday: "01.06.2021",
+          gender: "E",
+          id: user.id,
+          address: "test",
+          mobilePhone: user.phonenumber,
+          avatar: user.avatar,
+          photoURL: user.photo_url,
         });
-
+      })
+      .catch((err) => {
+        next(err);
+      });
   },
 
   signin: (req, res, next) => {
@@ -108,15 +107,13 @@ module.exports = {
         //     authorities.push("ROLE_" + roles[i].name.toUpperCase());
         //   }
 
-
         if (user.user_roles[0]) {
-
-          role.findOne({ where: { id: user.user_roles[0].roleId } })
+          role
+            .findOne({ where: { id: user.user_roles[0].roleId } })
             .then((role) => {
-
               let defaultUrl = "/apps/company/form";
 
-              if(user.company_id) {
+              if (user.company_id) {
                 defaultUrl = "/apps/company/form/" + user.company_id;
               }
 
@@ -142,16 +139,12 @@ module.exports = {
                   // roles: authorities,
                 },
               });
-
             });
-
         } else {
           return res.status(401).send({
             message: "Unauthorized!",
           });
-
         }
-
 
         // });
       })
@@ -272,17 +265,15 @@ module.exports = {
   },
 
   recover: (req, res, next) => {
-    User.findOne({ where: { email: req.query.email } })
+    User.findOne({ where: { email: req.body.email } })
       .then((user) => {
         if (!user) {
-          return res
-            .status(401)
-            .json({
-              message:
-                "The email address " +
-                req.body.email +
-                " is not associated with any account. Double-check your email address and try again.",
-            });
+          return res.status(401).json({
+            message:
+              "The email address " +
+              req.body.email +
+              " is not associated with any account. Double-check your email address and try again.",
+          });
         }
 
         user.passwordResetToken = crypto.randomBytes(20).toString("hex");
@@ -290,11 +281,7 @@ module.exports = {
 
         user.save();
 
-        const link =
-          "http://" +
-          req.headers.host +
-          "/api/auth/reset/" +
-          user.passwordResetToken;
+        const link = "http://" + req.headers.host + "/api/auth/reset/" + user.passwordResetToken;
 
         const mailOptions = {
           recipient: "snncskn@msn.com",
@@ -315,31 +302,56 @@ module.exports = {
           emailService.send(mailOptions);
           res.send({ message: "Reset password link sent successfully!" });
         } catch (err) {
-          res.status(500).send({ message: err.message });
+          next(err);
         }
       })
-      .catch((err) => res.status(500).json({ message: err.message }));
+      .catch((err) => next(err));
   },
 
   reset: (req, res, next) => {
     User.findOne({
-      resetPasswordToken: req.params.token,
-      resetPasswordExpires: { $gt: Date.now() },
+      where: {
+        passwordResetToken: req.params.token,
+        passwordResetExpires: { $gt: Date.now() },
+      },
+    }).then((user) => {
+
+      if (!user) {
+        return res.status(400).json({
+          message: "Password reset token is invalid or has expired.",
+        });
+      }
+
+      res.json({ statusCode: 200 });
+
+    })
+      .catch((err) => next(err));
+  },
+
+  change: (req, res, next) => {
+
+    User.findOne({
+      where: {
+        passwordResetToken: req.params.token,
+        passwordResetExpires: { $gt: Date.now() },
+      },
     })
       .then((user) => {
+
         if (!user) {
-          return res
-            .status(401)
-            .json({
-              message: "Password reset token is invalid or has expired.",
-            });
+          return res.status(400).json({
+            message: "Password reset token is invalid or has expired.",
+          });
         }
 
         user.password = bcrypt.hashSync(req.body.password, 8);
+
         user.save();
 
         res.status(200).json({ message: "Your password has been updated." });
+
       })
-      .catch((err) => res.status(500).json({ message: err.message }));
+      .catch((err) => next(err));
+
   },
 };

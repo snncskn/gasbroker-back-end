@@ -21,8 +21,16 @@ module.exports = function (app) {
 
   app.post("/api/auth/user/update", controller.userupdate);
 
+  app.post('/api/auth/recover', controller.recover);
 
-  app.post('/api/auth/recover', oneOf([
+  app.post('/api/auth/reset/:token', controller.reset);
+
+  app.post('/api/auth/change-password/:token', controller.change);
+
+ /*   
+
+
+ app.post('/api/auth/recover', oneOf([
     check('email').isEmail().withMessage('Enter a valid email address'),
   ]), (req, res, next) => {
     try {
@@ -34,6 +42,7 @@ module.exports = function (app) {
       res.status(400).json({ error: err });
     }
   }, controller.recover);
+
 
   app.post('/api/auth/change-password/:token', oneOf([
     check('password').not().isEmpty().isLength({ min: 6 }).withMessage('Must be at least 6 chars long'),
@@ -49,6 +58,8 @@ module.exports = function (app) {
     }
   },
     controller.reset);
+
+*/
 
 };
 
