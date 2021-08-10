@@ -4,9 +4,9 @@ var logger = require("morgan");
 var dotenv = require("dotenv");
 var helmet = require("helmet");
 
-const session = require('express-session');
+/*const session = require('express-session');
 const redis = require('redis');
-const connectRedis = require('connect-redis');
+const connectRedis = require('connect-redis');*/
 
 const { authJwt, emailMdw, errorHandler, ware } = require("./auth/middleware");
 const emailRouter = require("./email/email.route");
@@ -48,7 +48,7 @@ app.use(authJwt.setHeader);
 //app.use(authJwt.isAdmin);
 
 
-const RedisStore = connectRedis(session);
+/*const RedisStore = connectRedis(session);
 //Configure redis client
 const redisClient = redis.createClient({
     host: 'localhost',
@@ -76,8 +76,7 @@ app.use(session({
     }
 }))
 
-
-
+*/
 
 app.use("/company", companyRouter);
 app.use("/media", mediaRouter);

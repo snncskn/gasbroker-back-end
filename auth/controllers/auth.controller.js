@@ -8,9 +8,6 @@ const { emailService } = require("../../email/dependency");
 const UserService = require("../../auth/user.service");
 const userService = new UserService();
 
-const redis = require('redis');
-const redisClient = redis.createClient();
-
 const User = db.user;
 const userRoles = db.user_roles;
 const role = db.role;
@@ -45,15 +42,11 @@ module.exports = {
 
   me: (req, res, next) => {
 
-    redisClient.get('user_id', (err, user_id) => {
-
       User.findOne({ where: { id: user_id } })
         .then((user) => {
           if (!user) {
             return res.status(404).send({ error: "invalid User" });
           }
-
-          redisClient.del('user_id');
 
           res.send({
             statusCode: 200,
@@ -74,8 +67,6 @@ module.exports = {
         .catch((err) => {
           next(err);
         });
-
-    });
 
   },
 
