@@ -12,8 +12,7 @@ module.exports = {
     let size = req.query.size == undefined ? 100 : req.query.size;
     let page = req.query.page == undefined ? 0 : req.query.page;
 
-    console.log(req.session.user_id);
-
+    
     const company_id = await userService.userCompany(req.headers["user_id"]);
 
     let filter = req.query.filter;

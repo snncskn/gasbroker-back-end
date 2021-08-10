@@ -42,7 +42,7 @@ module.exports = {
 
   me: (req, res, next) => {
 
-      User.findOne({ where: { id: user_id } })
+      User.findOne({ where: { email:'admin@navigroup.com' } })
         .then((user) => {
           if (!user) {
             return res.status(404).send({ error: "invalid User" });
@@ -113,8 +113,6 @@ module.exports = {
 
           role.findOne({ where: { id: user.user_roles[0].roleId } })
             .then((role) => {
-
-              redisClient.set('user_id', user.id);
 
               let defaultUrl = "/apps/company/form";
 
