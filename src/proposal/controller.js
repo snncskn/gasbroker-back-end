@@ -21,8 +21,7 @@ module.exports = {
     let whereStr = { 
        company_id: { [Op.eq]: company_id },
     };
-  
-   /* if (filter !== '') {
+     /* if (filter !== '') {
       whereStr.where = {
         $or: [
           {type: {$like: '%' + filter + '%'}}, 
