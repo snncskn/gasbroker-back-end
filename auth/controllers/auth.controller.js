@@ -281,10 +281,10 @@ module.exports = {
 
         user.save();
 
-        const link = "http://" + req.headers.host + "/api/auth/reset/" + user.passwordResetToken;
+        const link = "https://test.d1oct6wuiwq78y.amplifyapp.com/change-password?token=" + user.passwordResetToken;
 
         const mailOptions = {
-          recipient: "snncskn@msn.com",
+          recipient: "gasbroker.navi@gmail.com",
           from: process.env.EMAIL_DOMAIN || "gasbroker.navi@gmail.com",
           subject: "Reset your password on Gas Broker",
           text:
