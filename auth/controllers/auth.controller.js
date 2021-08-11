@@ -44,7 +44,7 @@ module.exports = {
 
   me: (req, res, next) => {
 
-    User.findOne({ where: { id: req.headers["user_id"] }, include: [userRoles], })
+    User.findOne({ where: { user_id: req.headers["user_id"] }, include: [userRoles], })
       .then((user) => {
         if (!user) {
           return res.status(404).send({ error: "invalid User" });
