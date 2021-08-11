@@ -43,26 +43,39 @@ module.exports = {
   },
 
   me: (req, res, next) => {
-    User.findOne({ where: { email: "admin@navigroup.com" } })
+
+    User.findOne({ where: { id: req.headers["user_id"] }, include: [userRoles], })
       .then((user) => {
         if (!user) {
           return res.status(404).send({ error: "invalid User" });
         }
 
-        res.send({
-          statusCode: 200,
-          email: user.email,
-          name: user.name,
-          userName: user.username,
-          full_name: req.body.name,
-          birthday: "01.06.2021",
-          gender: "E",
-          id: user.id,
-          address: "test",
-          mobilePhone: user.phonenumber,
-          avatar: user.avatar,
-          photoURL: user.photo_url,
-        });
+        if (user.user_roles[0]) {
+
+          role.findOne({ where: { id: user.user_roles[0].roleId } })
+            .then((role) => {
+
+              res.send({
+                statusCode: 200,
+                email: user.email,
+                name: user.name,
+                userName: user.username,
+                full_name: req.body.name,
+                birthday: "01.06.2021",
+                gender: "E",
+                role: role.name,
+                id: user.id,
+                address: "test",
+                mobilePhone: user.phonenumber,
+                avatar: user.avatar,
+                photoURL: user.photo_url,
+              });
+
+
+            });
+
+        }
+
       })
       .catch((err) => {
         next(err);
@@ -108,8 +121,8 @@ module.exports = {
         //   }
 
         if (user.user_roles[0]) {
-          role
-            .findOne({ where: { id: user.user_roles[0].roleId } })
+
+          role.findOne({ where: { id: user.user_roles[0].roleId } })
             .then((role) => {
               let defaultUrl = "/apps/company/form";
 
