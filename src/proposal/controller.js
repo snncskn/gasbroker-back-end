@@ -75,7 +75,7 @@ module.exports = {
       product_id,
       last_offer_date,
       publish_date,
-      proposal_detail,
+      product_detail,
       product_quantity,
       location,
       freight_type,
@@ -89,7 +89,7 @@ module.exports = {
         product_id,
         last_offer_date,
         publish_date,
-        proposal_detail,
+        product_detail,
         product_quantity,
         location,
         freight_type,
@@ -112,7 +112,7 @@ module.exports = {
       proposal_id,
       last_offer_date,
       publish_date,
-      proposal_detail,
+      product_detail,
       proposal_quantity,
       location,
       freight_type,
@@ -128,7 +128,7 @@ module.exports = {
       if (id) proposal.proposal_id = proposal_id;
       if (id) proposal.last_offer_date = last_offer_date;
       if (id) proposal.publish_date = publish_date;
-      if (id) proposal.proposal_detail = proposal_detail;
+      if (id) proposal.product_detail = product_detail;
       if (id) proposal.proposal_quantity = proposal_quantity;
       if (id) proposal.location = location;
       if (id) proposal.freight_type = freight_type;
