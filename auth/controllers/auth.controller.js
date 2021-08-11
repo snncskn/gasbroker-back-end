@@ -312,7 +312,6 @@ module.exports = {
     User.findOne({
       where: {
         passwordResetToken: req.params.token,
-        passwordResetExpires: { $gt: Date.now() },
       },
     }).then((user) => {
 
@@ -333,7 +332,6 @@ module.exports = {
     User.findOne({
       where: {
         passwordResetToken: req.params.token,
-        passwordResetExpires: { $gt: Date.now() },
       },
     })
       .then((user) => {
