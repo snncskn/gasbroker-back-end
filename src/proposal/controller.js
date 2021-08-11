@@ -1,4 +1,4 @@
-const { proposal, proposal_offer, product, company } = require("../../models");
+const { proposal, proposal_offer, product, company, media } = require("../../models");
 const { round } = require("lodash");
 const { Op } = require("sequelize");
 const Data = proposal;
@@ -34,7 +34,7 @@ module.exports = {
       limit: size,
       offset: page,
       order: [[by, type]],
-      include: [proposal_offer, company, product],
+      include: [proposal_offer, company, product, media],
       where: whereStr
     };
 
@@ -58,7 +58,7 @@ module.exports = {
     try {
       const proposal = await Data.findOne({
         where: { id },
-        include: [proposal_offer, company, product],
+        include: [proposal_offer, company, product, media],
       });
       res.json({
         statusCode: 200,

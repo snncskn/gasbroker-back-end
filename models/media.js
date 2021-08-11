@@ -65,6 +65,15 @@ module.exports = function(sequelize, DataTypes) {
       },
       unique: "media_vehicle_unq"
     },
+    proposal_id: {
+      type: DataTypes.UUID,
+      allowNull: true,
+      references: {
+        model: 'proposal',
+        key: 'id'
+      },
+      unique: "media_proposal_unq"
+    },
   }, {
     sequelize,
     tableName: 'media',
@@ -103,6 +112,14 @@ module.exports = function(sequelize, DataTypes) {
         fields: [
           { name: "id" },
           { name: "vehicle_id" },
+        ]
+      },
+      {
+        name: "media_proposal_unq",
+        unique: true,
+        fields: [
+          { name: "id" },
+          { name: "proposal_id" },
         ]
       },
     ]
