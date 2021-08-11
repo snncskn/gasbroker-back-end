@@ -1,9 +1,8 @@
-const { vehicle, company } = require("../../models");
+const { vehicle, company, media } = require("../../models");
 const { Op } = require("sequelize");
 const { round } = require("lodash");
 
 const Data = vehicle;
-const Company = company;
 
 module.exports = {
   getAllBySql: async (req, res, next) => {
@@ -65,7 +64,7 @@ module.exports = {
       offset: page,
       order: [[by, type]],
       where: whereStr,
-      include: [Company],
+      include: [company, media],
     };
 
     try {
@@ -89,7 +88,7 @@ module.exports = {
     try {
       const myvehicle = await Data.findOne({
         where: { id },
-        include: "company",
+        include: [company, media],
       });
       res.json({
         statusCode: 200,
