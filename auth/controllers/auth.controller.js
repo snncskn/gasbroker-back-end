@@ -31,7 +31,6 @@ module.exports = {
           .setRoles(2, user.id)
           .then(() => {
             res.send({ message: "User registered successfully!" });
-            req.session.user = user;
           })
           .catch((err) => {
             next(err);

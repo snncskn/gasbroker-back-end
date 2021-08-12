@@ -1,11 +1,12 @@
-const { company, address, media } = require("../../models");
+const { company, address, media, user } = require("../../models");
+
 const { Op } = require("sequelize");
 const { round } = require("lodash");
 
 const Data = company;
 
 module.exports = {
-  
+
   getAll: async (req, res, next) => {
     let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
     let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
@@ -30,7 +31,7 @@ module.exports = {
       offset: page,
       order: [[by, type]],
       where: whereStr,
-      include: [address, media], 
+      include: [address, media],
     };
 
     try {
@@ -54,7 +55,7 @@ module.exports = {
     try {
       const mycompany = await Data.findOne({
         where: { id },
-       include: [address, media], 
+        include: [address, media],
       });
       res.json({
         statusCode: 200,
@@ -146,10 +147,25 @@ module.exports = {
         tax_office,
       });
 
+      await user.findOne({ where: { user_id: req.headers["user_id"] } })
+        .then((findedUser) => {
+          
+          if (!findedUser) {
+            return res.status(404).send({ error: "invalid User" });
+          }
+          findedUser.company_id = mycompany.id;
+
+          findedUser.save();
+        })
+        .catch((err) => {
+          next(err);
+        });
+
       res.json({
         statusCode: 200,
         body: mycompany,
       });
+
     } catch (err) {
       next(err);
     }
