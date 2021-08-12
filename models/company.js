@@ -12,6 +12,10 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING(250),
       allowNull: true
     },
+    country: {
+      type: DataTypes.STRING(250),
+      allowNull: false,
+    },
     name: {
       type: DataTypes.STRING(250),
       allowNull: false,
@@ -131,6 +135,10 @@ module.exports = function (sequelize, DataTypes) {
     },
     tax_office: {
       type: DataTypes.STRING,
+      allowNull: true
+    },
+    user_approved: {
+      type: DataTypes.BOOLEAN,
       allowNull: true
     }
   }, {

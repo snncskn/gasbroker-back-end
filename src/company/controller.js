@@ -77,7 +77,6 @@ module.exports = {
       street,
       city,
       state,
-      country,
       latitude,
       longitude,
       map_point,
@@ -104,6 +103,8 @@ module.exports = {
       types,
       tax_number,
       tax_office,
+      country,
+      user_approved
     } = req.body;
 
     try {
@@ -118,7 +119,6 @@ module.exports = {
         street,
         city,
         state,
-        country,
         latitude,
         longitude,
         map_point,
@@ -145,6 +145,8 @@ module.exports = {
         types,
         tax_number,
         tax_office,
+        country,
+        user_approved
       });
 
       await user.findOne({ where: { user_id: req.headers["user_id"] } })
@@ -183,7 +185,6 @@ module.exports = {
       street,
       city,
       state,
-      country,
       latitude,
       longitude,
       map_point,
@@ -210,6 +211,8 @@ module.exports = {
       types,
       tax_number,
       tax_office,
+      country,
+      user_approved,
     } = req.body;
     try {
       const mycompany = await Data.findOne({ where: { id } });
@@ -223,7 +226,6 @@ module.exports = {
       if (street) mycompany.street = street;
       if (city) mycompany.city = city;
       if (state) mycompany.state = state;
-      if (country) mycompany.country = country;
       if (latitude) mycompany.latitude = latitude;
       if (longitude) mycompany.longitude = longitude;
       if (map_point) mycompany.map_point = map_point;
@@ -250,6 +252,8 @@ module.exports = {
       if (types) mycompany.types = types;
       if (tax_number) mycompany.tax_number = tax_number;
       if (tax_office) mycompany.tax_office = tax_office;
+      if (country) mycompany.country = country;
+      if (user_approved) mycompany.user_approved = user_approved;
 
       await mycompany.save();
 
