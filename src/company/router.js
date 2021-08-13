@@ -9,6 +9,7 @@ router.get("/:company_id", controller.getByID);
 router.put("/:company_id", controller.update);
 router.get("/", controller.getAll);
 router.post("/", controller.create);
+router.get("/name-validate/:name", controller.nameValidate);
 
 
 module.exports = router;

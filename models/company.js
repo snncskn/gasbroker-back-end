@@ -137,10 +137,6 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: true
     },
-    user_approved: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true
-    }
   }, {
     sequelize,
     tableName: 'company',

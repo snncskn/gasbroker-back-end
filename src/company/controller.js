@@ -103,8 +103,7 @@ module.exports = {
       types,
       tax_number,
       tax_office,
-      country,
-      user_approved
+      country
     } = req.body;
 
     try {
@@ -145,13 +144,12 @@ module.exports = {
         types,
         tax_number,
         tax_office,
-        country,
-        user_approved
+        country
       });
 
       await user.findOne({ where: { user_id: req.headers["user_id"] } })
         .then((findedUser) => {
-          
+
           if (!findedUser) {
             return res.status(404).send({ error: "invalid User" });
           }
@@ -211,8 +209,7 @@ module.exports = {
       types,
       tax_number,
       tax_office,
-      country,
-      user_approved,
+      country
     } = req.body;
     try {
       const mycompany = await Data.findOne({ where: { id } });
@@ -253,7 +250,6 @@ module.exports = {
       if (tax_number) mycompany.tax_number = tax_number;
       if (tax_office) mycompany.tax_office = tax_office;
       if (country) mycompany.country = country;
-      if (user_approved) mycompany.user_approved = user_approved;
 
       await mycompany.save();
 
@@ -315,6 +311,27 @@ module.exports = {
       res.json({
         statusCode: 200,
         body: company,
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+  nameValidate: async (req, res, next) => {
+    try {
+      const paramName = req.query.name;
+
+      await Data.findOne({
+        where: { name: { [Op.equals]: paramName } },
+      }).then((cmpn) => {
+        if (cmpn) {
+          return res.status(602).send({ message: "Company already registered.." });
+        }
+      }).catch((err) => {
+          next(err);
+        });
+
+      res.json({
+        statusCode: 200,
       });
     } catch (err) {
       next(err);
