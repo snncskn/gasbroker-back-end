@@ -81,6 +81,8 @@ module.exports = {
       freight_type,
       type,
       status,
+      latitude,
+      longitude,
     } = req.body;
     try {
       const proposal = await Data.create({
@@ -95,6 +97,8 @@ module.exports = {
         freight_type,
         type,
         status,
+        latitude,
+        longitude,
       });
 
       res.json({
@@ -118,23 +122,27 @@ module.exports = {
       freight_type,
       type,
       status,
+      latitude,
+      longitude,
     } = req.body;
 
     try {
       const proposal = await Data.findOne({ where: { id } });
 
       if (id) proposal.id = id;
-      if (id) proposal.company_id = company_id;
-      if (id) proposal.proposal_id = proposal_id;
-      if (id) proposal.last_offer_date = last_offer_date;
-      if (id) proposal.publish_date = publish_date;
-      if (id) proposal.product_detail = product_detail;
-      if (id) proposal.proposal_quantity = proposal_quantity;
-      if (id) proposal.location = location;
-      if (id) proposal.freight_type = freight_type;
-      if (id) proposal.type = type;
-      if (id) proposal.status = status;
-
+      if (company_id) proposal.company_id = company_id;
+      if (proposal_id) proposal.proposal_id = proposal_id;
+      if (last_offer_date) proposal.last_offer_date = last_offer_date;
+      if (publish_date) proposal.publish_date = publish_date;
+      if (product_detail) proposal.product_detail = product_detail;
+      if (proposal_quantity) proposal.proposal_quantity = proposal_quantity;
+      if (location) proposal.location = location;
+      if (freight_type) proposal.freight_type = freight_type;
+      if (type) proposal.type = type;
+      if (status) proposal.status = status;
+      if (latitude) proposal.latitude = latitude;
+      if (longitude) proposal.longitude = longitude;
+      
       await proposal.save();
 
       res.json({

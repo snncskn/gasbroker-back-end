@@ -70,7 +70,15 @@ module.exports = function(sequelize, DataTypes) {
     deleted_at: {
       type: DataTypes.DATE,
       allowNull: true
-    }
+    },
+    latitude: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
+    longitude: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
   }, {
     sequelize,
     tableName: 'proposal',
