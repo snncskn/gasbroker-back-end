@@ -123,10 +123,10 @@ module.exports = {
 
           role.findOne({ where: { id: user.user_roles[0].roleId } })
             .then((role) => {
-              let defaultUrl = "/apps/company/form";
+              let defaultUrl = "/dashboards/project";
 
-              if (user.company_id) {
-                defaultUrl = "/apps/company/form/" + user.company_id;
+              if(user.company_id == undefined || user.company_id == null) {
+                defaultUrl = "/apps/company/form";
               }
 
               res.send({

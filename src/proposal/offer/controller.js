@@ -1,6 +1,9 @@
 const { proposal_offer, company } = require("../../../models");
 const Data = proposal_offer;
 
+const UserService = require("../../../auth/user.service");
+const userService = new UserService();
+
 module.exports = {
   getAll: async (req, res, next) => {
     try {
@@ -33,8 +36,17 @@ module.exports = {
   getOffersByProposalId: async (req, res, next) => {
     const id = req.params.proposal_id;
     try {
+      const role_name = await userService.role(req.headers["user_id"]);
+
+      let whereStr = { proposal_id: id };
+
+      if ("user" == role_name) {
+        const company_id = await userService.userCompany(req.headers["user_id"]);
+        whereStr = { proposal_id: id, company_id: company_id };
+      }
+
       const proposal_offer = await Data.findAll({
-        where: { proposal_id: id },
+        where: whereStr,
         include: [{ model: company, attributes: ["id", "name"] }],
       });
       res.json({
@@ -59,7 +71,7 @@ module.exports = {
     try {
       const proposal_offer = await Data.create({
         proposal_id,
-        company_id:req.headers["company_id"],
+        company_id: req.headers["company_id"],
         offer_date,
         payment_type,
         price,

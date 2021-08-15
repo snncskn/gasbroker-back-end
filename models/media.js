@@ -80,7 +80,8 @@ module.exports = function(sequelize, DataTypes) {
     schema: 'public',
     createdAt: 'created_at',
     updatedAt: 'updated_at',
-    paranoid: false,
+    deletedAt: 'deleted_at',
+    paranoid: true,
     timestamps: true,
     indexes: [
       {

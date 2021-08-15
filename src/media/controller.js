@@ -25,11 +25,9 @@ module.exports = {
   getFileUrl: async (req, res, next) => {
     // Both Key and ContentType are defined in the client side.
     // Key refers to the remote name of the file.
-    const { fileInfo } = req.query;
-
-    generateGetUrl(fileInfo)
+    const key  = req.query.Key;
+    generateGetUrl(key)
       .then((getURL) => {
-        console.log(getUrl);
         res.send(getURL);
       })
       .catch((err) => {
