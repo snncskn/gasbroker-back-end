@@ -144,7 +144,9 @@ module.exports = {
       ref,
       path,
       ref_id,
-      file_path
+      file_path,
+      vehicle_id,
+      proposal_id
     } = req.body;
 
     try {
@@ -158,7 +160,9 @@ module.exports = {
         ref,
         path,
         ref_id,
-        file_path
+        file_path,
+        vehicle_id,
+        proposal_id
       });
       res.json({
         statusCode: 200,
