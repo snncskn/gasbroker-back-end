@@ -8,7 +8,7 @@ const userService = new UserService();
 module.exports = {
   getAll: async (req, res, next) => {
     let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
-    let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
+    let type = "DESC";//req.query.sortType == undefined ? "DESC" : req.query.sortType;
     let size = req.query.size == undefined ? 100 : req.query.size;
     let page = req.query.page == undefined ? 0 : req.query.page;
 
@@ -130,8 +130,8 @@ module.exports = {
       const proposal = await Data.findOne({ where: { id } });
 
       if (id) proposal.id = id;
-      if (company_id) proposal.company_id = company_id;
-      if (proposal_id) proposal.proposal_id = proposal_id;
+      //if (company_id) proposal.company_id = company_id;
+      //if (proposal_id) proposal.proposal_id = proposal_id;
       if (last_offer_date) proposal.last_offer_date = last_offer_date;
       if (publish_date) proposal.publish_date = publish_date;
       if (product_detail) proposal.product_detail = product_detail;

@@ -72,6 +72,7 @@ module.exports = {
       const items = await Data.findAll({
         where: { process_id: id },
         include: [process_group, process_sub_group],
+        order: [["created_at", "asc"]],
       });
       res.json({
         statusCode: 200,
