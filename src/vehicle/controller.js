@@ -13,7 +13,6 @@ module.exports = {
         body: myvehicle,
       });
     } catch (err) {
-      console.log(err);
       res.json({ error: err });
     }
   },
@@ -28,7 +27,6 @@ module.exports = {
         body: myvehicle,
       });
     } catch (err) {
-      console.log(err);
       res.json({ error: err });
     }
   },
@@ -100,7 +98,7 @@ module.exports = {
     }
   },
   create: async (req, res, next) => {
-    const { company_id, name, type, registered_date } = req.body;
+    const { company_id, name, type, registered_date, imo_no } = req.body;
 
     try {
       const myvehicle = await Data.create({
@@ -108,6 +106,7 @@ module.exports = {
         name,
         type,
         registered_date,
+        imo_no
       });
       res.json({
         statusCode: 200,
@@ -120,7 +119,7 @@ module.exports = {
   },
   update: async (req, res, next) => {
     const id = req.params.vehicle_id;
-    const { company_id, name, type, registered_date } = req.body;
+    const { company_id, name, type, registered_date, imo_no } = req.body;
     try {
       const myvehicle = await Data.findOne({ where: { id } });
       if (name) myvehicle.name = name;
@@ -128,6 +127,7 @@ module.exports = {
       if (company_id) myvehicle.company_id = company_id;
       if (type) myvehicle.type = type;
       if (registered_date) myvehicle.registered_date = registered_date;
+      if (imo_no) myvehicle.imo_no = imo_no;
 
       await myvehicle.save();
 
@@ -136,7 +136,6 @@ module.exports = {
         body: myvehicle,
       });
     } catch (err) {
-      console.log(err);
       next(err);
     }
   },
