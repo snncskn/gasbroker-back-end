@@ -107,8 +107,8 @@ db.process_sub_group.belongsTo(db.process_group, { foreignKey: "group_id" });
 db.user_roles.belongsTo(db.role, { foreignKey: "roleId" });
 db.role.hasMany(db.user_roles, { foreignKey: "roleId" });
 
-  db.media.belongsTo(db.user, { foreignKey: "user_id" });
-  db.user.hasOne(db.media, { foreignKey: "user_id" });
+db.media.belongsTo(db.user, { foreignKey: "user_id" });
+db.user.hasOne(db.media, { foreignKey: "user_id" });
 
 db.user_roles.belongsTo(db.user, { foreignKey: "userId" });
 db.user.hasMany(db.user_roles, { foreignKey: "userId" });
@@ -140,5 +140,8 @@ db.product.hasMany(db.proposal, {  foreignKey: "product_id"});
 
 db.company_approval.belongsTo(db.company, {   foreignKey: "company_id"});
 db.company.hasMany(db.company_approval, {  foreignKey: "company_id"});
+
+db.help_item.belongsTo(db.help, {foreignKey: "help_id"});
+db.help.hasMany(db.help_item, {foreignKey: "help_id"});
 
 module.exports = db;

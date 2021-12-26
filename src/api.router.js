@@ -13,6 +13,8 @@ var processGroupRouter = require("./process/process_group/router");
 var processSubGroupRouter = require("./process/process_sub_group/router"); 
 var menuRouter = require("./menu/router"); 
 var companyApprovalRouter = require("./company/company_approval/router"); 
+var helpRouter = require("./help/router");
+var helpItemRouter = require("./help/help_item/router");
 
 module.exports = {
   companyRouter,
@@ -29,5 +31,7 @@ module.exports = {
   processGroupRouter,
   processSubGroupRouter,
   menuRouter,
-  companyApprovalRouter
+  companyApprovalRouter,
+  helpRouter,
+  helpItemRouter,
 };

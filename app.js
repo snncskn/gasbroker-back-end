@@ -29,6 +29,8 @@ const {
   processSubGroupRouter,
   menuRouter,
   companyApprovalRouter,
+  helpRouter,
+  helpItemRouter,
 } = require("./src/api.router");
 
 dotenv.config();
@@ -93,6 +95,8 @@ app.use("/process-group", processGroupRouter);
 app.use("/process-sub-group", processSubGroupRouter);
 app.use("/menu", menuRouter);
 app.use("/company-approval", companyApprovalRouter);
+app.use("/help", helpRouter);
+app.use("/help-item", helpItemRouter);
 
 //mail-sms
 app.use("/api/email", emailRouter);

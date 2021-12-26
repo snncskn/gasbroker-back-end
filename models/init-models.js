@@ -21,6 +21,10 @@ var _log = require("./log");
 var _process = require("./process");
 var _process_item = require("./process_item");
 var _company_approval = require("./company_approval");
+var _help = require("./help");
+var _help_item = require("./help_item");
+
+
 
 function initModels(sequelize) {
   var address = _address(sequelize, DataTypes);
@@ -44,6 +48,9 @@ function initModels(sequelize) {
   var menu = _menu(sequelize, DataTypes);
   var log = _log(sequelize, DataTypes);
   var company_approval = _company_approval(sequelize, DataTypes);
+  var help = _help(sequelize, DataTypes);
+  var help_item = _help_item(sequelize, DataTypes);
+  
 
   return {
     address,
@@ -66,7 +73,9 @@ function initModels(sequelize) {
     email,
     menu,
     log,
-    company_approval
+    company_approval,
+    help,
+    help_item
   };
 }
 module.exports = initModels;
