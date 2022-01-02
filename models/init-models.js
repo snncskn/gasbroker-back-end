@@ -23,6 +23,7 @@ var _process_item = require("./process_item");
 var _company_approval = require("./company_approval");
 var _help = require("./help");
 var _help_item = require("./help_item");
+var _process_detail = require("./process_detail");
 
 
 
@@ -50,6 +51,7 @@ function initModels(sequelize) {
   var company_approval = _company_approval(sequelize, DataTypes);
   var help = _help(sequelize, DataTypes);
   var help_item = _help_item(sequelize, DataTypes);
+  var process_detail = _process_detail(sequelize, DataTypes);
   
 
   return {
@@ -75,7 +77,8 @@ function initModels(sequelize) {
     log,
     company_approval,
     help,
-    help_item
+    help_item,
+    process_detail,
   };
 }
 module.exports = initModels;
