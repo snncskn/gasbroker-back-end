@@ -31,6 +31,7 @@ const {
   companyApprovalRouter,
   helpRouter,
   helpItemRouter,
+  processDetailRouter
 } = require("./src/api.router");
 
 dotenv.config();
@@ -97,6 +98,7 @@ app.use("/menu", menuRouter);
 app.use("/company-approval", companyApprovalRouter);
 app.use("/help", helpRouter);
 app.use("/help-item", helpItemRouter);
+app.use("/process-detail", processDetailRouter);
 
 //mail-sms
 app.use("/api/email", emailRouter);
