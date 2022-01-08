@@ -71,7 +71,7 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'process_detail',
     schema: 'public',
-    timestamps: false,
+    timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
     deletedAt: 'deleted_at',
