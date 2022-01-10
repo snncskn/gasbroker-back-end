@@ -83,78 +83,91 @@ module.exports = {
     }
   },
   create: async (req, res, next) => {
-    const {
-      process_id,
-      group_id,
-      group_sub_id,
-      captain_process_date,
-      agency_process_date,
-      lm_process_date,
-      captain_media_path,
-      agency_media_path,
-      lm_media_path
-    } = req.body;
-
-    try {
-      const process_detail = await Data.create({
-        process_id,
-        group_id,
-        group_sub_id,
-        captain_process_date,
-        agency_process_date,
-        lm_process_date,
-        captain_media_path,
-        agency_media_path,
-        lm_media_path
-      });
-
-      res.json({
-        statusCode: 200,
-        body: process_detail,
-      });
-    } catch (err) {
-      next(err);
-    }
   },
   
   update: async (req, res, next) => {
-    const id = req.params.process_detail_id;
-    const {
-      process_id,
-      group_id,
-      group_sub_id,
-      captain_process_date,
-      agency_process_date,
-      lm_process_date,
-      captain_media_path,
-      agency_media_path,
-      lm_media_path
-    } = req.body;
-
-    try {
-      const process_detail = await Data.findOne({ where: { id } });
-
-      if (id) process_detail.id = id;
-      if (process_id) process_detail.process_id = process_id;
-      if (group_id) process_detail.group_id = group_id;
-      if (group_sub_id) process_detail.group_sub_id = group_sub_id;
+    
+  },
+  match: async (req, res, next) => {
+    const id = req.body.id;
+    
+    if(!id) {
       
-      if (captain_process_date) process_detail.captain_process_date = captain_process_date;
-      if (agency_process_date) process_detail.agency_process_date = agency_process_date;
-      if (lm_process_date) process_detail.lm_process_date = lm_process_date;
-      if (captain_media_path) process_detail.captain_media_path = captain_media_path;
-      if (agency_media_path) process_detail.agency_media_path = agency_media_path;
-      if (lm_media_path) process_detail.lm_media_path = lm_media_path;
+            const {
+              process_id,
+              group_id,
+              group_sub_id,
+              captain_process_date,
+              agency_process_date,
+              lm_process_date,
+              captain_media_path,
+              agency_media_path,
+              lm_media_path
+            } = req.body;
 
+            try {
+              const process_detail = await Data.create({
+                process_id,
+                group_id,
+                group_sub_id,
+                captain_process_date,
+                agency_process_date,
+                lm_process_date,
+                captain_media_path,
+                agency_media_path,
+                lm_media_path
+              });
+
+              res.json({
+                statusCode: 200,
+                body: process_detail,
+              });
+            } catch (err) {
+              next(err);
+            }
+
+    } else {
+        
+          
+          const {
+            process_id,
+            group_id,
+            group_sub_id,
+            captain_process_date,
+            agency_process_date,
+            lm_process_date,
+            captain_media_path,
+            agency_media_path,
+            lm_media_path
+          } = req.body;
       
-      await process_detail.save();
+          try {
+            const process_detail = await Data.findOne({ where: { id } });
+      
+            if (id) process_detail.id = id;
+            if (process_id) process_detail.process_id = process_id;
+            if (group_id) process_detail.group_id = group_id;
+            if (group_sub_id) process_detail.group_sub_id = group_sub_id;
+            
+            if (captain_process_date) process_detail.captain_process_date = captain_process_date;
+            if (agency_process_date) process_detail.agency_process_date = agency_process_date;
+            if (lm_process_date) process_detail.lm_process_date = lm_process_date;
+            if (captain_media_path) process_detail.captain_media_path = captain_media_path;
+            if (agency_media_path) process_detail.agency_media_path = agency_media_path;
+            if (lm_media_path) process_detail.lm_media_path = lm_media_path;
+      
+            
+            await process_detail.update();
+      
+            res.json({
+              statusCode: 200,
+              body: process_detail,
+            });
+          } catch (err) {
+            next(err);
+          }
 
-      res.json({
-        statusCode: 200,
-        body: process_detail,
-      });
-    } catch (err) {
-      next(err);
+
     }
   },
   delete: async (req, res, next) => {

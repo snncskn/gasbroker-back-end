@@ -6,7 +6,7 @@ router.put("/delete/:process_detail_id", controller.delete);
 router.get("/:process_detail_id", controller.getById);
 router.put("/:process_detail_id", controller.update);
 router.get("/", controller.getAll);
-router.post("/", controller.create);
+router.post("/", controller.match);
 
 router.get("/details/:process_id", controller.getItemsByProcessId);
 
