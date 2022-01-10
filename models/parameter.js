@@ -49,7 +49,7 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'parameter',
     schema: 'public',
-    timestamps: true,
+    timestamps: false,
     indexes: [
       {
         name: "parameter_pkey",
