@@ -116,6 +116,7 @@ module.exports = {
       next(err);
     }
   },
+  
   update: async (req, res, next) => {
     const id = req.params.process_detail_id;
     const {
