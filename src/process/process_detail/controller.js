@@ -113,7 +113,7 @@ module.exports = {
       if (agency_media_path) process_detail.agency_media_path = agency_media_path;
       if (lm_media_path) process_detail.lm_media_path = lm_media_path;
       
-      await process_detail.update();
+      await process_detail.save();
 
       res.json({
         statusCode: 200,
