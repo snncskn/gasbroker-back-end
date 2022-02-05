@@ -31,7 +31,8 @@ const {
   companyApprovalRouter,
   helpRouter,
   helpItemRouter,
-  processDetailRouter
+  processDetailRouter,
+  messageRouter
 } = require("./src/api.router");
 
 dotenv.config();
@@ -99,6 +100,7 @@ app.use("/company-approval", companyApprovalRouter);
 app.use("/help", helpRouter);
 app.use("/help-item", helpItemRouter);
 app.use("/process-detail", processDetailRouter);
+app.use("/message", messageRouter);
 
 //mail-sms
 app.use("/api/email", emailRouter);
@@ -108,7 +110,6 @@ app.use("/api/sms", smsRouter);
 //routes
 require("./auth/routes/auth.routes")(app);
 require("./auth/routes/user.routes")(app);
-
 
 //app.use(emailMdw.send);
 
@@ -124,8 +125,6 @@ if (process.env.NODE_ENV === "docker") {
 app.use(ware);
 
 app.use(errorHandler);
-
-
 
 app.listen({ port }, async () => {
   console.log("Server up on http://localhost:" + port);

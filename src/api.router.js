@@ -16,6 +16,7 @@ var companyApprovalRouter = require("./company/company_approval/router");
 var helpRouter = require("./help/router");
 var helpItemRouter = require("./help/help_item/router");
 var processDetailRouter = require("./process/process_detail/router");
+var messageRouter = require("./message/router");
 
 module.exports = {
   companyRouter,
@@ -35,5 +36,6 @@ module.exports = {
   companyApprovalRouter,
   helpRouter,
   helpItemRouter,
-  processDetailRouter
+  processDetailRouter,
+  messageRouter
 };

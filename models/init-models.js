@@ -24,6 +24,7 @@ var _company_approval = require("./company_approval");
 var _help = require("./help");
 var _help_item = require("./help_item");
 var _process_detail = require("./process_detail");
+var _message = require("./message");
 
 
 
@@ -52,7 +53,7 @@ function initModels(sequelize) {
   var help = _help(sequelize, DataTypes);
   var help_item = _help_item(sequelize, DataTypes);
   var process_detail = _process_detail(sequelize, DataTypes);
-  
+  var message = _message(sequelize, DataTypes);
 
   return {
     address,
@@ -79,6 +80,7 @@ function initModels(sequelize) {
     help,
     help_item,
     process_detail,
+    message,
   };
 }
 module.exports = initModels;
