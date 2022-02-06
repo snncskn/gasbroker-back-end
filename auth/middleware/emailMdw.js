@@ -7,21 +7,13 @@ var dotenv = require("dotenv");
 dotenv.config();
 
 send = async (req, res, next) => {
-  let emailBody = {
-    recipient: "snncskn@msn.com",
-    from: process.env.EMAIL_DOMAIN,
-    subject: "NODE TEST",
-    text: "email.text",
-    html: "email.html",
-  };
-
   try {
     let info = await emailService.send(emailBody);
-    save("EMAIL SERVICES", emailBody, info);
+    save("email-services-info", emailBody, info);
   } catch (err) {
-    console.error("error occur: " + err);
-    save("EMAIL SERVICES", emailBody, err);
+    save("email-services-error", emailBody, err);
   }
+
   next();
 };
 
@@ -39,6 +31,6 @@ save = async (description, request, response) => {
 
 const emailMdw = {
   send,
-  save,
 };
+
 module.exports = emailMdw;

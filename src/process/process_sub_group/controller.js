@@ -42,7 +42,7 @@ module.exports = {
 
     next();
   },
-  getById: async (req, res) => {
+  getById: async (req, res, next) => {
     const id = req.params.process_sub_group_id;
     try {
       const process_sub_group = await Data.findOne({
@@ -54,10 +54,10 @@ module.exports = {
         body: process_sub_group,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  create: async (req, res) => {
+  create: async (req, res, next) => {
     const { group_id, description, order } = req.body;
 
     try {
@@ -72,10 +72,10 @@ module.exports = {
         body: item,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  update: async (req, res) => {
+  update: async (req, res, next) => {
     const id = req.params.process_sub_group_id;
     const { group_id, description, order } = req.body;
 
@@ -94,7 +94,7 @@ module.exports = {
         body: item,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
   delete: async (req, res, next) => {

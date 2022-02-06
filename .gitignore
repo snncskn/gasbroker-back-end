@@ -15,7 +15,7 @@ tmp
 coverage
 
 # API keys
-.env
+#.env
 
 # Dependency directory
 node_modules
@@ -31,3 +31,5 @@ Thumbs.db
 
 
 .history
+dump.rdb
+package-lock.json

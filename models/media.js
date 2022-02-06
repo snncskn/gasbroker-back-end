@@ -15,7 +15,6 @@ module.exports = function(sequelize, DataTypes) {
         model: 'company',
         key: 'id'
       },
-      unique: "media_company_unq"
     },
     user_id: {
       type: DataTypes.UUID,
@@ -24,7 +23,6 @@ module.exports = function(sequelize, DataTypes) {
         model: 'user',
         key: 'user_id'
       },
-      unique: "media_user_unq"
     },
     title: {
       type: DataTypes.STRING(250),
@@ -48,14 +46,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     path: {
       type: DataTypes.JSON,
-      allowNull: true
+      allowNull: false
     },
     ref_id: {
       type: DataTypes.JSON,
-      allowNull: true
-    },
-    file_path: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true
     },
     product_id: {
@@ -71,13 +65,23 @@ module.exports = function(sequelize, DataTypes) {
       },
       unique: "media_vehicle_unq"
     },
+    proposal_id: {
+      type: DataTypes.UUID,
+      allowNull: true,
+      references: {
+        model: 'proposal',
+        key: 'id'
+      },
+      unique: "media_proposal_unq"
+    },
   }, {
     sequelize,
     tableName: 'media',
     schema: 'public',
     createdAt: 'created_at',
     updatedAt: 'updated_at',
-    paranoid: false,
+    deletedAt: 'deleted_at',
+    paranoid: true,
     timestamps: true,
     indexes: [
       {
@@ -109,6 +113,14 @@ module.exports = function(sequelize, DataTypes) {
         fields: [
           { name: "id" },
           { name: "vehicle_id" },
+        ]
+      },
+      {
+        name: "media_proposal_unq",
+        unique: true,
+        fields: [
+          { name: "id" },
+          { name: "proposal_id" },
         ]
       },
     ]

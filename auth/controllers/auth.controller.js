@@ -1,123 +1,87 @@
-var dotenv = require("dotenv");
 const db = require("../../models");
+const crypto = require("crypto");
+const bcrypt = require("bcrypt");
+var jwt = require("jsonwebtoken");
+
 const { emailService } = require("../../email/dependency");
 
+const UserService = require("../../auth/user.service");
+const userService = new UserService();
+
 const User = db.user;
-const Role = db.role;
-
-const Op = db.Sequelize.Op;
-
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
-const crypto = require('crypto');
-const randomBytesAsync = promisify(crypto.randomBytes);
-
-
-dotenv.config();
+const userRoles = db.user_roles;
+const role = db.role;
 
 module.exports = {
-  signup: (req, res) => {
+  signup: (req, res, next) => {
     // Save User to Database
     User.create({
       username: req.body.username,
       email: req.body.email,
       name: req.body.name,
       phonenumber: req.body.mobilePhone,
-      settings: req.body.settings,
+      settings: '{"layout":"enterprise","scheme":"light","theme":"default"}',
       password: bcrypt.hashSync(req.body.pass, 8),
+      permissions: req.body.permissions,
+      active: true,
     })
       .then((user) => {
-        if (req.body.roles) {
-          Role.findAll({
-            where: {
-              name: {
-                [Op.or]: req.body.roles,
-              },
-            },
-          }).then((roles) => {
-            user.setRoles(roles).then(() => {
-              res.send({ message: "User registered successfully!" });
-            });
-          });
-        } else {
-          // user role = 1
-          user.setRoles([1]).then(() => {
+        // user role = 2 / segment role
+        userService
+          .setRoles(2, user.id)
+          .then(() => {
             res.send({ message: "User registered successfully!" });
+          })
+          .catch((err) => {
+            next(err);
           });
-        }
-        res.send({ message: "User registered successfully!" });
       })
       .catch((err) => {
-        res.status(500).send({ message: err.message });
+        next(err);
       });
   },
 
-  me: (req, res) => {
-    /*      
-    User.findOne({  where: { email: req.body.email } }).then(user => {
-      if (!user) {
-        return res.status(404).send({ error: "invalid User" });
-      }
-      res.send({
-      statusCode: 200,
-      body:user
+  me: (req, res, next) => {
+
+    User.findOne({ where: { user_id: req.headers["user_id"] }, include: [userRoles], })
+      .then((user) => {
+        if (!user) {
+          return res.status(404).send({ error: "invalid User" });
+        }
+
+        if (user.user_roles[0]) {
+
+          role.findOne({ where: { id: user.user_roles[0].roleId } })
+            .then((role) => {
+
+              res.send({
+                statusCode: 200,
+                email: user.email,
+                name: user.name,
+                userName: user.username,
+                full_name: req.body.name,
+                birthday: "01.06.2021",
+                gender: "E",
+                role: role.name,
+                id: user.id,
+                address: "test",
+                mobilePhone: user.phonenumber,
+                avatar: user.avatar,
+                photoURL: user.photo_url,
+              });
+
+
+            });
+
+        }
+
+      })
+      .catch((err) => {
+        next(err);
       });
-
-    }).catch(err => {
-      res.status(500).send({ error: err.message });
-    });
-   
-
-  
-  username: req.body.username,
-    email: req.body.email,
-    name: req.body.name,
-    phonenumber: req.body.mobilePhone,
-    settings: req.body.settings,
-  */
-    res.status(200).send({
-      error: null,
-      access_token: "asdasdasd",
-      email: "power@navigroup.com",
-      name: "Sinan COŞKUN",
-      userName: "sinan.coskun",
-      full_name: "sinan coskun",
-      birthday: "01.01.2020",
-      gender: "E",
-      id: 99,
-      address: "test",
-      mobilePhone: "05074606083",
-      avatar: "assets/images/avatars/male-02.jpg",
-      photoURL: "assets/images/avatars/male-02.jpg",
-    });
   },
 
-  reset: (req, res) => {
-    try {
-      User.findOne({ where: { email: req.body.email } })
-        .then((user) => {
-          if (!user) {
-            return res.status(404).send({ error: "invalid User" });
-          }
-
-          user.password = bcrypt.hashSync(123456, 8);
-          user.save();
-
-          res.status(200).send({
-            error: null,
-            newPassword: 123456,
-            message: "new password will send mail",
-          });
-        })
-        .catch((err) => {
-          res.status(500).send({ error: err.message });
-        });
-    } catch (error) {
-      res.status(500).send({ message: error });
-    }
-  },
-
-  signin: (req, res) => {
+  signin: (req, res, next) => {
     const params = {};
     const { username, email } = req.body;
 
@@ -126,6 +90,7 @@ module.exports = {
 
     User.findOne({
       where: { ...params },
+      include: [userRoles],
     })
       .then((user) => {
         if (!user) {
@@ -145,7 +110,7 @@ module.exports = {
         }
 
         var token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET, {
-          expiresIn: 86400, // 24 hours
+          expiresIn: 3600, // 1 hours
         });
 
         // var authorities = [];
@@ -153,35 +118,54 @@ module.exports = {
         //   for (let i = 0; i < roles.length; i++) {
         //     authorities.push("ROLE_" + roles[i].name.toUpperCase());
         //   }
-        res.send({
-          statusCode: 200,
-          error: null,
-          access_token: token,
-          user: {
-            id: user.id,
-            uuid: user.user_id,
-            role: "admin",
-            data: {
-              username: user.username,
-              displayName: "cihan kaya",
-              company_id: user.company_id,
-              user_id: user.user_id,
-              photoURL: "assets/images/avatars/Abbott.jpg",
-              email: user.email,
-              settings: user.settings,
-              permissions: user.permissions,
-            },
-            // roles: authorities,
-          },
-        });
+
+        if (user.user_roles[0]) {
+
+          role.findOne({ where: { id: user.user_roles[0].roleId } })
+            .then((role) => {
+              let defaultUrl = "/dashboards/project";
+
+              if(user.company_id == undefined || user.company_id == null) {
+                defaultUrl = "/apps/company/form";
+              }
+
+              res.send({
+                statusCode: 200,
+                error: null,
+                access_token: token,
+                user: {
+                  id: user.id,
+                  uuid: user.user_id,
+                  data: {
+                    username: user.username,
+                    displayName: user.username,
+                    company_id: user.company_id,
+                    role: role.name,
+                    default_url: defaultUrl,
+                    user_id: user.user_id,
+                    photoURL: user.photo_url,
+                    email: user.email,
+                    settings: user.settings,
+                    permissions: user.permissions,
+                  },
+                  // roles: authorities,
+                },
+              });
+            });
+        } else {
+          return res.status(401).send({
+            message: "Unauthorized!",
+          });
+        }
+
         // });
       })
 
       .catch((err) => {
-        res.status(500).send({ error: err.message });
+        next(err);
       });
   },
-  accesstoken: (req, res) => {
+  accesstoken: (req, res, next) => {
     const access_token = req.headers["x-access-token"];
 
     let token = access_token;
@@ -216,8 +200,9 @@ module.exports = {
           //   for (let i = 0; i < roles.length; i++) {
           //     authorities.push("ROLE_" + roles[i].name.toUpperCase());
           //   }
-          res.status(200).send({
+          res.send({
             error: null,
+            statusCode: 200,
             access_token: newtoken,
             user: {
               id: user.id,
@@ -227,9 +212,8 @@ module.exports = {
                 username: user.username,
                 email: user.email,
                 settings: user.settings,
-                displayName: "cihan kaya",
+                displayName: user.username,
                 photoURL: "assets/images/avatars/Abbott.jpg",
-                email: "cihan@kaya.com",
               },
               // roles: authorities,
             },
@@ -243,7 +227,7 @@ module.exports = {
     });
   },
 
-  userupdate: (req, res) => {
+  userupdate: (req, res, next) => {
     let token = req.headers["x-access-token"];
     const { displayName, photoURL, email, settings } = req.body.user.data;
 
@@ -264,11 +248,12 @@ module.exports = {
         .then((myuser) => {
           if (email) myuser.email = email;
           if (settings) myuser.settings = settings;
-          console.log(settings);
 
           myuser.save();
-          res.status(200).send({
+
+          res.send({
             error: null,
+            statusCode: 200,
             access_token: token,
             user: {
               id: myuser.id,
@@ -276,7 +261,7 @@ module.exports = {
               role: "admin",
               data: {
                 username: myuser.username,
-                displayName: "cihan kaya",
+                displayName: myuser.username,
                 photoURL: "assets/images/avatars/Abbott.jpg",
                 email: myuser.email,
                 settings: myuser.settings,
@@ -286,57 +271,97 @@ module.exports = {
           });
         })
         .catch((err) => {
-          res.status(500).send({ error: err.message });
+          next(err);
         });
     });
   },
 
-  postForgot: (req, res, next) => {
-    const createRandomToken = randomBytesAsync(16)
-      .then(buf => buf.toString('hex'));
+  recover: (req, res, next) => {
+    User.findOne({ where: { email: req.body.email } })
+      .then((user) => {
+        if (!user) {
+          return res.status(401).json({
+            message:
+              "The email address " +
+              req.body.email +
+              " is not associated with any account. Double-check your email address and try again.",
+          });
+        }
 
-    const setRandomToken = token =>
-      User
-        .findOne({
-          where: {
-            email: req.body.email
-          }
-        })
-        .then(user => {
-          if (!user) {
-            return res.status(400).send({ error: 'Account with that email address does not exist.' })
-          }
+        user.passwordResetToken = crypto.randomBytes(20).toString("hex");
+        user.passwordResetExpires = Date.now() + 3600000;
 
+        user.save();
 
-          user.passwordResetToken = token
-          user.passwordResetExpires = Date.now() + 3600000
-          return user.save()
-        })
+        const link = "https://test.d1oct6wuiwq78y.amplifyapp.com/change-password?token=" + user.passwordResetToken;
 
-    const sendForgotPasswordEmail = (user) => {
-      if (!user) return
-      const token = user.passwordResetToken;
+        const mailOptions = {
+          to: user.email,
+          from: process.env.EMAIL_DOMAIN || "gasbroker.navi@gmail.com",
+          subject: "Reset your password on Gas Broker",
+          text:
+            "<br>You are receiving this email because you (or someone else) have requested the reset of the password for your account." +
+            "<br>Please click on the following link, or paste this into your browser to complete the process : " +
+            "<br><br><b>  <a href=" +
+            link +
+            ">" +
+            link +
+            "</a>   </a></b>" +
+            "<br><br>If you did not request this, please ignore this email and your password will remain unchanged.",
+        };
 
-      const mailOptions = {
-        recipient: user.email,
-        from: process.env.EMAIL_DOMAIN || 'gasbroker.navi@gmail.com',
-        subject: 'Reset your password on Gas Broker',
-        text: `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n
-        Please click on the following link, or paste this into your browser to complete the process:\n\n
-        http://${req.headers.host}/reset/${token}\n\n
-        If you did not request this, please ignore this email and your password will remain unchanged.\n`
-      };
-      try {
-        let info = await emailService.send(mailOptions);
-        res.send({ message: "Reset password link sent successfully!" });
-      } catch (err) {
-        res.status(500).send({ message: err.message });
+        try {
+          emailService.send(mailOptions);
+          res.send({ message: "Reset password link sent successfully!" });
+        } catch (err) {
+          next(err);
+        }
+      })
+      .catch((err) => next(err));
+  },
+
+  reset: (req, res, next) => {
+    User.findOne({
+      where: {
+        passwordResetToken: req.params.token,
+      },
+    }).then((user) => {
+
+      if (!user) {
+        return res.status(400).json({
+          message: "Password reset token is invalid or has expired.",
+        });
       }
-    };
 
-    createRandomToken
-      .then(setRandomToken)
-      .then(sendForgotPasswordEmail)
-  }
+      res.json({ statusCode: 200 });
 
+    })
+      .catch((err) => next(err));
+  },
+
+  change: (req, res, next) => {
+
+    User.findOne({
+      where: {
+        passwordResetToken: req.params.token,
+      },
+    })
+      .then((user) => {
+
+        if (!user) {
+          return res.status(400).json({
+            message: "Password reset token is invalid or has expired.",
+          });
+        }
+
+        user.password = bcrypt.hashSync(req.body.password, 8);
+
+        user.save();
+
+        res.status(200).json({ message: "Your password has been updated." });
+
+      })
+      .catch((err) => next(err));
+
+  },
 };

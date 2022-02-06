@@ -1,6 +1,6 @@
-const { product_item } = require("../../../models");
+const { help_item } = require("../../../models");
 
-const Data = product_item;
+const Data = help_item;
 
 module.exports = {
   getAll: async (req, res, next) => {
@@ -15,7 +15,7 @@ module.exports = {
     }
   },
   getById: async (req, res, next) => {
-    const id = req.params.product_item_id;
+    const id = req.params.help_item_id;
     try {
       const item = await Data.findOne({
         where: { id }
@@ -29,11 +29,11 @@ module.exports = {
     }
   },
   create: async (req, res, next) => {
-    const { product_id, quantity,name,unit } = req.body;
+    const { help_id, head,content,link} = req.body;
 
     try {
       const item = await Data.create({
-        product_id, quantity,name,unit
+        help_id, head,content,link
       });
 
       res.json({
@@ -45,17 +45,17 @@ module.exports = {
     }
   },
   update: async (req, res, next) => {
-    const id = req.params.product_item_id;
-    const { product_id, quantity,name,unit } = req.body;
+    const id = req.params.help_item_id;
+    const { help_id, head,content,link } = req.body;
 
     try {
       const item = await Data.findOne({ where: { id } });
 
       if (id) item.id = id;
-      if (product_id) item.product_id = product_id;
-      if (quantity) item.quantity = quantity;
-      if (name) item.name = name;
-      if (unit) item.unit = unit;
+      if (help_id) item.help_id = help_id;
+      if (head) item.head = head;
+      if (content) item.content = content;
+      if (link) item.link = link;
 
       await item.save();
 
@@ -68,7 +68,7 @@ module.exports = {
     }
   },
   delete: async (req, res, next) => {
-    const id = req.params.product_item_id;
+    const id = req.params.help_item_id;
 
     try {
       await Data.destroy({

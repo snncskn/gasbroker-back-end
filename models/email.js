@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'email',
     schema: 'public',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: "email_pkey",

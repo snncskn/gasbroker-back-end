@@ -1,12 +1,11 @@
-const { vehicle, company } = require("../../models");
+const { vehicle, company, media } = require("../../models");
 const { Op } = require("sequelize");
 const { round } = require("lodash");
 
 const Data = vehicle;
-const Company = company;
 
 module.exports = {
-  getAllBySql: async (req, res) => {
+  getAllBySql: async (req, res, next) => {
     try {
       const myvehicle = await Data.findAll({ include: "company" });
       res.json({
@@ -14,11 +13,10 @@ module.exports = {
         body: myvehicle,
       });
     } catch (err) {
-      console.log(err);
       res.json({ error: err });
     }
   },
-  getByIdBySql: async (req, res) => {
+  getByIdBySql: async (req, res, next) => {
     const id = req.params.vehicle_id;
     const parametre2 = 1;
     try {
@@ -29,7 +27,6 @@ module.exports = {
         body: myvehicle,
       });
     } catch (err) {
-      console.log(err);
       res.json({ error: err });
     }
   },
@@ -65,7 +62,7 @@ module.exports = {
       offset: page,
       order: [[by, type]],
       where: whereStr,
-      include: [Company],
+      include: [company, media],
     };
 
     try {
@@ -79,17 +76,17 @@ module.exports = {
         totalPage: round(Number(totalSize) / Number(size)),
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
 
     next();
   },
-  getByID: async (req, res) => {
+  getByID: async (req, res, next) => {
     const id = req.params.vehicle_id;
     try {
       const myvehicle = await Data.findOne({
         where: { id },
-        include: "company",
+        include: [company, media],
       });
       res.json({
         statusCode: 200,
@@ -97,11 +94,11 @@ module.exports = {
       });
     } catch (err) {
       console.log(err);
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  create: async (req, res) => {
-    const { company_id, name, type, registered_date } = req.body;
+  create: async (req, res, next) => {
+    const { company_id, name, type, registered_date, imo_no } = req.body;
 
     try {
       const myvehicle = await Data.create({
@@ -109,6 +106,7 @@ module.exports = {
         name,
         type,
         registered_date,
+        imo_no
       });
       res.json({
         statusCode: 200,
@@ -119,9 +117,9 @@ module.exports = {
       res.status(500).json({ error: err.stack });
     }
   },
-  update: async (req, res) => {
+  update: async (req, res, next) => {
     const id = req.params.vehicle_id;
-    const { company_id, name, type, registered_date } = req.body;
+    const { company_id, name, type, registered_date, imo_no } = req.body;
     try {
       const myvehicle = await Data.findOne({ where: { id } });
       if (name) myvehicle.name = name;
@@ -129,6 +127,7 @@ module.exports = {
       if (company_id) myvehicle.company_id = company_id;
       if (type) myvehicle.type = type;
       if (registered_date) myvehicle.registered_date = registered_date;
+      if (imo_no) myvehicle.imo_no = imo_no;
 
       await myvehicle.save();
 
@@ -137,8 +136,7 @@ module.exports = {
         body: myvehicle,
       });
     } catch (err) {
-      console.log(err);
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
   delete: async (req, res, next) => {
@@ -159,7 +157,7 @@ module.exports = {
       next(err);
     }
   },
-  changeActiveStatus: async (req, res) => {
+  changeActiveStatus: async (req, res, next) => {
     const id = req.params.vehicle_id;
 
     try {
@@ -174,7 +172,7 @@ module.exports = {
       });
     } catch (err) {
       console.log(err);
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
 };

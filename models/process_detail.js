@@ -1,63 +1,59 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('proposal', {
+  return sequelize.define('process_detail', {
     id: {
-      defaultValue: DataTypes.UUIDV4,
       type: DataTypes.UUID,
       allowNull: false,
       primaryKey: true,
-      references: {
-        model: 'product',
-        key: 'id'
-      }
+      defaultValue: DataTypes.UUIDV4
     },
-    company_id: {
+    process_id: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: 'company',
+        model: 'process',
         key: 'id'
       }
     },
-    product_id: {
+    group_id: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: 'product',
+        model: 'process_group',
         key: 'id'
       }
     },
-    last_offer_date: {
+    group_sub_id: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'process_sub_group',
+        key: 'id'
+      }
+    },
+    captain_process_date: {
       type: DataTypes.DATE,
       allowNull: true
     },
-    publish_date: {
+    agency_process_date: {
       type: DataTypes.DATE,
-      allowNull: false
-    },
-    product_detail: {
-      type: DataTypes.STRING,
       allowNull: true
     },
-    product_quantity: {
-      type: DataTypes.DECIMAL,
-      allowNull: false
-    },
-    location: {
-      type: DataTypes.STRING,
+    lm_process_date: {
+      type: DataTypes.DATE,
       allowNull: true
     },
-    freight_type: {
-      type: DataTypes.STRING,
-      allowNull: false
+    captain_media_path: {
+      type: DataTypes.JSON,
+      allowNull: true
     },
-    type: {
-      type: DataTypes.STRING,
-      allowNull: false
+    agency_media_path: {
+      type: DataTypes.JSON,
+      allowNull: true
     },
-    status: {
-      type: DataTypes.STRING,
-      allowNull: false
+    lm_media_path: {
+      type: DataTypes.JSON,
+      allowNull: true
     },
     created_at: {
       type: DataTypes.DATE,
@@ -70,27 +66,18 @@ module.exports = function(sequelize, DataTypes) {
     deleted_at: {
       type: DataTypes.DATE,
       allowNull: true
-    },
-    latitude: {
-      type: DataTypes.STRING(50),
-      allowNull: true
-    },
-    longitude: {
-      type: DataTypes.STRING(50),
-      allowNull: true
-    },
+    }
   }, {
     sequelize,
-    tableName: 'proposal',
+    tableName: 'process_detail',
     schema: 'public',
+    timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
     deletedAt: 'deleted_at',
-    paranoid: true,
-    timestamps: true,
     indexes: [
       {
-        name: "proposal_pk",
+        name: "process_detail_pk",
         unique: true,
         fields: [
           { name: "id" },

@@ -1,11 +1,12 @@
-const { company, address, media } = require("../../models");
+const { company, address, media, user } = require("../../models");
+
 const { Op } = require("sequelize");
 const { round } = require("lodash");
 
 const Data = company;
 
 module.exports = {
-  
+
   getAll: async (req, res, next) => {
     let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
     let type = req.query.sortType == undefined ? "DESC" : req.query.sortType;
@@ -27,10 +28,10 @@ module.exports = {
 
     let whereClause = {
       limit: size,
-      offset: page * size,
+      offset: page,
       order: [[by, type]],
       where: whereStr,
-      include: [address, media], 
+      include: [address, media],
     };
 
     try {
@@ -44,27 +45,27 @@ module.exports = {
         totalPage: round(Number(totalSize) / Number(size)),
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
 
     next();
   },
-  getByID: async (req, res) => {
+  getByID: async (req, res, next) => {
     const id = req.params.company_id;
     try {
       const mycompany = await Data.findOne({
         where: { id },
-       include: [address, media], 
+        include: [address, media],
       });
       res.json({
         statusCode: 200,
         body: mycompany,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  create: async (req, res) => {
+  create: async (req, res, next) => {
     const {
       tanent_id,
       name,
@@ -76,7 +77,6 @@ module.exports = {
       street,
       city,
       state,
-      country,
       latitude,
       longitude,
       map_point,
@@ -103,6 +103,7 @@ module.exports = {
       types,
       tax_number,
       tax_office,
+      country
     } = req.body;
 
     try {
@@ -117,7 +118,6 @@ module.exports = {
         street,
         city,
         state,
-        country,
         latitude,
         longitude,
         map_point,
@@ -144,17 +144,33 @@ module.exports = {
         types,
         tax_number,
         tax_office,
+        country
       });
+
+      await user.findOne({ where: { user_id: req.headers["user_id"] } })
+        .then((findedUser) => {
+
+          if (!findedUser) {
+            return res.status(404).send({ error: "invalid User" });
+          }
+          findedUser.company_id = mycompany.id;
+
+          findedUser.save();
+        })
+        .catch((err) => {
+          next(err);
+        });
 
       res.json({
         statusCode: 200,
         body: mycompany,
       });
+
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  update: async (req, res) => {
+  update: async (req, res, next) => {
     const id = req.params.company_id;
     const {
       tanent_id,
@@ -167,7 +183,6 @@ module.exports = {
       street,
       city,
       state,
-      country,
       latitude,
       longitude,
       map_point,
@@ -194,6 +209,7 @@ module.exports = {
       types,
       tax_number,
       tax_office,
+      country
     } = req.body;
     try {
       const mycompany = await Data.findOne({ where: { id } });
@@ -207,7 +223,6 @@ module.exports = {
       if (street) mycompany.street = street;
       if (city) mycompany.city = city;
       if (state) mycompany.state = state;
-      if (country) mycompany.country = country;
       if (latitude) mycompany.latitude = latitude;
       if (longitude) mycompany.longitude = longitude;
       if (map_point) mycompany.map_point = map_point;
@@ -234,6 +249,7 @@ module.exports = {
       if (types) mycompany.types = types;
       if (tax_number) mycompany.tax_number = tax_number;
       if (tax_office) mycompany.tax_office = tax_office;
+      if (country) mycompany.country = country;
 
       await mycompany.save();
 
@@ -242,7 +258,7 @@ module.exports = {
         body: mycompany,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
   delete: async (req, res, next) => {
@@ -264,7 +280,7 @@ module.exports = {
       next(err);
     }
   },
-  changeActiveStatus: async (req, res) => {
+  changeActiveStatus: async (req, res, next) => {
     const id = req.params.company_id;
 
     try {
@@ -278,10 +294,10 @@ module.exports = {
         body: mycompany,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  findByCriteria: async (req, res) => {
+  findByCriteria: async (req, res, next) => {
     try {
       const filter = req.query.filter;
       const page = req.query.page;
@@ -297,7 +313,28 @@ module.exports = {
         body: company,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
+    }
+  },
+  nameValidate: async (req, res, next) => {
+    try {
+      const paramName = req.query.name;
+
+      await Data.findOne({
+        where: { name: { [Op.equals]: paramName } },
+      }).then((cmpn) => {
+        if (cmpn) {
+          return res.status(602).send({ message: "Company already registered.." });
+        }
+      }).catch((err) => {
+          next(err);
+        });
+
+      res.json({
+        statusCode: 200,
+      });
+    } catch (err) {
+      next(err);
     }
   },
 };

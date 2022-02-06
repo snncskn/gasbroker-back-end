@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4
     },
-    company_id: {
+  company_id: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
@@ -28,7 +28,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATEONLY,
       allowNull: false,
       defaultValue: Sequelize.Sequelize.literal('CURRENT_DATE')
-    }
+    },
+    imo_no: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+    },
   }, {
     sequelize,
     tableName: 'vehicle',

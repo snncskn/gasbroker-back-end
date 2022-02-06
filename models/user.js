@@ -9,6 +9,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     user_id: {
+      defaultValue: DataTypes.UUIDV4,
       type: DataTypes.UUID,
       allowNull: false,
       unique: "user_un"
@@ -124,7 +125,15 @@ module.exports = function(sequelize, DataTypes) {
     active: {
       type: DataTypes.BOOLEAN,
       allowNull: true
-    }
+    },
+    avatar: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    photo_url: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
   }, {
     sequelize,
     tableName: 'user',

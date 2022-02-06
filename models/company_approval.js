@@ -1,31 +1,31 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('product_item', {
+  return sequelize.define('company_approval', {
     id: {
       defaultValue: DataTypes.UUIDV4,
       type: DataTypes.UUID,
       allowNull: false,
-      primaryKey: true,
+      primaryKey: true
+    },
+    company_id: {
+      type: DataTypes.UUID,
+      allowNull: false,
       references: {
-        model: 'product',
+        model: 'company',
         key: 'id'
       }
     },
-    product_id: {
+    status: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    approval_user_id: {
       type: DataTypes.UUID,
       allowNull: false
-    },
-    quantity: {
-      type: DataTypes.DECIMAL,
-      allowNull: false
-    },
-    unit: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: true
     },
     created_at: {
       type: DataTypes.DATE,
@@ -34,18 +34,17 @@ module.exports = function(sequelize, DataTypes) {
     updated_at: {
       type: DataTypes.DATE,
       allowNull: true
-    },
+    }
   }, {
     sequelize,
-    tableName: 'product_item',
+    tableName: 'company_approval',
     schema: 'public',
+    timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
-    paranoid: false,
-    timestamps: true,
     indexes: [
       {
-        name: "product_item_pk",
+        name: "company_approval_pk",
         unique: true,
         fields: [
           { name: "id" },

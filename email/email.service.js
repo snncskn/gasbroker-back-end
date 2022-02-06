@@ -27,16 +27,16 @@ class EmailService {
       return null;
     }
 
-    if (!(email.recipient && email.subject && email.text && email.html)) {
+    if (!(email.to && email.subject && email.text)) {
       return null;
     }
 
     return await this.client.send({
-      to: email.recipient,
-      from: EMAIL_DOMAIN,
+      to: email.to,
+      from: email.from,
       subject: email.subject,
       text: email.text,
-      html: email.html,
+      html: email.text,
     });
   }
 

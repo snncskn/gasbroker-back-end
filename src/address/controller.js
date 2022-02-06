@@ -3,7 +3,7 @@ const { address } = require("../../models");
 const Data = address;
 
 module.exports = {
-  getByID: async (req, res) => {
+  getByID: async (req, res, next) => {
     const address_id = req.params.address_id;
     try {
       const myaddress = await Data.findOne({
@@ -15,10 +15,10 @@ module.exports = {
       });
     } catch (err) {
       console.log(err);
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  getByCompanyId: async (req, res) => {
+  getByCompanyId: async (req, res, next) => {
     const company_id = req.params.company_id;
     try {
       const myaddress = await Data.findAll({
@@ -29,10 +29,10 @@ module.exports = {
         body: myaddress,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  create: async (req, res) => {
+  create: async (req, res, next) => {
     const { id, description, company_id, title, type, lat, long } = req.body;
 
     try {
@@ -50,11 +50,11 @@ module.exports = {
         body: myaddress,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
 
-  update: async (req, res) => {
+  update: async (req, res, next) => {
     const address_id = req.params.address_id;
     const { is_active, is_deleted, description, title, lat, long} = req.body;
     try {
@@ -75,10 +75,10 @@ module.exports = {
         body: myaddress,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  delete: async (req, res) => {
+  delete: async (req, res, next) => {
     const id = req.params.address_id;
 
     try {
@@ -92,7 +92,7 @@ module.exports = {
         statusCode: 200,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
 };

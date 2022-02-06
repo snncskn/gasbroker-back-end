@@ -51,7 +51,7 @@ module.exports = {
 
     next();
   },
-  getById: async (req, res) => {
+  getById: async (req, res, next) => {
     const id = req.params.process_item_id;
     try {
       const process_item = await Data.findOne({
@@ -63,25 +63,26 @@ module.exports = {
         body: process_item,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  getItemsByProcessId: async (req, res) => {
+  getItemsByProcessId: async (req, res, next) => {
     const id = req.params.process_id;
     try {
-      const items = await Data.findOne({
+      const items = await Data.findAll({
         where: { process_id: id },
         include: [process_group, process_sub_group],
+        order: [["created_at", "asc"]],
       });
       res.json({
         statusCode: 200,
         body: items,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  create: async (req, res) => {
+  create: async (req, res, next) => {
     const {
       process_id,
       group_id,
@@ -108,10 +109,10 @@ module.exports = {
         body: process_item,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  update: async (req, res) => {
+  update: async (req, res, next) => {
     const id = req.params.process_item_id;
     const {
       process_id,
@@ -142,10 +143,10 @@ module.exports = {
         body: process_item,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
-  delete: async (req, res) => {
+  delete: async (req, res, next) => {
     const id = req.params.process_item_id;
 
     try {
@@ -160,7 +161,7 @@ module.exports = {
         body: Data,
       });
     } catch (err) {
-      res.status(500).json({ error: err });
+      next(err);
     }
   },
 };

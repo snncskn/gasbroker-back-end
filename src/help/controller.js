@@ -1,8 +1,8 @@
-const { product, product_item } = require("../../models");
+const { help, help_item } = require("../../models");
 const { Op } = require("sequelize");
 const { round } = require("lodash");
 
-const Data = product;
+const Data = help;
 
 module.exports = {
   getAll: async (req, res, next) => {
@@ -23,16 +23,16 @@ module.exports = {
       offset: page,
       order: [[by, type]],
       where: whereStr,
-      include: [product_item],
+      include: [help_item],
     };
 
     try {
       const totalSize = await Data.count();
-      const products = await Data.findAll(whereClause);
+      const helps = await Data.findAll(whereClause);
 
       res.json({
         statusCode: 200,
-        body: products,
+        body: helps,
         totalSize: totalSize,
         totalPage: round(Number(totalSize) / Number(size)),
       });
@@ -44,62 +44,60 @@ module.exports = {
   },
 
   getById: async (req, res, next) => {
-    const id = req.params.product_id;
+    const id = req.params.help_id;
     try {
-      const product = await Data.findOne({
+      const help = await Data.findOne({
         where: { id },
-        include: [product_item],
+        include: [help_item],
       });
       res.json({
         statusCode: 200,
-        body: product,
+        body: help,
       });
     } catch (err) {
       next(err);
     }
   },
   create: async (req, res, next) => {
-    const { name, code, unit } = req.body;
+    const { code, head } = req.body;
 
     try {
-      const product = await Data.create({
-        name,
+      const help = await Data.create({
         code,
-        unit,
+        head,
       });
 
       res.json({
         statusCode: 200,
-        body: product,
+        body: help,
       });
     } catch (err) {
       next(err);
     }
   },
   update: async (req, res, next) => {
-    const id = req.params.product_id;
-    const { name, code, unit } = req.body;
+    const id = req.params.help_id;
+    const { code, head } = req.body;
 
     try {
-      const product = await Data.findOne({ where: { id } });
+      const help = await Data.findOne({ where: { id } });
 
-      if (id) product.id = id;
-      if (name) product.name = name;
-      if (code) product.code = code;
-      if (unit) product.unit = unit;
+      if (id) help.id = id;
+      if (code) help.code = code;
+      if (head) help.head = head;
 
-      await product.save();
+      await help.save();
 
       res.json({
         statusCode: 200,
-        body: product,
+        body: help,
       });
     } catch (err) {
       next(err);
     }
   },
   delete: async (req, res, next) => {
-    const id = req.params.product_id;
+    const id = req.params.help_id;
 
     try {
       await Data.destroy({
