@@ -16,10 +16,18 @@ module.exports = function (sequelize, DataTypes) {
       to_user_id: {
         type: DataTypes.UUID,
         allowNull: false,
+        references: {
+          model: 'user',
+          key: 'user_id'
+        }
       },
       from_user_id: {
         type: DataTypes.UUID,
         allowNull: false,
+        references: {
+          model: 'user',
+          key: 'user_id'
+        }
       },
       unread_count: {
         type: DataTypes.DECIMAL,
@@ -47,7 +55,7 @@ module.exports = function (sequelize, DataTypes) {
       type: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "text",
+        defaultValue: "message",
       },
     },
     {

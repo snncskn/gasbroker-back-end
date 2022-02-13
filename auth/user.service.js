@@ -15,6 +15,16 @@ class UserService {
     return item;
   }
 
+  async onlyUser(user_id) {
+    if (!user_id) {
+      return null;
+    }
+    const item = await user.findOne({
+      where: { user_id: user_id },
+    });
+    return item;
+  }
+
   async userCompany(user_id) {
     const user = await this.user(user_id);
     return user.company_id;

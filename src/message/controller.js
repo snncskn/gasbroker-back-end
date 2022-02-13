@@ -1,5 +1,4 @@
-const { message } = require("../../models");
-
+const { message, user } = require("../../models");
 const Data = message;
 
 module.exports = {
@@ -8,13 +7,13 @@ module.exports = {
       order: [
         ['message_at', 'ASC'],
         ['message_time', 'ASC'],
-      ]
+      ],
+  //    include: user,
     };
 
     try {
       const totalSize = await Data.count();
       const myMessages = await Data.findAll(whereClause);
-
       res.json({
         statusCode: 200,
         body: myMessages,
@@ -84,9 +83,10 @@ module.exports = {
         message_time: getTime(),
         type,
       });
+
       res.json({
         statusCode: 200,
-        body: myMessage,
+        body: myMessage
       });
     } catch (err) {
       res.status(200).json({ error: err.stack });
