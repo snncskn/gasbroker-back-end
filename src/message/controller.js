@@ -71,7 +71,7 @@ module.exports = {
         return dd.join(":");
       };
 
-      const getDate = new Date().toISOString().slice(0, 10);
+      //const getDate = new Date().toISOString().slice(0, 10);
 
       const myMessage = await Data.create({
         proposal_id : proposalId,
@@ -80,7 +80,7 @@ module.exports = {
         unread_count: unreadCount,
         muted,
         message,
-        message_at: getDate,
+        message_at: new Date(),
         message_time: getTime(),
         type,
       });
