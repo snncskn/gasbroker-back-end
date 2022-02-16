@@ -152,4 +152,10 @@ db.process_group.hasMany(db.process_detail, {foreignKey: "group_id"});
 db.process_detail.belongsTo(db.process_sub_group, {foreignKey: "group_sub_id"});
 db.process_sub_group.hasMany(db.process_detail, {foreignKey: "group_sub_id"});
 
+db.message.belongsTo(db.user, { foreignKey: "from_user_id"});
+db.user.hasMany(db.message, {  foreignKey: "from_user_id"});
+
+db.message.belongsTo(db.user, { foreignKey: "to_user_id"});
+db.user.hasMany(db.message, {  foreignKey: "to_user_id"});
+
 module.exports = db;

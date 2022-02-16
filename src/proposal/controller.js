@@ -12,7 +12,8 @@ module.exports = {
     let size = req.query.size == undefined ? 100 : req.query.size;
     let page = req.query.page == undefined ? 0 : req.query.page;
 
-    
+    try {
+      
     const company_id = await userService.userCompany(req.headers["user_id"]);
 
     let filter = req.query.filter;
@@ -38,7 +39,7 @@ module.exports = {
       where: whereStr
     };
 
-    try {
+    
       const proposal = await Data.findAll(whereClause);
     
       res.json({

@@ -15,6 +15,10 @@ class UserService {
     return item;
   }
 
+  async onlyUserBasicInfo() {
+    return await user.findAll();
+  }
+
   async userCompany(user_id) {
     const user = await this.user(user_id);
     return user.company_id;
