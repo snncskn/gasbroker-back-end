@@ -3,6 +3,8 @@ const { db, QueryTypes, parameter, message } = require('../../models')
 const UserService = require("../../auth/user.service");
 const userService = new UserService();
 
+const proposalController = require('../proposal/controller');
+
 const Data = message;
 
 module.exports = {
@@ -117,6 +119,8 @@ module.exports = {
         message_time: getTime(),
         type,
       });
+
+      
 
       var onlyUserBasicInfos = [];
       await userService.onlyUserBasicInfo().then((datas) => {
