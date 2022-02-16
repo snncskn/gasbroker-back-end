@@ -9,6 +9,6 @@ router.get("/", controller.getAll);
 router.post("/", controller.create);
 
 router.get("/proposal/:proposal_id", controller.getByProposalId);
-router.get("/:user_id", controller.getMessagesByUserlId);
+router.get("/user/:user_id", controller.getMessagesByUserlId);
 
 module.exports = router;
