@@ -1,4 +1,8 @@
-const { message, user } = require("../../models");
+const { db, QueryTypes, parameter, message } = require('../../models')
+
+const UserService = require("../../auth/user.service");
+const userService = new UserService();
+
 const Data = message;
 
 module.exports = {
@@ -7,13 +11,13 @@ module.exports = {
       order: [
         ['message_at', 'ASC'],
         ['message_time', 'ASC'],
-      ],
-  //    include: user,
+      ]
     };
 
     try {
       const totalSize = await Data.count();
       const myMessages = await Data.findAll(whereClause);
+
       res.json({
         statusCode: 200,
         body: myMessages,
@@ -27,6 +31,15 @@ module.exports = {
   },
 
   getByProposalId: async (req, res, next) => {
+    var tmpArray = [];
+    await userService.onlyUserBasicInfo().then((datas) => {
+      datas.forEach((message) => {
+        tmpArray.push({  userId: message.user_id, name : message.name, email : message.email});
+      });
+    }).catch((err) => {
+       console.log(err);
+    });
+
     const proposalId = req.params.proposal_id;
     try {
       const myMessages = await Data.findAll({
@@ -36,6 +49,12 @@ module.exports = {
           ['message_time', 'ASC'],
         ]
       });
+      
+      myMessages.forEach((message) => {
+            message.to_user_id =  tmpArray.filter(value =>  value.userId == message.to_user_id );
+            message.from_user_id = tmpArray.filter(value =>  value.userId == message.from_user_id );
+      });
+ 
       res.json({
         statusCode: 200,
         body: myMessages,
@@ -70,8 +89,6 @@ module.exports = {
         return dd.join(":");
       };
 
-      //const getDate = new Date().toISOString().slice(0, 10);
-
       const myMessage = await Data.create({
         proposal_id : proposalId,
         to_user_id: toUserId,
@@ -83,10 +100,9 @@ module.exports = {
         message_time: getTime(),
         type,
       });
-
       res.json({
         statusCode: 200,
-        body: myMessage
+        body: myMessage,
       });
     } catch (err) {
       res.status(200).json({ error: err.stack });
@@ -116,6 +132,32 @@ module.exports = {
     } catch (err) {
       next(err);
     }
+  },
+  getByProposalIdWithQuery: async (req, res, next) => {
+    const proposalId = req.params.proposal_id;
+    try {
+        const [data, meta] =
+            await db.query(
+                " SELECT message.id, message.proposal_id, message.to_user_id, message.from_user_id, message.unread_count, message.muted, message.message, "+
+                " message.message_at, message.message_time, message.type, \"user\".name as name, \"user\".email AS email, \"user\".username AS username "+
+                " FROM public.message AS message INNER JOIN  public.user AS \"user\" ON message.to_user_id = \"user\".user_id AND (\"user\".deleted_at IS NULL) " + 
+                " AND message.proposal_id = :proposal_id"+
+                " ORDER BY message.message_at ASC, message.message_time ASC ",
+                {
+                    replacements: {
+                        proposal_id: proposalId
+                    },
+                    type: QueryTypes.SELECT
+                }
+            );
+        res.json({
+            statusCode: 200,
+            body: data
+        })
+    } catch (err) {
+      next(err);
+    }
+
   },
   delete: async (req, res, next) => {
     const id = req.params.message_id;
