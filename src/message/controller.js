@@ -46,6 +46,25 @@ module.exports = {
     }
   },
 
+  getMessagesByUserlId: async (req, res, next) => {
+    const user_id = req.params.user_id;
+    try {
+      const myMessages = await Data.findAll({
+        where: { from_user_id: user_id },
+        order: [
+          ['message_at', 'ASC'],
+          ['message_time', 'ASC'],
+        ]
+      });
+      res.json({
+        statusCode: 200,
+        body: myMessages,
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+
   getById: async (req, res, next) => {
     const id = req.params.id;
     try {
