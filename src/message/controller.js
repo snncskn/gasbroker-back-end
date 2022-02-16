@@ -118,6 +118,19 @@ module.exports = {
         message_time: getTime(),
         type,
       });
+
+      var onlyUserBasicInfos = [];
+      await userService.onlyUserBasicInfo().then((datas) => {22
+        datas.forEach((message) => {
+          onlyUserBasicInfos.push({  userId: message.user_id, name : message.name, email : message.email});
+        });
+      }).catch((err) => {
+         console.log(err);
+      });
+          
+      myMessage.to_user_id =  tmpArray.filter(value =>  value.userId == message.to_user_id );
+      myMessage.from_user_id = tmpArray.filter(value =>  value.userId == message.from_user_id );
+      
       res.json({
         statusCode: 200,
         body: myMessage,
