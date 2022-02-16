@@ -47,10 +47,9 @@ module.exports = {
   },
 
   getMessagesByUserlId: async (req, res, next) => {
-    const user_id = req.params.user_id;
     try {
       const myMessages = await Data.findAll({
-        where: { from_user_id: user_id },
+        where: { from_user_id: req.headers["user_id"] },
         order: [
           ['message_at', 'ASC'],
           ['message_time', 'ASC'],
