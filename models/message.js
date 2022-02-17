@@ -63,7 +63,15 @@ module.exports = function (sequelize, DataTypes) {
       tableName: "message",
       schema: "public",
       timestamps: false,
-      paranoid: true,
+      indexes: [
+        {
+          name: "message_pk",
+          unique: true,
+          fields: [
+            { name: "id" },
+          ]
+        },
+      ]
     }
   );
 };

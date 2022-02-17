@@ -128,8 +128,8 @@ module.exports = {
          console.log(err);
       });
           
-      myMessage.to_user_id =  tmpArray.filter(value =>  value.userId == message.to_user_id );
-      myMessage.from_user_id = tmpArray.filter(value =>  value.userId == message.from_user_id );
+      myMessage.to_user_id =  onlyUserBasicInfos.filter(value =>  value.userId == myMessage.to_user_id );
+      myMessage.from_user_id = onlyUserBasicInfos.filter(value =>  value.userId == myMessage.from_user_id );
       
       res.json({
         statusCode: 200,

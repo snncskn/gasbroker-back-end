@@ -24,6 +24,14 @@ module.exports = function(sequelize, DataTypes) {
         key: 'user_id'
       },
     },
+    message_id: {
+      type: DataTypes.UUID,
+      allowNull: true,
+      references: {
+        model: 'message',
+        key: 'id'
+      }
+    },
     title: {
       type: DataTypes.STRING(250),
       allowNull: false

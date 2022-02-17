@@ -158,4 +158,7 @@ db.user.hasMany(db.message, {  foreignKey: "from_user_id"});
 db.message.belongsTo(db.user, { foreignKey: "to_user_id"});
 db.user.hasMany(db.message, {  foreignKey: "to_user_id"});
 
+db.media.belongsTo(db.message, { foreignKey: "message_id"});
+db.message.hasMany(db.media, { foreignKey: "message_id"});
+
 module.exports = db;
