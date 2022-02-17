@@ -3,6 +3,8 @@ const { db, QueryTypes, parameter, message } = require('../../models')
 const UserService = require("../../auth/user.service");
 const userService = new UserService();
 
+const proposalController = require('../proposal/controller');
+
 const Data = message;
 
 module.exports = {
@@ -100,7 +102,6 @@ module.exports = {
   create: async (req, res, next) => {
     const { proposalId, toUserId, fromUserId, unreadCount, muted, message, type } =  req.body;
     try {
-
       const getTime = () => {
         const d = new Date();
         const dd = [d.getHours(), d.getMinutes(), d.getSeconds()].map((a) =>  a < 10 ? "0" + a : a );
@@ -119,22 +120,25 @@ module.exports = {
         type,
       });
 
+      
+
       var onlyUserBasicInfos = [];
-      await userService.onlyUserBasicInfo().then((datas) => {22
-        datas.forEach((message) => {
-          onlyUserBasicInfos.push({  userId: message.user_id, name : message.name, email : message.email});
+      await userService.onlyUserBasicInfo().then((datas) => {
+        datas.forEach((user) => {
+          onlyUserBasicInfos.push({  userId: user.user_id, name : user.name, email : user.email});
         });
       }).catch((err) => {
          console.log(err);
       });
           
-      myMessage.to_user_id =  onlyUserBasicInfos.filter(value =>  value.userId == myMessage.to_user_id );
-      myMessage.from_user_id = onlyUserBasicInfos.filter(value =>  value.userId == myMessage.from_user_id );
-      
+      myMessage.dataValues.fromUser = onlyUserBasicInfos.find(value =>  value.userId === myMessage.from_user_id );
+
       res.json({
         statusCode: 200,
         body: myMessage,
       });
+
+      console.log(myMessage);
     } catch (err) {
       res.status(200).json({ error: err.stack });
       next(err);
