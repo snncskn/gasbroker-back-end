@@ -1,4 +1,4 @@
-const { db, QueryTypes, message , media} = require('../../models')
+const { db, QueryTypes, message, media } = require('../../models')
 
 const UserService = require("../../auth/user.service");
 const userService = new UserService();
@@ -9,6 +9,16 @@ const Data = message;
 
 module.exports = {
   getAll: async (req, res, next) => {
+
+    var tmpArray = [];
+    await userService.onlyUserBasicInfo().then((datas) => {
+      datas.forEach((message) => {
+        tmpArray.push({ userId: message.user_id, name: message.name, email: message.email });
+      });
+    }).catch((err) => {
+      console.log(err);
+    });
+
     let whereClause = {
       order: [
         ['message_at', 'ASC'],
@@ -16,12 +26,15 @@ module.exports = {
       ],
       include: [media]
     };
-    
-    const proposal = await Data.findAll(whereClause);
 
     try {
       const totalSize = await Data.count();
       const myMessages = await Data.findAll(whereClause);
+
+      myMessages.forEach((message) => {
+        message.to_user_id = tmpArray.filter(value => value.userId == message.to_user_id);
+        message.from_user_id = tmpArray.filter(value => value.userId == message.from_user_id);
+      });
 
       res.json({
         statusCode: 200,
@@ -39,13 +52,18 @@ module.exports = {
     var tmpArray = [];
     await userService.onlyUserBasicInfo().then((datas) => {
       datas.forEach((message) => {
-        tmpArray.push({  userId: message.user_id, name : message.name, email : message.email});
+        tmpArray.push({ userId: message.user_id, name: message.name, email: message.email });
       });
     }).catch((err) => {
-       console.log(err);
+      console.log(err);
     });
 
     const proposalId = req.params.proposal_id;
+
+    const tmpPropsal = await proposalController.findById(proposalId).then(prp => {
+      console.log(prp);
+    });
+
     try {
       const myMessages = await Data.findAll({
         where: { proposal_id: proposalId },
@@ -55,12 +73,12 @@ module.exports = {
         ],
         include: [media]
       });
-      
+
       myMessages.forEach((message) => {
-            message.to_user_id =  tmpArray.filter(value =>  value.userId == message.to_user_id );
-            message.from_user_id = tmpArray.filter(value =>  value.userId == message.from_user_id );
+        message.to_user_id = tmpArray.filter(value => value.userId == message.to_user_id);
+        message.from_user_id = tmpArray.filter(value => value.userId == message.from_user_id);
       });
- 
+
       res.json({
         statusCode: 200,
         body: myMessages,
@@ -106,16 +124,18 @@ module.exports = {
     }
   },
   create: async (req, res, next) => {
-    const { proposalId, toUserId, fromUserId, unreadCount, muted, message, type } =  req.body;
+    const { proposalId, toUserId, fromUserId, unreadCount, muted, message, type } = req.body;
     try {
       const getTime = () => {
         const d = new Date();
-        const dd = [d.getHours(), d.getMinutes(), d.getSeconds()].map((a) =>  a < 10 ? "0" + a : a );
+        const dd = [d.getHours(), d.getMinutes(), d.getSeconds()].map((a) => a < 10 ? "0" + a : a);
         return dd.join(":");
       };
 
+     // const tmpPropsal = proposalController.findById(proposalId);
+
       const myMessage = await Data.create({
-        proposal_id : proposalId,
+        proposal_id: proposalId,
         to_user_id: toUserId,
         from_user_id: fromUserId,
         unread_count: unreadCount,
@@ -129,13 +149,13 @@ module.exports = {
       var onlyUserBasicInfos = [];
       await userService.onlyUserBasicInfo().then((datas) => {
         datas.forEach((user) => {
-          onlyUserBasicInfos.push({  userId: user.user_id, name : user.name, email : user.email});
+          onlyUserBasicInfos.push({ userId: user.user_id, name: user.name, email: user.email });
         });
       }).catch((err) => {
-         console.log(err);
+        console.log(err);
       });
-          
-      myMessage.dataValues.fromUser = onlyUserBasicInfos.find(value =>  value.userId === myMessage.from_user_id );
+
+      myMessage.dataValues.fromUser = onlyUserBasicInfos.find(value => value.userId === myMessage.from_user_id);
 
       res.json({
         statusCode: 200,
@@ -175,24 +195,24 @@ module.exports = {
   getByProposalIdWithQuery: async (req, res, next) => {
     const proposalId = req.params.proposal_id;
     try {
-        const [data, meta] =
-            await db.query(
-                " SELECT message.id, message.proposal_id, message.to_user_id, message.from_user_id, message.unread_count, message.muted, message.message, "+
-                " message.message_at, message.message_time, message.type, \"user\".name as name, \"user\".email AS email, \"user\".username AS username "+
-                " FROM public.message AS message INNER JOIN  public.user AS \"user\" ON message.to_user_id = \"user\".user_id AND (\"user\".deleted_at IS NULL) " + 
-                " AND message.proposal_id = :proposal_id"+
-                " ORDER BY message.message_at ASC, message.message_time ASC ",
-                {
-                    replacements: {
-                        proposal_id: proposalId
-                    },
-                    type: QueryTypes.SELECT
-                }
-            );
-        res.json({
-            statusCode: 200,
-            body: data
-        })
+      const [data, meta] =
+        await db.query(
+          " SELECT message.id, message.proposal_id, message.to_user_id, message.from_user_id, message.unread_count, message.muted, message.message, " +
+          " message.message_at, message.message_time, message.type, \"user\".name as name, \"user\".email AS email, \"user\".username AS username " +
+          " FROM public.message AS message INNER JOIN  public.user AS \"user\" ON message.to_user_id = \"user\".user_id AND (\"user\".deleted_at IS NULL) " +
+          " AND message.proposal_id = :proposal_id" +
+          " ORDER BY message.message_at ASC, message.message_time ASC ",
+          {
+            replacements: {
+              proposal_id: proposalId
+            },
+            type: QueryTypes.SELECT
+          }
+        );
+      res.json({
+        statusCode: 200,
+        body: data
+      })
     } catch (err) {
       next(err);
     }

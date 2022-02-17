@@ -69,6 +69,14 @@ module.exports = {
       next(err);
     }
   },
+
+  findById: async (id) => {
+      return await Data.findOne({
+        where: { id },
+        include: [proposal_offer, company, product, media],
+      });
+  },
+
   create: async (req, res, next) => {
     const {
       company_id,
