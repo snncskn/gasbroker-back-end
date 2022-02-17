@@ -1,4 +1,4 @@
-const { db, QueryTypes, parameter, message } = require('../../models')
+const { db, QueryTypes, message , media} = require('../../models')
 
 const UserService = require("../../auth/user.service");
 const userService = new UserService();
@@ -13,8 +13,11 @@ module.exports = {
       order: [
         ['message_at', 'ASC'],
         ['message_time', 'ASC'],
-      ]
+      ],
+      include: [media]
     };
+    
+    const proposal = await Data.findAll(whereClause);
 
     try {
       const totalSize = await Data.count();
@@ -49,7 +52,8 @@ module.exports = {
         order: [
           ['message_at', 'ASC'],
           ['message_time', 'ASC'],
-        ]
+        ],
+        include: [media]
       });
       
       myMessages.forEach((message) => {
@@ -73,7 +77,8 @@ module.exports = {
         order: [
           ['message_at', 'ASC'],
           ['message_time', 'ASC'],
-        ]
+        ],
+        include: [media]
       });
       res.json({
         statusCode: 200,
@@ -89,6 +94,7 @@ module.exports = {
     try {
       const myMessage = await Data.findOne({
         where: { id },
+        include: [media]
       });
       res.json({
         statusCode: 200,
@@ -119,8 +125,6 @@ module.exports = {
         message_time: getTime(),
         type,
       });
-
-      
 
       var onlyUserBasicInfos = [];
       await userService.onlyUserBasicInfo().then((datas) => {
