@@ -17,6 +17,7 @@ var helpRouter = require("./help/router");
 var helpItemRouter = require("./help/help_item/router");
 var processDetailRouter = require("./process/process_detail/router");
 var messageRouter = require("./message/router");
+var agreementRouter = require("./agreement/router");
 
 module.exports = {
   companyRouter,
@@ -37,5 +38,6 @@ module.exports = {
   helpRouter,
   helpItemRouter,
   processDetailRouter,
-  messageRouter
+  messageRouter,
+  agreementRouter
 };

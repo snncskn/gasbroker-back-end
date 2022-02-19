@@ -21,7 +21,8 @@ module.exports = {
     try {
       const totalSize = await Data.count();
       const myMessages = await Data.findAll(whereClause);
-      
+      const tmpArray = await userService.onlyUserBasicInfo();
+
       myMessages.forEach((message) => {
         message.to_user_id = tmpArray.filter(value => value.userId == message.to_user_id);
         message.from_user_id = tmpArray.filter(value => value.userId == message.from_user_id);
@@ -40,7 +41,7 @@ module.exports = {
   },
 
   getByProposalId: async (req, res, next) => {
-    
+
     const tmpArray = await userService.onlyUserBasicInfo();
     const proposalId = req.params.proposal_id;
 
@@ -103,7 +104,6 @@ module.exports = {
         body: myMessage,
       });
     } catch (err) {
-      console.log(err);
       next(err);
     }
   },
@@ -135,7 +135,6 @@ module.exports = {
       });
 
       const tmpArray = await userService.onlyUserBasicInfo();
-
       myMessage.dataValues.fromUser = tmpArray.find(value => value.userId === myMessage.from_user_id);
 
       res.json({
