@@ -17,7 +17,10 @@ function errorHandler(error, request, response, next) {
 
   logErrorMessage(errorMessage);
 
-  logger.create(error);
+  /* db sync maybe later
+    logger.create(error);
+  */
+
 
   /**
    * If response headers have already been sent,

@@ -15,8 +15,24 @@ class UserService {
     return item;
   }
 
+  async findUserIdByCompanyId(companyId) {
+    const item = await user.findOne({
+      where: { 'company_id': companyId},
+      attributes: ["user_id"]
+    });
+    return item.dataValues.user_id;
+  }
+
   async onlyUserBasicInfo() {
-    return await user.findAll();
+    var tmpArray = [];
+    await user.findAll().then((users) => {
+      users.forEach((user) => {
+        tmpArray.push({ userId: user.user_id, name: user.name, email: user.email });
+      });
+    }).catch((err) => {
+      console.log(err);
+    });
+    return tmpArray;
   }
 
   async userCompany(user_id) {

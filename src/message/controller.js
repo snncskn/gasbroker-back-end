@@ -10,15 +10,6 @@ const Data = message;
 module.exports = {
   getAll: async (req, res, next) => {
 
-    var tmpArray = [];
-    await userService.onlyUserBasicInfo().then((datas) => {
-      datas.forEach((message) => {
-        tmpArray.push({ userId: message.user_id, name: message.name, email: message.email });
-      });
-    }).catch((err) => {
-      console.log(err);
-    });
-
     let whereClause = {
       order: [
         ['message_at', 'ASC'],
@@ -30,7 +21,7 @@ module.exports = {
     try {
       const totalSize = await Data.count();
       const myMessages = await Data.findAll(whereClause);
-
+      
       myMessages.forEach((message) => {
         message.to_user_id = tmpArray.filter(value => value.userId == message.to_user_id);
         message.from_user_id = tmpArray.filter(value => value.userId == message.from_user_id);
@@ -49,15 +40,8 @@ module.exports = {
   },
 
   getByProposalId: async (req, res, next) => {
-    var tmpArray = [];
-    await userService.onlyUserBasicInfo().then((datas) => {
-      datas.forEach((message) => {
-        tmpArray.push({ userId: message.user_id, name: message.name, email: message.email });
-      });
-    }).catch((err) => {
-      console.log(err);
-    });
-
+    
+    const tmpArray = await userService.onlyUserBasicInfo();
     const proposalId = req.params.proposal_id;
 
     const tmpPropsal = await proposalController.findById(proposalId).then(prp => {
@@ -124,45 +108,41 @@ module.exports = {
     }
   },
   create: async (req, res, next) => {
-    const { proposalId, toUserId, fromUserId, unreadCount, muted, message, type } = req.body;
+
+    const { proposalId, fromUserId, unreadCount, muted, message, type } = req.body;
+
     try {
+
       const getTime = () => {
         const d = new Date();
         const dd = [d.getHours(), d.getMinutes(), d.getSeconds()].map((a) => a < 10 ? "0" + a : a);
         return dd.join(":");
       };
 
-     // const tmpPropsal = proposalController.findById(proposalId);
+      const companyId = await proposalController.findCompanyIdById(proposalId);
+      const userId = await userService.findUserIdByCompanyId(companyId);
 
       const myMessage = await Data.create({
         proposal_id: proposalId,
-        to_user_id: toUserId,
+        to_user_id: userId,
         from_user_id: fromUserId,
         unread_count: unreadCount,
         muted,
         message,
         message_at: new Date(),
         message_time: getTime(),
-        type,
+        type
       });
 
-      var onlyUserBasicInfos = [];
-      await userService.onlyUserBasicInfo().then((datas) => {
-        datas.forEach((user) => {
-          onlyUserBasicInfos.push({ userId: user.user_id, name: user.name, email: user.email });
-        });
-      }).catch((err) => {
-        console.log(err);
-      });
+      const tmpArray = await userService.onlyUserBasicInfo();
 
-      myMessage.dataValues.fromUser = onlyUserBasicInfos.find(value => value.userId === myMessage.from_user_id);
+      myMessage.dataValues.fromUser = tmpArray.find(value => value.userId === myMessage.from_user_id);
 
       res.json({
         statusCode: 200,
         body: myMessage,
       });
 
-      console.log(myMessage);
     } catch (err) {
       res.status(200).json({ error: err.stack });
       next(err);

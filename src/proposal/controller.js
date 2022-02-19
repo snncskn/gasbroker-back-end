@@ -77,6 +77,14 @@ module.exports = {
       });
   },
 
+  findCompanyIdById: async (id) => {
+     const item = await Data.findOne({
+      where: { id },
+      attributes: ["company_id"]
+    });
+    return item.dataValues.company_id;
+},
+
   create: async (req, res, next) => {
     const {
       company_id,

@@ -25,7 +25,7 @@ module.exports = {
   getFileUrl: async (req, res, next) => {
     // Both Key and ContentType are defined in the client side.
     // Key refers to the remote name of the file.
-    const key  = req.query.Key;
+    const key = req.query.Key;
     generateGetUrl(key)
       .then((getURL) => {
         res.send(getURL);
@@ -146,7 +146,8 @@ module.exports = {
       ref_id,
       file_path,
       vehicle_id,
-      proposal_id
+      proposal_id,
+      message_id
     } = req.body;
 
     try {
@@ -162,14 +163,13 @@ module.exports = {
         ref_id,
         file_path,
         vehicle_id,
-        proposal_id
+        proposal_id,
+        message_id
       });
       res.json({
         statusCode: 200,
         body: mymedia,
       });
-
-      
 
     } catch (err) {
       next(err);
@@ -177,7 +177,7 @@ module.exports = {
   },
   update: async (req, res, next) => {
     const id = req.params.media_id;
-    const { title, type, description, video_url, ref, path, file_path} = req.body;
+    const { title, type, description, video_url, ref, path, file_path } = req.body;
 
     try {
       const mymedia = await Data.findOne({ where: { id } });
