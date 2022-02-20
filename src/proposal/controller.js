@@ -39,7 +39,6 @@ module.exports = {
       where: whereStr
     };
 
-    
       const proposal = await Data.findAll(whereClause);
     
       res.json({

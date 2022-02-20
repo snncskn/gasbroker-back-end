@@ -1,4 +1,4 @@
-const { agreement, proposal, message, user } = require("../../models");
+const { agreement, proposal, message } = require("../../models");
 const { round } = require("lodash");
 
 const Data = agreement;
@@ -50,6 +50,7 @@ module.exports = {
         totalSize: totalSize,
         totalPage: round(Number(totalSize) / Number(size)),
       });
+
     } catch (err) {
       next(err);
     }
@@ -95,7 +96,6 @@ module.exports = {
       });
 
       const onlyUserBasicInfos = await userService.onlyUserBasicInfo();
-
       agreements.forEach((agree) => {
         agree.approval_user_id = onlyUserBasicInfos.find(value => value.userId == agree.approval_user_id);
       });
@@ -107,6 +107,7 @@ module.exports = {
     } catch (err) {
       next(err);
     }
+
   },
   create: async (req, res, next) => {
     const { proposal_id, to_message_id, from_message_id, start_date, end_date, approval_date, approval_user_id } = req.body;
@@ -124,7 +125,9 @@ module.exports = {
     }
   },
   update: async (req, res, next) => {
+
     const id = req.params.agreement_id;
+    
     const { proposal_id, to_message_id, from_message_id, start_date, end_date, approval_date, approval_user_id } = req.body;
     try {
 

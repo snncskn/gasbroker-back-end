@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     to_message_id: {
       type: DataTypes.UUID,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'message',
         key: 'id'
@@ -25,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     from_message_id: {
       type: DataTypes.UUID,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'message',
         key: 'id'
@@ -41,7 +41,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     approval_date: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: true
     },
     approval_user_id: {
       type: DataTypes.UUID,
