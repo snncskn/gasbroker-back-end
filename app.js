@@ -32,7 +32,8 @@ const {
   helpRouter,
   helpItemRouter,
   processDetailRouter,
-  messageRouter
+  messageRouter,
+  agreementRouter
 } = require("./src/api.router");
 
 dotenv.config();
@@ -101,6 +102,7 @@ app.use("/help", helpRouter);
 app.use("/help-item", helpItemRouter);
 app.use("/process-detail", processDetailRouter);
 app.use("/message", messageRouter);
+app.use("/agreement", agreementRouter);
 
 //mail-sms
 app.use("/api/email", emailRouter);

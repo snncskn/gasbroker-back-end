@@ -169,8 +169,8 @@ db.message.hasMany(db.agreement, { as: "to_message_agreements", foreignKey: "to_
 
 db.agreement.belongsTo(db.proposal, { foreignKey: "proposal_id"});
 db.proposal.hasMany(db.agreement, { foreignKey: "proposal_id"});
-  
-db.agreement.belongsTo(db.user, {   foreignKey: "approval_user_id"});
-db.user.hasMany(db.agreement, {   foreignKey: "approval_user_id"});
+
+db.agreement.belongsTo(db.user, { as: "approval_user", foreignKey: "approval_user_id"});
+db.user.hasMany(db.agreement, { as: "agreements", foreignKey: "approval_user_id"});
 
 module.exports = db;

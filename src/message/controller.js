@@ -45,10 +45,6 @@ module.exports = {
     const tmpArray = await userService.onlyUserBasicInfo();
     const proposalId = req.params.proposal_id;
 
-    const tmpPropsal = await proposalController.findById(proposalId).then(prp => {
-      console.log(prp);
-    });
-
     try {
       const myMessages = await Data.findAll({
         where: { proposal_id: proposalId },
@@ -93,7 +89,7 @@ module.exports = {
   },
 
   getById: async (req, res, next) => {
-    const id = req.params.id;
+    const id = req.params.message_id;
     try {
       const myMessage = await Data.findOne({
         where: { id },

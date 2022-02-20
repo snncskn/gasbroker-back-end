@@ -1,8 +1,10 @@
 const { agreement, proposal, message, user } = require("../../models");
-const { Op } = require("sequelize");
 const { round } = require("lodash");
 
 const Data = agreement;
+
+const UserService = require("../../auth/user.service");
+const userService = new UserService(); 
 
 module.exports = {
 
@@ -17,7 +19,7 @@ module.exports = {
     let whereStr = {};
 
     if (filter) {
-
+      //TODO :
     }
 
     let whereClause = {
@@ -25,13 +27,23 @@ module.exports = {
       offset: page,
       order: [[by, type]],
       where: whereStr,
-      include: [proposal, message, user],
+      include: [
+        { model: proposal },
+        { model: message, as: "to_message" },
+        { model: message, as: "from_message" },
+      ]
     };
 
     try {
       const totalSize = await Data.count();
       const agreements = await Data.findAll(whereClause);
 
+      const onlyUserBasicInfos = await userService.onlyUserBasicInfo();
+
+      agreements.forEach((agree) => {
+        agree.approval_user_id = onlyUserBasicInfos.find(value => value.userId == agree.approval_user_id);
+      });
+ 
       res.json({
         statusCode: 200,
         body: agreements,
@@ -50,7 +62,11 @@ module.exports = {
     try {
       const agreement = await Data.findOne({
         where: { id },
-        include: [proposal, message, user],
+        include: [
+          { model: proposal },
+          { model: message, as: "to_message" },
+          { model: message, as: "from_message" }
+        ]
       });
       res.json({
         statusCode: 200,
@@ -60,7 +76,7 @@ module.exports = {
       next(err);
     }
   },
-  
+
   getByProposalId: async (req, res, next) => {
 
     const proposalId = req.params.proposal_id;
@@ -71,7 +87,17 @@ module.exports = {
         order: [
           ['created_at', 'DESC']
         ],
-        include: [proposal, message, user],
+        include: [
+          { model: proposal },
+          { model: message, as: "to_message" },
+          { model: message, as: "from_message" }
+        ]
+      });
+
+      const onlyUserBasicInfos = await userService.onlyUserBasicInfo();
+
+      agreements.forEach((agree) => {
+        agree.approval_user_id = onlyUserBasicInfos.find(value => value.userId == agree.approval_user_id);
       });
 
       res.json({
@@ -94,7 +120,6 @@ module.exports = {
         body: agreement,
       });
     } catch (err) {
-      res.status(500).json({ error: err.stack });
       next(err);
     }
   },
@@ -145,14 +170,14 @@ module.exports = {
     const id = req.params.agreement_id;
 
     try {
-      const myagreement = await Data.findOne({ where: { id } });
-      myagreement.is_active = !myagreement.is_active;
+      const agreement = await Data.findOne({ where: { id } });
+      agreement.is_active = !agreement.is_active;
 
-      await myagreement.save();
+      await agreement.save();
 
       res.json({
         statusCode: 200,
-        body: myagreement,
+        body: agreement,
       });
     } catch (err) {
       console.log(err);
