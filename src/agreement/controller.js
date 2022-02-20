@@ -83,26 +83,26 @@ module.exports = {
     const proposalId = req.params.proposal_id;
 
     try {
-      const agreements = await Data.findAll({
+      const agreement = await Data.findOne({
         where: { proposal_id: proposalId },
         order: [
           ['created_at', 'DESC']
         ],
-        include: [
+        /*include: [
           { model: proposal },
           { model: message, as: "to_message" },
           { model: message, as: "from_message" }
-        ]
+        ]*/
       });
 
-      const onlyUserBasicInfos = await userService.onlyUserBasicInfo();
-      agreements.forEach((agree) => {
-        agree.approval_user_id = onlyUserBasicInfos.find(value => value.userId == agree.approval_user_id);
-      });
+      /*const onlyUserBasicInfos = await userService.onlyUserBasicInfo();
+        agreement.approval_user_id = onlyUserBasicInfos.find(value => value.userId == agreement.approval_user_id);
+       */
+
 
       res.json({
         statusCode: 200,
-        body: agreements,
+        body: agreement,
       });
     } catch (err) {
       next(err);
