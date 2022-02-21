@@ -76,7 +76,6 @@ module.exports = {
     try {
       const proposal = await Data.findOne({
         where: { id },
-        attributes: ["id"],
         include: [media],
       });
       
