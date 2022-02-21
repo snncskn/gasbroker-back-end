@@ -15,34 +15,34 @@ module.exports = {
     let page = req.query.page == undefined ? 0 : req.query.page;
 
     try {
-      
-    const company_id = await userService.userCompany(req.headers["user_id"]);
 
-    let filter = req.query.filter;
-     
+      const company_id = await userService.userCompany(req.headers["user_id"]);
 
-    let whereStr = { 
-       //company_id: { [Op.eq]: company_id },
-    };
-    if (filter !== '') {
-      whereStr.where = {
-        $or: [
-          {name: {$like: '%' + filter + '%'}}, 
-        ]
+      let filter = req.query.filter;
+
+
+      let whereStr = {
+        //company_id: { [Op.eq]: company_id },
       };
-    }
-   
+      if (filter !== '') {
+        whereStr.where = {
+          $or: [
+            { name: { $like: '%' + filter + '%' } },
+          ]
+        };
+      }
 
-    let whereClause = {
-      limit: size,
-      offset: page,
-      order: [[by, type]],
-      include: [proposal_offer, company, product, media],
-      where: whereStr
-    };
+
+      let whereClause = {
+        limit: size,
+        offset: page,
+        order: [[by, type]],
+        include: [proposal_offer, company, product, media],
+        where: whereStr
+      };
 
       const proposal = await Data.findAll(whereClause);
-    
+
       res.json({
         statusCode: 200,
         body: proposal,
@@ -78,19 +78,14 @@ module.exports = {
         where: { id },
         include: [media],
       });
-      
-
       for (const media of proposal?.media) {
-        console.log(media.message_id);
-
-        if(media.message_id) {
+        if (media.message_id) {
           const tmpMedia = await mediaController.findMediasByMessageId(media.message_id);
           media.dataValues.last_approve = false;
-          if(tmpMedia.message?.last_approve_time) {
+          if (tmpMedia.message?.last_approve_time) {
             media.dataValues.last_approve = true;
-          } 
+          }
         }
-
       }
 
       res.json({
@@ -103,19 +98,19 @@ module.exports = {
   },
 
   findById: async (id) => {
-      return await Data.findOne({
-        where: { id },
-        include: [proposal_offer, company, product, media],
-      });
+    return await Data.findOne({
+      where: { id },
+      include: [proposal_offer, company, product, media],
+    });
   },
 
   findCompanyIdById: async (id) => {
-     const item = await Data.findOne({
+    const item = await Data.findOne({
       where: { id },
       attributes: ["company_id"]
     });
     return item.dataValues.company_id;
-},
+  },
 
   create: async (req, res, next) => {
     const {
@@ -191,7 +186,7 @@ module.exports = {
       if (status) proposal.status = status;
       if (latitude) proposal.latitude = latitude;
       if (longitude) proposal.longitude = longitude;
-      
+
       await proposal.save();
 
       res.json({
