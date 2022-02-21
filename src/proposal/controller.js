@@ -5,6 +5,8 @@ const Data = proposal;
 const UserService = require("../../auth/user.service");
 const userService = new UserService();
 
+const mediaController = require('../media/controller');
+
 module.exports = {
   getAll: async (req, res, next) => {
     let by = req.query.sortBy == undefined ? "created_at" : req.query.sortBy;
@@ -66,6 +68,38 @@ module.exports = {
       });
     } catch (err) {
       next(err);
+    }
+  },
+
+  getByIdWithMedia: async (req, res, next) => {
+    const id = req.params.proposal_id;
+    try {
+      const proposal = await Data.findOne({
+        where: { id },
+        attributes: ["id"],
+        include: [media],
+      });
+      
+
+      for (const media of proposal?.media) {
+        console.log(media.message_id);
+
+        if(media.message_id) {
+          const tmpMedia = await mediaController.findMediasByMessageId(media.message_id);
+          media.dataValues.last_approve = false;
+          if(tmpMedia.message?.last_approve_time) {
+            media.dataValues.last_approve = true;
+          } 
+        }
+
+      }
+
+      res.json({
+        statusCode: 200,
+        body: proposal,
+      });
+    } catch (err) {
+      console.log(err);
     }
   },
 

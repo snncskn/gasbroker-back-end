@@ -1,7 +1,8 @@
-const { media } = require("../../models");
+const { media, message } = require("../../models");
 const { axios } = require("axios");
 const sequelize = require("sequelize");
 const { generateGetUrl, generatePutUrl } = require("./s3/AWSPresigner");
+
 // Üstekiler sabit kalsın
 //Her model kullanımı için  ismi değiştirin (media)
 // media_id bazında olacak tabii ki bunların hepsi
@@ -117,6 +118,17 @@ module.exports = {
       });
     } catch (err) {
       next(err);
+    }
+  },
+  findMediasByMessageId: async (messageId) => {
+    try {
+      const medias = await Data.findOne({
+        where: { message_id: messageId },
+        include : [message]
+      });
+      return medias;
+    } catch (err) {
+      console.log(err);
     }
   },
   getMediasByVehicleId: async (req, res, next) => {

@@ -8,4 +8,6 @@ router.put("/:proposal_id", controller.update);
 router.get("/", controller.getAll);
 router.post("/", controller.create);
 
+router.get("/media/:proposal_id", controller.getByIdWithMedia);
+
 module.exports = router;
