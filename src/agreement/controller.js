@@ -146,14 +146,11 @@ module.exports = {
   approval : async (req, res, next) => {
 
     const id = req.params.agreement_id;
-    const { approval_user_id } = req.body;
 
     try {
 
       const agreement = await Data.findOne({ where: { id } });
-      
-      if (id) agreement.id = id;
-      if (approval_user_id) agreement.approval_user_id = approval_user_id;
+      agreement.approval_user_id = req.headers["user_id"];
       agreement.approval_date = new Date();
 
       await agreement.save();
