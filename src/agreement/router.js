@@ -12,4 +12,6 @@ router.post('/', controller.create)
 
 router.put('/proposal/:agreement_id', controller.update)
 
+router.put('/approval/:agreement_id', controller.approval)
+
 module.exports = router
