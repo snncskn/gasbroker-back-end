@@ -105,6 +105,20 @@ module.exports = {
       next(err);
     }
   },
+  getMediasByMessageId: async (req, res, next) => {
+    const id = req.params.message_id;
+    try {
+      const medias = await Data.findOne({
+        where: { message_id: id },
+      });
+      res.json({
+        statusCode: 200,
+        body: medias,
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
   getMediasByVehicleId: async (req, res, next) => {
     const id = req.params.vehicle_id;
     try {

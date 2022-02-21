@@ -69,6 +69,29 @@ module.exports = {
     }
   },
 
+  getByIdWithMedia: async (req, res, next) => {
+
+    const messageId = req.params.message_id;
+
+    try {
+      const myMessages = await Data.findOne({
+        where: { message_id: messageId }
+      });
+
+      myMessages.forEach((message) => {
+        message.to_user_id = tmpArray.filter(value => value.userId == message.to_user_id);
+        message.from_user_id = tmpArray.filter(value => value.userId == message.from_user_id);
+      });
+
+      res.json({
+        statusCode: 200,
+        body: myMessages,
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+
   getMessagesByUserlId: async (req, res, next) => {
     try {
       const myMessages = await Data.findAll({

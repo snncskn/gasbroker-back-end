@@ -14,5 +14,6 @@ router.post("/", controller.create);
 router.get("/medias/:company_id", controller.getMediasByCompanyId);
 router.get("/medias/:vehicle_id", controller.getMediasByVehicleId);
 router.get("/medias/:product_id", controller.getMediasByProductId);
+router.get("/medias/:message_id", controller.getMediasByMessageId);
 
 module.exports = router;
