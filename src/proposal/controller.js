@@ -76,7 +76,7 @@ module.exports = {
     try {
       const proposal = await Data.findOne({
         where: { id },
-        include: [media],
+        include: [proposal_offer, company, product, media],
       });
       for (const media of proposal?.media) {
         if (media.message_id) {
