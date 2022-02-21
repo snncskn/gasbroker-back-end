@@ -10,4 +10,6 @@ router.put('/delete/:agreement_id', controller.delete)
 router.get('/', controller.getAll)
 router.post('/', controller.create)
 
+router.put('/proposal/:agreement_id', controller.update)
+
 module.exports = router

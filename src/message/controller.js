@@ -105,7 +105,7 @@ module.exports = {
   },
   create: async (req, res, next) => {
 
-    const { proposalId, fromUserId, unreadCount, muted, message, type } = req.body;
+    const { proposalId, fromUserId, unreadCount, muted, message, type, last_approve_time } = req.body;
 
     try {
 
@@ -127,7 +127,8 @@ module.exports = {
         message,
         message_at: new Date(),
         message_time: getTime(),
-        type
+        type,
+        last_approve_time
       });
 
       const tmpArray = await userService.onlyUserBasicInfo();
@@ -145,7 +146,7 @@ module.exports = {
   },
   update: async (req, res, next) => {
     const id = req.params.message_id;
-    const { proposalId, toUserId, fromUserId, unreadCount, muted, message, type } = req.body;
+    const { proposalId, toUserId, fromUserId, unreadCount, muted, message, type, last_approve_time } = req.body;
     try {
       const myMessage = await Data.findOne({ where: { id } });
       if (id) myMessage.id = id;
@@ -156,7 +157,8 @@ module.exports = {
       if (muted) myMessage.muted = muted;
       if (message) myMessage.message = message;
       if (type) myMessage.type = type;
-
+      if (last_approve_time) myMessage.last_approve_time = last_approve_time;
+     
       await myMessage.save();
 
       res.json({

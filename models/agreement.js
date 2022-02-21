@@ -15,22 +15,6 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    to_message_id: {
-      type: DataTypes.UUID,
-      allowNull: true,
-      references: {
-        model: 'message',
-        key: 'id'
-      }
-    },
-    from_message_id: {
-      type: DataTypes.UUID,
-      allowNull: true,
-      references: {
-        model: 'message',
-        key: 'id'
-      }
-    },
     start_date: {
       type: DataTypes.DATE,
       allowNull: false

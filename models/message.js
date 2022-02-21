@@ -57,6 +57,10 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         defaultValue: "message",
       },
+      last_approve_time: {
+        type: DataTypes.DATE,
+        allowNull: true
+      }
     },
     {
       sequelize,

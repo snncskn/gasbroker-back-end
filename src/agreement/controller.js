@@ -28,9 +28,7 @@ module.exports = {
       order: [[by, type]],
       where: whereStr,
       include: [
-        { model: proposal },
-        { model: message, as: "to_message" },
-        { model: message, as: "from_message" },
+        { model: proposal }
       ]
     };
 
@@ -64,9 +62,7 @@ module.exports = {
       const agreement = await Data.findOne({
         where: { id },
         include: [
-          { model: proposal },
-          { model: message, as: "to_message" },
-          { model: message, as: "from_message" }
+          { model: proposal }
         ]
       });
       res.json({
@@ -90,15 +86,12 @@ module.exports = {
         ],
         /*include: [
           { model: proposal },
-          { model: message, as: "to_message" },
-          { model: message, as: "from_message" }
         ]*/
       });
 
       /*const onlyUserBasicInfos = await userService.onlyUserBasicInfo();
         agreement.approval_user_id = onlyUserBasicInfos.find(value => value.userId == agreement.approval_user_id);
        */
-
 
       res.json({
         statusCode: 200,
@@ -110,11 +103,11 @@ module.exports = {
 
   },
   create: async (req, res, next) => {
-    const { proposal_id, to_message_id, from_message_id, start_date, end_date, approval_date, approval_user_id } = req.body;
+    const { proposal_id, start_date, end_date, approval_date, approval_user_id } = req.body;
 
     try {
       const agreement = await Data.create({
-        proposal_id, to_message_id, from_message_id, start_date, end_date, approval_date, approval_user_id
+        proposal_id, start_date, end_date, approval_date, approval_user_id
       });
       res.json({
         statusCode: 200,
@@ -128,14 +121,12 @@ module.exports = {
 
     const id = req.params.agreement_id;
     
-    const { proposal_id, to_message_id, from_message_id, start_date, end_date, approval_date, approval_user_id } = req.body;
+    const { proposal_id, start_date, end_date, approval_date, approval_user_id } = req.body;
     try {
 
       const agreement = await Data.findOne({ where: { id } });
       if (id) agreement.id = id;
       if (proposal_id) agreement.proposal_id = proposal_id;
-      if (to_message_id) agreement.to_message_id = to_message_id;
-      if (from_message_id) agreement.from_message_id = from_message_id;
       if (start_date) agreement.start_date = start_date;
       if (end_date) agreement.end_date = end_date;
       if (approval_date) agreement.approval_date = approval_date;
