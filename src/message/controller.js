@@ -128,7 +128,7 @@ module.exports = {
   },
   create: async (req, res, next) => {
 
-    const { proposalId, fromUserId, unreadCount, muted, message, type, last_approve_time } = req.body;
+    const { proposalId, from_user_id, unreadCount, muted, message, type, last_approve_time } = req.body;
 
     try {
 
@@ -144,7 +144,7 @@ module.exports = {
       const myMessage = await Data.create({
         proposal_id: proposalId,
         to_user_id: userId,
-        from_user_id: fromUserId,
+        from_user_id: from_user_id,
         unread_count: unreadCount,
         muted,
         message,
@@ -170,13 +170,13 @@ module.exports = {
   },
   update: async (req, res, next) => {
     const id = req.params.message_id;
-    const { proposalId, toUserId, fromUserId, unreadCount, muted, message, type, last_approve_time } = req.body;
+    const { proposalId, toUserId, from_user_id, unreadCount, muted, message, type, last_approve_time } = req.body;
     try {
       const myMessage = await Data.findOne({ where: { id } });
       if (id) myMessage.id = id;
       if (proposalId) myMessage.proposal_id = proposalId;
       if (toUserId) myMessage.to_user_id = toUserId;
-      if (fromUserId) myMessage.from_user_id = fromUserId;
+      if (from_user_id) myMessage.from_user_id = from_user_id;
       if (unreadCount) myMessage.unread_count = unreadCount;
       if (muted) myMessage.muted = muted;
       if (message) myMessage.message = message;
