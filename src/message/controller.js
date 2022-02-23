@@ -56,8 +56,8 @@ module.exports = {
       });
 
       myMessages.forEach((message) => {
-        message.to_user_id = tmpArray.filter(value => value.userId == message.to_user_id);
-        message.from_user_id = tmpArray.filter(value => value.userId == message.from_user_id);
+        message.to_user_id = tmpArray.find(value => value.userId == message.to_user_id);
+        message.from_user_id = tmpArray.find(value => value.userId == message.from_user_id);
       });
 
       res.json({
