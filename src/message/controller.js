@@ -155,7 +155,8 @@ module.exports = {
       });
 
       const tmpArray = await userService.onlyUserBasicInfo();
-      myMessage.dataValues.fromUser = tmpArray.find(value => value.userId === myMessage.from_user_id);
+
+      myMessage.dataValues.from_user_id = tmpArray.find(value => value.userId === myMessage.from_user_id);
 
       res.json({
         statusCode: 200,
