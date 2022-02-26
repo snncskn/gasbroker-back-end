@@ -92,7 +92,7 @@ module.exports = {
       where: { ...params },
       include: [userRoles],
     })
-      .then((user) => {
+      .then((user) => { 
         if (!user) {
           return res.status(404).send({ error: "User Not found." });
         }
@@ -139,6 +139,7 @@ module.exports = {
                   data: {
                     username: user.username,
                     displayName: user.username,
+                    companyName:user.username,
                     company_id: user.company_id,
                     role: role.name,
                     default_url: defaultUrl,
