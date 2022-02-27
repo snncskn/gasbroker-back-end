@@ -166,6 +166,68 @@ module.exports = {
         next(err);
       });
   },
+  signinWithGoogle: (req, res, next) => {
+    const params = {};
+    const { email } = req.body;
+
+    if (email) Object.assign(params, { email });
+
+    User.findOne({
+      where: { ...params },
+      include: [userRoles],
+    })
+      .then((user) => { 
+        if (!user) {
+          return res.status(404).send({ error: "User Not found." });
+        }
+
+        if (user.user_roles[0]) {
+
+          role.findOne({ where: { id: user.user_roles[0].roleId } })
+            .then((role) => {
+              let defaultUrl = "/dashboards/project";
+
+              if(user.company_id == undefined || user.company_id == null) {
+                defaultUrl = "/apps/company/form";
+              }
+
+              res.send({
+                statusCode: 200,
+                error: null,
+                access_token: token,
+                user: {
+                  id: user.id,
+                  uuid: user.user_id,
+                  data: {
+                    username: user.username,
+                    displayName: user.username,
+                    companyName:user.username,
+                    company_id: user.company_id,
+                    role: role.name,
+                    default_url: defaultUrl,
+                    user_id: user.user_id,
+                    photoURL: user.photo_url,
+                    email: user.email,
+                    settings: user.settings,
+                    permissions: user.permissions,
+                  },
+                  // roles: authorities,
+                },
+              });
+            });
+        } else {
+          return res.status(401).send({
+            message: "Unauthorized!",
+          });
+        }
+
+        // });
+      })
+
+      .catch((err) => {
+        next(err);
+      });
+  },
   accesstoken: (req, res, next) => {
     const access_token = req.headers["x-access-token"];
 
