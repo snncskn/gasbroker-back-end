@@ -173,6 +173,7 @@ module.exports = {
     const { proposalId, toUserId, from_user_id, unreadCount, muted, message, type, last_approve_time } = req.body;
     try {
       const myMessage = await Data.findOne({ where: { id } });
+      console.log('>>>>>>>',myMessage);
       if (id) myMessage.id = id;
       if (proposalId) myMessage.proposal_id = proposalId;
       if (toUserId) myMessage.to_user_id = toUserId;
