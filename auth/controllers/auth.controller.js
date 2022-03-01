@@ -166,36 +166,100 @@ module.exports = {
         next(err);
       });
   },
-  signinWithGoogle: (req, res, next) => {
-    const params = {};
-    const { email } = req.body;
 
-    if (email) Object.assign(params, { email });
+ 
+  signinWithGoogle : (req, res, next) => {
 
-    User.findOne({
-      where: { ...params },
-      include: [userRoles],
-    })
-      .then((user) => { 
+    const body = req.body;
+
+    User.findOne({  where: { email : body.email }, include: [userRoles] }).then((user) => {
+
         if (!user) {
-          return res.status(404).send({ error: "User Not found." });
+              
+          User.create({
+            username: body.name,
+            email: body.email,
+            name: body.name,
+            settings: '{"layout":"enterprise","scheme":"light","theme":"default"}',
+            active: true,
+          }).then((user) => {
+
+              // user role = 2 / segment role
+                userService.setRoles(2, user.id).then(() => {
+            
+                  var token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET, {
+                    expiresIn: 3600, // 1 hours
+                  });
+          
+                  if (user.user_roles[0]) {
+          
+                    role.findOne({ where: { id: user.user_roles[0].roleId } }).then((role) => {
+          
+                        let defaultUrl = "/dashboards/project";
+           
+                        if(user.company_id == undefined || user.company_id == null) {
+                          defaultUrl = "/apps/company/form";
+                        }
+           
+                        let datas = {
+                          statusCode: 200,
+                          error: null,
+                          access_token: token,
+                          user: {
+                            id: user.id,
+                            uuid: user.user_id,
+                            data: {
+                              username: user.username,
+                              displayName: user.username,
+                              companyName:user.username,
+                              company_id: user.company_id,
+                              role: role.name,
+                              default_url: defaultUrl,
+                              user_id: user.user_id,
+                              photoURL: user.photo_url,
+                              email: user.email,
+                              settings: user.settings,
+                              permissions: user.permissions,
+                            },
+                            // roles: authorities,
+                          },
+                        };
+          
+                        res.send(datas);
+                     
+                        
+                      });
+                      
+                  } else {
+                    return res.status(401).send({
+                      message: "Unauthorized!",
+                    });
+                  }
+            
+              }).catch((err) => {
+                console.log(err);
+              });
+      
+            }).catch((err) => {
+              console.log(err);
+            });
+        
         }
+
+
+        var token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET, {
+          expiresIn: 3600, // 1 hours
+        });
 
         if (user.user_roles[0]) {
 
-          role.findOne({ where: { id: user.user_roles[0].roleId } })
-            .then((role) => {
+          role.findOne({ where: { id: user.user_roles[0].roleId } }).then((role) => {
+
               let defaultUrl = "/dashboards/project";
+ 
 
-              if(user.company_id == undefined || user.company_id == null) {
-                defaultUrl = "/apps/company/form";
-              }
-              var token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET, {
-                expiresIn: 3600, // 1 hours
-              });
-      
-
-              res.send({
+ 
+              let datas = {
                 statusCode: 200,
                 error: null,
                 access_token: token,
@@ -206,7 +270,7 @@ module.exports = {
                     username: user.username,
                     displayName: user.username,
                     companyName:user.username,
-                    company_id: (user.company_id === undefined || user.company_id === null) ? '1' : user.company_id ,
+                    company_id: user.company_id,
                     role: role.name,
                     default_url: defaultUrl,
                     user_id: user.user_id,
@@ -217,7 +281,11 @@ module.exports = {
                   },
                   // roles: authorities,
                 },
-              });
+              };
+
+              res.send(datas);
+           
+              
             });
         } else {
           return res.status(401).send({
@@ -227,11 +295,11 @@ module.exports = {
 
         // });
       })
-
       .catch((err) => {
         next(err);
       });
   },
+
   accesstoken: (req, res, next) => {
     const access_token = req.headers["x-access-token"];
 
