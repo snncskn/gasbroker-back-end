@@ -190,6 +190,10 @@ module.exports = {
               if(user.company_id == undefined || user.company_id == null) {
                 defaultUrl = "/apps/company/form";
               }
+              var token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET, {
+                expiresIn: 3600, // 1 hours
+              });
+      
 
               res.send({
                 statusCode: 200,
@@ -202,7 +206,7 @@ module.exports = {
                     username: user.username,
                     displayName: user.username,
                     companyName:user.username,
-                    company_id: user.company_id,
+                    company_id: (user.company_id === undefined || user.company_id === null) ? '1' : user.company_id ,
                     role: role.name,
                     default_url: defaultUrl,
                     user_id: user.user_id,
