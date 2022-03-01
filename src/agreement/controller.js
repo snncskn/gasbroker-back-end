@@ -92,7 +92,10 @@ module.exports = {
       /*const onlyUserBasicInfos = await userService.onlyUserBasicInfo();
         agreement.approval_user_id = onlyUserBasicInfos.find(value => value.userId == agreement.approval_user_id);
        */
-
+        
+        const user = await userService.user(agreement.approval_user_id);
+        agreement.dataValues.approval_by = user.name;
+      
       res.json({
         statusCode: 200,
         body: agreement,
@@ -103,11 +106,11 @@ module.exports = {
 
   },
   create: async (req, res, next) => {
-    const { proposal_id, start_date, end_date, approval_date, approval_user_id } = req.body;
+    const { proposal_id, start_date, end_date } = req.body;
 
     try {
       const agreement = await Data.create({
-        proposal_id, start_date, end_date, approval_date, approval_user_id
+        proposal_id, start_date, end_date 
       });
       res.json({
         statusCode: 200,
@@ -121,7 +124,7 @@ module.exports = {
 
     const id = req.params.agreement_id;
     
-    const { proposal_id, start_date, end_date, approval_date, approval_user_id } = req.body;
+    const { proposal_id, start_date, end_date } = req.body;
     try {
 
       const agreement = await Data.findOne({ where: { id } });
@@ -129,9 +132,7 @@ module.exports = {
       if (proposal_id) agreement.proposal_id = proposal_id;
       if (start_date) agreement.start_date = start_date;
       if (end_date) agreement.end_date = end_date;
-      if (approval_date) agreement.approval_date = approval_date;
-      if (approval_user_id) agreement.approval_user_id = approval_user_id;
-
+      
       await agreement.save();
 
       res.json({
@@ -154,6 +155,9 @@ module.exports = {
       agreement.approval_date = new Date();
 
       await agreement.save();
+
+      const user = await userService.user(req.headers["user_id"]);
+      agreement.dataValues.approval_by = user.name;
 
       res.json({
         statusCode: 200,
