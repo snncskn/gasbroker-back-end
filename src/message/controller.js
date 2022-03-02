@@ -93,19 +93,30 @@ module.exports = {
   },
 
   getMessagesByUserlId: async (req, res, next) => {
+
+    if(req.headers["user_id"]==null||req.headers["user_id"]==undefined) {
+      return res.status(404).send({ error: "invalid User" });
+    }
+
     try {
-      const myMessages = await Data.findAll({
-        where: { from_user_id: req.headers["user_id"] },
-        order: [
-          ['message_at', 'ASC'],
-          ['message_time', 'ASC'],
-        ],
-        include: [media]
+      
+      let myMessages = {};
+
+      myMessages = await Data.findAll({
+      where: { from_user_id: req.headers["user_id"] },
+      order: [
+        ['message_at', 'ASC'],
+        ['message_time', 'ASC'],
+      ],
+      include: [media]
       });
+       
+
       res.json({
         statusCode: 200,
         body: myMessages,
       });
+     
     } catch (err) {
       next(err);
     }

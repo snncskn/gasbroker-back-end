@@ -43,6 +43,10 @@ module.exports = {
 
   me: (req, res, next) => {
 
+    if(req.headers["user_id"]==null||req.headers["user_id"]==undefined) {
+      return res.status(404).send({ error: "invalid User" });
+    }
+
     User.findOne({ where: { user_id: req.headers["user_id"] }, include: [userRoles], })
       .then((user) => {
         if (!user) {
@@ -92,7 +96,7 @@ module.exports = {
       where: { ...params },
       include: [userRoles],
     })
-      .then((user) => { 
+      .then((user) => {
         if (!user) {
           return res.status(404).send({ error: "User Not found." });
         }
@@ -125,7 +129,7 @@ module.exports = {
             .then((role) => {
               let defaultUrl = "/dashboards/project";
 
-              if(user.company_id == undefined || user.company_id == null) {
+              if (user.company_id == undefined || user.company_id == null) {
                 defaultUrl = "/apps/company/form";
               }
 
@@ -139,7 +143,7 @@ module.exports = {
                   data: {
                     username: user.username,
                     displayName: user.username,
-                    companyName:user.username,
+                    companyName: user.username,
                     company_id: user.company_id,
                     role: role.name,
                     default_url: defaultUrl,
@@ -167,134 +171,126 @@ module.exports = {
       });
   },
 
- 
-  signinWithGoogle : (req, res, next) => {
+
+  signinWithGoogle: (req, res, next) => {
 
     const body = req.body;
 
-    User.findOne({  where: { email : body.email }, include: [userRoles] }).then((user) => {
+    User.findOne({ where: { email: body.email }, include: [userRoles] }).then((hasUser) => {
 
-        if (!user) {
-              
-          User.create({
-            username: body.name,
-            email: body.email,
-            name: body.name,
-            settings: '{"layout":"enterprise","scheme":"light","theme":"default"}',
-            active: true,
-          }).then((user) => {
+      if (!hasUser) {
 
-              // user role = 2 / segment role
-                userService.setRoles(2, user.id).then(() => {
-            
-                  var token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET, {
-                    expiresIn: 3600, // 1 hours
-                  });
-          
-                  if (user.user_roles[0]) {
-          
-                    role.findOne({ where: { id: user.user_roles[0].roleId } }).then((role) => {
-          
-                        let defaultUrl = "/dashboards/project";
-           
-                        if(user.company_id == undefined || user.company_id == null) {
-                          defaultUrl = "/apps/company/form";
-                        }
-           
-                        let datas = {
-                          statusCode: 200,
-                          error: null,
-                          access_token: token,
-                          user: {
-                            id: user.id,
-                            uuid: user.user_id,
-                            data: {
-                              username: user.username,
-                              displayName: user.username,
-                              companyName:user.username,
-                              company_id: user.company_id,
-                              role: role.name,
-                              default_url: defaultUrl,
-                              user_id: user.user_id,
-                              photoURL: user.photo_url,
-                              email: user.email,
-                              settings: user.settings,
-                              permissions: user.permissions,
-                            },
-                            // roles: authorities,
-                          },
-                        };
-          
-                        res.send(datas);
-                     
-                        
-                      });
-                      
-                  } else {
-                    return res.status(401).send({
-                      message: "Unauthorized!",
-                    });
-                  }
-            
-              }).catch((err) => {
-                console.log(err);
-              });
-      
-            }).catch((err) => {
-              console.log(err);
+        User.create({
+          username: body.name,
+          email: body.email,
+          name: body.name,
+          settings: '{"layout":"enterprise","scheme":"light","theme":"default"}',
+          active: true,
+        }).then((createdUser) => {
+
+          // user role = 2 / segment role
+          userService.setRoles(2, createdUser.id).then(() => {
+
+            var token = jwt.sign({ id: createdUser.id }, process.env.TOKEN_SECRET, {
+              expiresIn: 3600, // 1 hours
             });
-        
-        }
+
+            let datas = {
+              statusCode: 200,
+              error: null,
+              access_token: token,
+              user: {
+                id: createdUser.id,
+                uuid: createdUser.user_id,
+                data: {
+                  username: createdUser.username,
+                  displayName: createdUser.username,
+                  companyName: createdUser.username,
+                  company_id: createdUser.company_id,
+                  role: 'user',
+                  default_url: "/apps/company/form",
+                  user_id: createdUser.user_id,
+                  photoURL: createdUser.photo_url,
+                  email: createdUser.email,
+                  settings: createdUser.settings,
+                  permissions: createdUser.permissions,
+                },
+                // roles: authorities,
+              },
+            };
+
+            res.send(datas);
 
 
-        var token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET, {
-          expiresIn: 3600, // 1 hours
+          }).catch((err) => {
+            console.log(err);
+          });
+
+
+        }).catch((err) => {
+          console.log(err);
         });
 
-        if (user.user_roles[0]) {
 
-          role.findOne({ where: { id: user.user_roles[0].roleId } }).then((role) => {
+      } else {
 
-              let defaultUrl = "/dashboards/project";
- 
 
- 
-              let datas = {
-                statusCode: 200,
-                error: null,
-                access_token: token,
-                user: {
-                  id: user.id,
-                  uuid: user.user_id,
-                  data: {
-                    username: user.username,
-                    displayName: user.username,
-                    companyName:user.username,
-                    company_id: user.company_id,
-                    role: role.name,
-                    default_url: defaultUrl,
-                    user_id: user.user_id,
-                    photoURL: user.photo_url,
-                    email: user.email,
-                    settings: user.settings,
-                    permissions: user.permissions,
-                  },
-                  // roles: authorities,
-                },
-              };
 
-              res.send(datas);
-           
-              
+        if (hasUser.user_roles[0]) {
+
+          role.findOne({ where: { id: hasUser.user_roles[0].roleId } }).then((role) => {
+
+            let defaultUrl = "/dashboards/project";
+
+            if (hasUser.company_id == undefined || hasUser.company_id == null) {
+              defaultUrl = "/apps/company/form";
+            }
+
+            var token = jwt.sign({ id: hasUser.id }, process.env.TOKEN_SECRET, {
+              expiresIn: 3600, // 1 hours
             });
+        
+        
+            let datas = {
+              statusCode: 200,
+              error: null,
+              access_token: token,
+              user: {
+                id: hasUser.id,
+                uuid: hasUser.user_id,
+                data: {
+                  username: hasUser.username,
+                  displayName: hasUser.username,
+                  companyName: hasUser.username,
+                  company_id: hasUser.company_id,
+                  role: role.name,
+                  default_url: defaultUrl,
+                  user_id: hasUser.user_id,
+                  photoURL: hasUser.photo_url,
+                  email: hasUser.email,
+                  settings: hasUser.settings,
+                  permissions: hasUser.permissions,
+                },
+                // roles: authorities,
+              },
+            };
+
+            res.send(datas);
+
+
+          });
         } else {
           return res.status(401).send({
             message: "Unauthorized!",
           });
         }
 
-        // });
-      })
+      }
+
+
+
+      // });
+    })
       .catch((err) => {
         next(err);
       });
@@ -500,3 +496,4 @@ module.exports = {
 
   },
 };
+

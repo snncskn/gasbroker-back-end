@@ -63,7 +63,7 @@ class UserService {
   }
 
   async setRoles(role_id, user_id) {
-      user_roles.create({
+     return user_roles.create({
       roleId: role_id,
       userId: user_id,
     });
