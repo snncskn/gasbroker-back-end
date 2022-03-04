@@ -167,7 +167,7 @@ module.exports = {
       });
 
     } catch (err) {
-      next(err);
+      next(err.original);
     }
   },
   update: async (req, res, next) => {
