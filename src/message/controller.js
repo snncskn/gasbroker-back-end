@@ -95,7 +95,7 @@ module.exports = {
   getMessagesByUserlId: async (req, res, next) => {
 
     if(req.headers["user_id"]==null||req.headers["user_id"]==undefined) {
-      return res.status(404).send({ error: "invalid User" });
+      return res.status(200).send({ error: "invalid User" });
     }
 
     try {
