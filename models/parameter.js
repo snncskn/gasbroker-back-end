@@ -44,7 +44,11 @@ module.exports = function(sequelize, DataTypes) {
     json_value: {
       type: DataTypes.JSON,
       allowNull: true
-    }
+    },
+    required: {
+      type: DataTypes.BIGINT,
+      allowNull: false
+    },
   }, {
     sequelize,
     tableName: 'parameter',

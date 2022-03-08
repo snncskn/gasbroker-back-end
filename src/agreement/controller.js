@@ -93,8 +93,10 @@ module.exports = {
         agreement.approval_user_id = onlyUserBasicInfos.find(value => value.userId == agreement.approval_user_id);
        */
         
+      if(agreement && agreement.approval_user_id) {
         const user = await userService.user(agreement.approval_user_id);
         agreement.dataValues.approval_by = user.name;
+      }  
       
       res.json({
         statusCode: 200,

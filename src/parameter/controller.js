@@ -1,3 +1,4 @@
+const { required } = require('joi');
 const { db, QueryTypes, parameter } = require('../../models')
 
 // Üstekiler sabit kalsın
@@ -60,7 +61,7 @@ module.exports = {
                         type: QueryTypes.SELECT
                     }
                 );
-            
+
             res.json({
                 statusCode: 200,
                 body: data
@@ -88,7 +89,7 @@ module.exports = {
     getAll: async (req, res, next) => {
         try {
             const myparameter = await Data.findAll()
-             res.json({
+            res.json({
                 statusCode: 200,
                 body: myparameter
             })
@@ -115,17 +116,16 @@ module.exports = {
     },
     getByCategory: async (req, res, next) => {
         const id = req.params.parameter_id
-        console.log(id)
         try {
             const myparameter = await Data.findAll({
-                where: { category:id },
+                where: { category: id },
             })
             res.json({
                 statusCode: 200,
                 body: myparameter
             })
         } catch (err) {
-            console.log(err)
+            console.log(err);
             res.status(500).json({ error: err })
         }
     },
@@ -139,7 +139,8 @@ module.exports = {
             int_value,
             float_value,
             bool_value,
-            json_value
+            json_value,
+            required
         } = req.body
 
         try {
@@ -153,14 +154,15 @@ module.exports = {
                 int_value,
                 float_value,
                 bool_value,
-                json_value
+                json_value,
+                required
             })
             res.json({
                 statusCode: 200,
                 body: myparameter
             })
         } catch (err) {
-            console.log(err)
+            console.log(err);
             res.status(500).json({ error: err })
         }
     },
@@ -175,7 +177,8 @@ module.exports = {
             int_value,
             float_value,
             bool_value,
-            json_value
+            json_value,
+            required
         } = req.body
         try {
             const myparameter = await Data.findOne({ where: { id } })
@@ -188,6 +191,7 @@ module.exports = {
             if (float_value) myparameter.float_value = float_value
             if (bool_value) myparameter.bool_value = bool_value
             if (json_value) myparameter.json_value = json_value
+            if (required) myparameter.required = required
             await myparameter.save()
 
             res.json({
@@ -204,10 +208,10 @@ module.exports = {
         const id = req.params.id
 
         try {
-            
+
             await Data.destroy({
                 where: {
-                  id: id
+                    id: id
                 }
             });
 
