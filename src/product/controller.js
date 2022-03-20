@@ -1,4 +1,4 @@
-const { product, product_item } = require("../../models");
+const { product, product_item, media } = require("../../models");
 const { Op } = require("sequelize");
 const { round } = require("lodash");
 
@@ -23,7 +23,7 @@ module.exports = {
       offset: page,
       order: [[by, type]],
       where: whereStr,
-      include: [product_item],
+      include: [product_item, media],
     };
 
     try {
