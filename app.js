@@ -115,7 +115,7 @@ app.use("/api/sms", smsRouter);
 require("./auth/routes/auth.routes")(app);
 require("./auth/routes/user.routes")(app);
 
-app.use(email.send);
+//app.use(email.send);
 
 //helmet bu işlemi de yapıo
 //app.disable('x-powered-by'); // güvenlik gerekçesiyle server tipi gönderilmiyor
