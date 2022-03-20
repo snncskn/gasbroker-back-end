@@ -26,6 +26,7 @@ var _help_item = require("./help_item");
 var _process_detail = require("./process_detail");
 var _message = require("./message");
 var _agreement = require("./agreement");
+var _notification = require("./notification");
 
 
 function initModels(sequelize) {
@@ -55,6 +56,7 @@ function initModels(sequelize) {
   var process_detail = _process_detail(sequelize, DataTypes);
   var message = _message(sequelize, DataTypes);
   var agreement = _agreement(sequelize, DataTypes);
+  var notification = _notification(sequelize, DataTypes);
   
 
   return {
@@ -83,7 +85,8 @@ function initModels(sequelize) {
     help_item,
     process_detail,
     message,
-    agreement
+    agreement,
+    notification
   };
 }
 module.exports = initModels;

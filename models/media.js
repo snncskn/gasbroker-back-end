@@ -62,7 +62,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     product_id: {
       type: DataTypes.UUID,
-      allowNull: true
+      allowNull: true,
+      references: {
+        model: 'product',
+        key: 'id'
+      }
     },
     vehicle_id: {
       type: DataTypes.UUID,

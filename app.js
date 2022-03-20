@@ -8,7 +8,7 @@ var helmet = require("helmet");
 const redis = require('redis');
 const connectRedis = require('connect-redis');*/
 
-const { authJwt, emailMdw, errorHandler, ware } = require("./auth/middleware");
+const { authJwt, email, errorHandler, ware } = require("./auth/middleware");
 const emailRouter = require("./email/email.route");
 const smsRouter = require("./sms/sms.route");
 
@@ -33,7 +33,8 @@ const {
   helpItemRouter,
   processDetailRouter,
   messageRouter,
-  agreementRouter
+  agreementRouter,
+  notificationRouter
 } = require("./src/api.router");
 
 dotenv.config();
@@ -103,6 +104,7 @@ app.use("/help-item", helpItemRouter);
 app.use("/process-detail", processDetailRouter);
 app.use("/message", messageRouter);
 app.use("/agreement", agreementRouter);
+app.use("/notification", notificationRouter);
 
 //mail-sms
 app.use("/api/email", emailRouter);
@@ -113,7 +115,7 @@ app.use("/api/sms", smsRouter);
 require("./auth/routes/auth.routes")(app);
 require("./auth/routes/user.routes")(app);
 
-//app.use(emailMdw.send);
+//app.use(email.send);
 
 //helmet bu işlemi de yapıo
 //app.disable('x-powered-by'); // güvenlik gerekçesiyle server tipi gönderilmiyor
