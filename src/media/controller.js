@@ -173,7 +173,8 @@ module.exports = {
       file_path,
       vehicle_id,
       proposal_id,
-      message_id
+      message_id,
+      product_id,
     } = req.body;
 
     try {
@@ -190,7 +191,8 @@ module.exports = {
         file_path,
         vehicle_id,
         proposal_id,
-        message_id
+        message_id,
+        product_id
       });
       res.json({
         statusCode: 200,
