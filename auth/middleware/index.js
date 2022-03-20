@@ -1,6 +1,6 @@
 const authJwt = require("./authJwt");
 const verifySignUp = require("./verifySignUp");
-const email = require("./emai");
+const email = require("./email");
 const errorHandler = require("./errorHandler");
 const ware = require("./ware");
 
