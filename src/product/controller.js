@@ -48,7 +48,7 @@ module.exports = {
     try {
       const product = await Data.findOne({
         where: { id },
-        include: [product_item],
+        include: [product_item, media],
       });
       res.json({
         statusCode: 200,
