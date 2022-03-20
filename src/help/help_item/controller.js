@@ -29,11 +29,11 @@ module.exports = {
     }
   },
   create: async (req, res, next) => {
-    const { help_id, head,content,link} = req.body;
+    const { help_id, head,content,links} = req.body;
 
     try {
       const item = await Data.create({
-        help_id, head,content,link
+        help_id, head,content,links
       });
 
       res.json({
@@ -46,7 +46,7 @@ module.exports = {
   },
   update: async (req, res, next) => {
     const id = req.params.help_item_id;
-    const { help_id, head,content,link } = req.body;
+    const { help_id, head,content,links } = req.body;
 
     try {
       const item = await Data.findOne({ where: { id } });
@@ -55,7 +55,7 @@ module.exports = {
       if (help_id) item.help_id = help_id;
       if (head) item.head = head;
       if (content) item.content = content;
-      if (link) item.link = link;
+      if (links) item.links = links;
 
       await item.save();
 
