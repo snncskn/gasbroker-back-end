@@ -8,8 +8,8 @@ const { emailService } = require("../../email/dependency");
 const UserService = require("../../auth/user.service");
 const userService = new UserService();
 
-const LogService  = require("../../log/log.service");
-const logger = new LogService();
+/*const LogService  = require("../../log/log.service");
+const logger = new LogService();*/
   
 
 const User = db.user;
@@ -137,7 +137,7 @@ module.exports = {
                 defaultUrl = "/apps/company/form";
               }
 
-              logger.create(email);
+              //logger.create(email);
 
               res.send({
                 statusCode: 200,
