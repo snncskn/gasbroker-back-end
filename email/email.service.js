@@ -43,7 +43,7 @@ class EmailService {
         });
 
     } catch (error) {
-      next(error);
+      console.log(error);
     }
 
   }
