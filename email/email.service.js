@@ -23,21 +23,29 @@ class EmailService {
   // }
 
   async send(email) {
-    if (!email) {
-      return null;
+
+    try {
+
+        if (!email) {
+          return null;
+        }
+
+        if (!(email.to && email.subject && email.text)) {
+          return null;
+        }
+
+        return await this.client.send({
+          to: email.to,
+          from: email.from,
+          subject: email.subject,
+          text: email.text,
+          html: email.text,
+        });
+
+    } catch (error) {
+      next(error);
     }
 
-    if (!(email.to && email.subject && email.text)) {
-      return null;
-    }
-
-    return await this.client.send({
-      to: email.to,
-      from: email.from,
-      subject: email.subject,
-      text: email.text,
-      html: email.text,
-    });
   }
 
   async sendBatch(emails) {

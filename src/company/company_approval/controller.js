@@ -47,6 +47,7 @@ module.exports = {
             };
 
             emailService.send(emailBody);
+            
           })
           .catch((err) => {
             next(err);
