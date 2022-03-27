@@ -4,12 +4,16 @@ var logger = require("morgan");
 var dotenv = require("dotenv");
 var helmet = require("helmet");
 
+/*
 const soap = require('soap');
 const ADRES = 'https://tckimlik.nvi.gov.tr/service/kpspublic.asmx?WSDL';
+*/
 
-/*const session = require('express-session');
+/*
+const session = require('express-session');
 const redis = require('redis');
-const connectRedis = require('connect-redis');*/
+const connectRedis = require('connect-redis');
+*/
 
 const { authJwt, email, errorHandler, ware } = require("./auth/middleware");
 const emailRouter = require("./email/email.route");
