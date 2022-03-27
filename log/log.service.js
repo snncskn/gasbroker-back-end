@@ -12,6 +12,7 @@ class LogService {
       res.status(500).json({ error: err.stack });
     }
   }
+
 }
 
 module.exports = LogService;

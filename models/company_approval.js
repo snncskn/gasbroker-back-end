@@ -27,6 +27,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.UUID,
       allowNull: false
     },
+    is_read: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: true

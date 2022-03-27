@@ -4,6 +4,9 @@ var logger = require("morgan");
 var dotenv = require("dotenv");
 var helmet = require("helmet");
 
+const soap = require('soap');
+const ADRES = 'https://tckimlik.nvi.gov.tr/service/kpspublic.asmx?WSDL';
+
 /*const session = require('express-session');
 const redis = require('redis');
 const connectRedis = require('connect-redis');*/
@@ -34,7 +37,8 @@ const {
   processDetailRouter,
   messageRouter,
   agreementRouter,
-  notificationRouter
+  notificationRouter,
+  dashboardRouter
 } = require("./src/api.router");
 
 dotenv.config();
@@ -105,6 +109,7 @@ app.use("/process-detail", processDetailRouter);
 app.use("/message", messageRouter);
 app.use("/agreement", agreementRouter);
 app.use("/notification", notificationRouter);
+app.use("/dashboard", dashboardRouter);
 
 //mail-sms
 app.use("/api/email", emailRouter);
@@ -129,6 +134,29 @@ if (process.env.NODE_ENV === "docker") {
 app.use(ware);
 
 app.use(errorHandler);
+
+ 
+
+  let degerler = {
+    TCKimlikNo: 11111111111,
+    Ad: 'SİNAN',
+    Soyad: 'COŞKUN',
+    DogumYili: 1985
+  };
+
+  soap.createClient(ADRES, (err, client) => {
+  
+    client.TCKimlikNoDogrula(degerler, (err, result) => {
+      if (result.TCKimlikNoDogrulaResult) {
+        console.log('Bilgiler doğru');
+      } else {
+        console.log('Bilgiler hatalı');
+      }
+    });
+  
+  });
+
+ 
 
 app.listen({ port }, async () => {
   console.log("Server up on http://localhost:" + port);

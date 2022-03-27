@@ -430,7 +430,7 @@ module.exports = {
 
         user.save();
 
-        const link = "https://test.d1oct6wuiwq78y.amplifyapp.com/change-password?token=" + user.passwordResetToken;
+        const link = "https://master.dexcot2msyncf.amplifyapp.com/change-password?token=" + user.passwordResetToken;
 
         const mailOptions = {
           to: user.email,

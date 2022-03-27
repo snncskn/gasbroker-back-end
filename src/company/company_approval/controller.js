@@ -1,5 +1,4 @@
 const { company_approval, user } = require("../../../models");
-const { emailService } = require("../../../email/dependency");
 
 const Data = company_approval;
 
@@ -19,6 +18,28 @@ module.exports = {
     }
     next();
   },
+
+  messageApprove: async (req, res, next) => {
+
+    const companyApprovalId = req.params.company_approval_id;
+
+    try {
+      const approval = await Data.findOne({ where: { companyApprovalId } })
+      approval.is_read = !approval.is_read;
+
+      await approval.save();
+
+      res.json({
+        statusCode: 200,
+        body: approval
+      })
+    } catch (err) {
+      next(err);
+    }
+
+
+  },
+
   create: async (req, res, next) => {
     const { company_id, status, description } = req.body;
 
@@ -47,7 +68,7 @@ module.exports = {
             };
 
             emailService.send(emailBody);
-            
+
           })
           .catch((err) => {
             next(err);

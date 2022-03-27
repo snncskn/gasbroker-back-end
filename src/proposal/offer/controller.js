@@ -1,4 +1,4 @@
-const { proposal_offer, company } = require("../../../models");
+const { proposal, proposal_offer, company } = require("../../../models");
 const Data = proposal_offer;
 
 const UserService = require("../../../auth/user.service");
@@ -35,20 +35,35 @@ module.exports = {
   },
   getOffersByProposalId: async (req, res, next) => {
     const id = req.params.proposal_id;
-    try {
+    try { 
+
+      const itemProposal = await proposal.findOne({
+        where: { 'id': id}
+      });
+
+      const company_id = await userService.userCompany(req.headers["user_id"]);
       const role_name = await userService.role(req.headers["user_id"]);
 
-      let whereStr = { proposal_id: id };
+      let whereStr = {};
 
-      if ("user" == role_name) {
-        const company_id = await userService.userCompany(req.headers["user_id"]);
-        whereStr = { proposal_id: id, company_id: company_id };
+      if("admin" == role_name) {
+        whereStr = { proposal_id: id};
+      } else {
+        
+        if(itemProposal?.company_id !== company_id) {
+          whereStr = { proposal_id: id,company_id: company_id };
+        } else {
+          whereStr = { proposal_id: id };
+        }
+
       }
 
+     
       const proposal_offer = await Data.findAll({
         where: whereStr,
         include: [{ model: company, attributes: ["id", "name"] }],
       });
+
       res.json({
         statusCode: 200,
         body: proposal_offer,
