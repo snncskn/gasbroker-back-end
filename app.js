@@ -136,7 +136,7 @@ app.use(ware);
 app.use(errorHandler);
 
  
-
+  /*
   let degerler = {
     TCKimlikNo: 11111111111,
     Ad: 'SİNAN',
@@ -155,7 +155,7 @@ app.use(errorHandler);
     });
   
   });
-
+*/
  
 
 app.listen({ port }, async () => {
