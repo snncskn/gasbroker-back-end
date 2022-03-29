@@ -71,6 +71,43 @@ module.exports = {
     }
   },
 
+  getCompaniesById: async (req, res, next) => {
+    const id = req.params.proposal_id;
+    try {
+      const proposal = await Data.findOne({
+        where: { id },
+        include: [
+          {
+            model: proposal_offer,
+            include: [
+              { model: company, attributes: ["name"] },
+            ]
+          },
+          { model: company }],
+      });
+
+      let toCompanyName;
+      
+      proposal?.proposal_offers.forEach((offer) => {
+        if (offer && offer.deal_status === 'OK') {
+          toCompanyName = offer.company.name;
+        }
+      });
+
+      let data = {
+        fromCompany: toCompanyName,
+        toCompany: proposal?.company?.name,
+      }
+
+      res.json({
+        statusCode: 200,
+        body: data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
   getByIdWithMedia: async (req, res, next) => {
     const id = req.params.proposal_id;
     try {

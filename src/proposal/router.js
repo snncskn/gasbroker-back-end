@@ -7,7 +7,7 @@ router.get("/:proposal_id", controller.getById);
 router.put("/:proposal_id", controller.update);
 router.get("/", controller.getAll);
 router.post("/", controller.create);
-
 router.get("/media/:proposal_id", controller.getByIdWithMedia);
+router.get("/chat/:proposal_id", controller.getCompaniesById);
 
 module.exports = router;
