@@ -6,7 +6,7 @@ module.exports = {
     getAllCompanyProcess: async (req, res, next) => {
         try {
             const companyProcess = " select c.id, c.full_name, c.phone , c.email , ca.status , ca.description, ca.created_at , u.name , ca.approval_user_id "+
-                           " from public.company c, public.company_approval ca  , user u " +
+                           " from public.company c, public.company_approval ca  , \"user\" u " +
                            " where ca.company_id = c.id and  ca.approval_user_id =u.user_id  and c.deleted_at  is null  order by  created_at desc, full_name  ";
             const data = await db.query(companyProcess);
             res.json({
