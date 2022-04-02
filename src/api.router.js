@@ -20,6 +20,7 @@ var messageRouter = require("./message/router");
 var agreementRouter = require("./agreement/router");
 var notificationRouter = require("./notification/router");
 var dashboardRouter = require("./dashboard/router");
+var paymentRouter = require("./payment/router");
 
 module.exports = {
   companyRouter,
@@ -43,5 +44,6 @@ module.exports = {
   messageRouter,
   agreementRouter,
   notificationRouter,
-  dashboardRouter
+  dashboardRouter,
+  paymentRouter
 };

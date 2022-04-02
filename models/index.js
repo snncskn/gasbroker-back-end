@@ -113,61 +113,67 @@ db.user.hasOne(db.media, { foreignKey: "user_id" });
 db.user_roles.belongsTo(db.user, { foreignKey: "userId" });
 db.user.hasMany(db.user_roles, { foreignKey: "userId" });
 
-db.process.belongsTo(db.company, { as: "agency", foreignKey: "agency_id"});
-db.company.hasMany(db.process, { as: "processes", foreignKey: "agency_id"});
+db.process.belongsTo(db.company, { as: "agency", foreignKey: "agency_id" });
+db.company.hasMany(db.process, { as: "processes", foreignKey: "agency_id" });
 
-db.process.belongsTo(db.company, { as: "broker", foreignKey: "broker_id"});
-db.company.hasMany(db.process, { as: "broker_processes", foreignKey: "broker_id"});
+db.process.belongsTo(db.company, { as: "broker", foreignKey: "broker_id" });
+db.company.hasMany(db.process, { as: "broker_processes", foreignKey: "broker_id" });
 
-db.process.belongsTo(db.company, { as: "captain", foreignKey: "captain_id"});
-db.company.hasMany(db.process, { as: "captain_processes", foreignKey: "captain_id"});
+db.process.belongsTo(db.company, { as: "captain", foreignKey: "captain_id" });
+db.company.hasMany(db.process, { as: "captain_processes", foreignKey: "captain_id" });
 
-db.process.belongsTo(db.company, { as: "loading_master", foreignKey: "loading_master_id"});
-db.company.hasMany(db.process, { as: "loading_master_processes", foreignKey: "loading_master_id"});
+db.process.belongsTo(db.company, { as: "loading_master", foreignKey: "loading_master_id" });
+db.company.hasMany(db.process, { as: "loading_master_processes", foreignKey: "loading_master_id" });
 
-db.process.belongsTo(db.company, { as: "recipient", foreignKey: "recipient_id"});
-db.company.hasMany(db.process, { as: "recipient_processes", foreignKey: "recipient_id"});
+db.process.belongsTo(db.company, { as: "recipient", foreignKey: "recipient_id" });
+db.company.hasMany(db.process, { as: "recipient_processes", foreignKey: "recipient_id" });
 
-db.process.belongsTo(db.company, { as: "vendor", foreignKey: "vendor_id"});
-db.company.hasMany(db.process, { as: "vendor_processes", foreignKey: "vendor_id"});
+db.process.belongsTo(db.company, { as: "vendor", foreignKey: "vendor_id" });
+db.company.hasMany(db.process, { as: "vendor_processes", foreignKey: "vendor_id" });
 
-db.proposal.belongsTo(db.company, { foreignKey: "company_id"});
-db.company.hasMany(db.proposal, { foreignKey: "company_id"});
+db.proposal.belongsTo(db.company, { foreignKey: "company_id" });
+db.company.hasMany(db.proposal, { foreignKey: "company_id" });
 
-db.proposal.belongsTo(db.product, { foreignKey: "product_id"});
-db.product.hasMany(db.proposal, {  foreignKey: "product_id"});
+db.proposal.belongsTo(db.product, { foreignKey: "product_id" });
+db.product.hasMany(db.proposal, { foreignKey: "product_id" });
 
-db.company_approval.belongsTo(db.company, {   foreignKey: "company_id"});
-db.company.hasMany(db.company_approval, {  foreignKey: "company_id"});
+db.company_approval.belongsTo(db.company, { foreignKey: "company_id" });
+db.company.hasMany(db.company_approval, { foreignKey: "company_id" });
 
-db.help_item.belongsTo(db.help, {foreignKey: "help_id"});
-db.help.hasMany(db.help_item, {foreignKey: "help_id"});
+db.help_item.belongsTo(db.help, { foreignKey: "help_id" });
+db.help.hasMany(db.help_item, { foreignKey: "help_id" });
 
-db.process_detail.belongsTo(db.process, {foreignKey: "process_id"});
-db.process.hasMany(db.process_detail, {foreignKey: "process_id"});
+db.process_detail.belongsTo(db.process, { foreignKey: "process_id" });
+db.process.hasMany(db.process_detail, { foreignKey: "process_id" });
 
-db.process_detail.belongsTo(db.process_group, {foreignKey: "group_id"});
-db.process_group.hasMany(db.process_detail, {foreignKey: "group_id"});
+db.process_detail.belongsTo(db.process_group, { foreignKey: "group_id" });
+db.process_group.hasMany(db.process_detail, { foreignKey: "group_id" });
 
-db.process_detail.belongsTo(db.process_sub_group, {foreignKey: "group_sub_id"});
-db.process_sub_group.hasMany(db.process_detail, {foreignKey: "group_sub_id"});
+db.process_detail.belongsTo(db.process_sub_group, { foreignKey: "group_sub_id" });
+db.process_sub_group.hasMany(db.process_detail, { foreignKey: "group_sub_id" });
 
-db.message.belongsTo(db.user, { foreignKey: "from_user_id"});
-db.user.hasMany(db.message, {  foreignKey: "from_user_id"});
+db.message.belongsTo(db.user, { foreignKey: "from_user_id" });
+db.user.hasMany(db.message, { foreignKey: "from_user_id" });
 
-db.message.belongsTo(db.user, { foreignKey: "to_user_id"});
-db.user.hasMany(db.message, {  foreignKey: "to_user_id"});
+db.message.belongsTo(db.user, { foreignKey: "to_user_id" });
+db.user.hasMany(db.message, { foreignKey: "to_user_id" });
 
-db.media.belongsTo(db.message, { foreignKey: "message_id"});
-db.message.hasMany(db.media, { foreignKey: "message_id"});
+db.media.belongsTo(db.message, { foreignKey: "message_id" });
+db.message.hasMany(db.media, { foreignKey: "message_id" });
 
 db.media.belongsTo(db.product, { foreignKey: "product_id" });
 db.product.hasMany(db.media, { foreignKey: "product_id" });
 
-db.agreement.belongsTo(db.proposal, { foreignKey: "proposal_id"});
-db.proposal.hasMany(db.agreement, { foreignKey: "proposal_id"});
+db.agreement.belongsTo(db.proposal, { foreignKey: "proposal_id" });
+db.proposal.hasMany(db.agreement, { foreignKey: "proposal_id" });
 
-db.agreement.belongsTo(db.user, { as: "approval_user", foreignKey: "approval_user_id"});
-db.user.hasMany(db.agreement, { as: "agreements", foreignKey: "approval_user_id"});
+db.agreement.belongsTo(db.user, { as: "approval_user", foreignKey: "approval_user_id" });
+db.user.hasMany(db.agreement, { as: "agreements", foreignKey: "approval_user_id" });
+
+db.payment.belongsTo(db.company, { foreignKey: "company_id" });
+db.company.hasMany(db.payment, { foreignKey: "company_id" });
+
+db.payment.belongsTo(db.user, { foreignKey: "user_id" });
+db.user.hasMany(db.payment, { foreignKey: "user_id" });
 
 module.exports = db;

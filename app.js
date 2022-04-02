@@ -42,7 +42,8 @@ const {
   messageRouter,
   agreementRouter,
   notificationRouter,
-  dashboardRouter
+  dashboardRouter,
+  paymentRouter
 } = require("./src/api.router");
 
 dotenv.config();
@@ -114,6 +115,7 @@ app.use("/message", messageRouter);
 app.use("/agreement", agreementRouter);
 app.use("/notification", notificationRouter);
 app.use("/dashboard", dashboardRouter);
+app.use("/payment", paymentRouter);
 
 //mail-sms
 app.use("/api/email", emailRouter);
