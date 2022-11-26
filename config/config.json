@@ -10,7 +10,7 @@
     "username": "gasbrokeradmin",
     "password": "gasbroker",
     "database": "gasbrokerdev",
-    "host": "gasbrokerdev.cdprjg5gngzj.eu-central-1.rds.amazonaws.com",
+    "host": "gasbroker-dev.cdprjg5gngzj.eu-central-1.rds.amazonaws.com",
     "dialect": "postgres"
   },
   "test": {
